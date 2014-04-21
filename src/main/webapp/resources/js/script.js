@@ -19,11 +19,11 @@ jQuery.fn.shake = function (intShakes, intDistance, intDuration) {
     return this;
 };
 
-function sprinkleLogin() {
+function signIn() {
     var user = $("#login").val();
     var pwd = $("#password").val();
     if (user == "" || pwd == "") {
-        $("#login-form").shake(3, 7, 400);
+        $(".sign-in-container").shake(2, 9, 450);
         return;
     }
 
@@ -36,9 +36,12 @@ function sprinkleLogin() {
         },
         statusCode: {
             200: function (response) {
-                $("#login-form").addClass("hidden").removeClass("show");
+                $("#btn-sign-up").addClass("hidden").removeClass("show");
+                $("#btn-log-out").addClass("show").removeClass("hidden");
+                $(".sign-in-container").addClass("hidden").removeClass("show");
             },
             401: function (response) {
+                $("#btn-sign-up").addClass("show").removeClass("hidden");
                 $("#login").val("");
                 $("#password").val("");
             }
