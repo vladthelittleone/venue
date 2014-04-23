@@ -22,7 +22,7 @@ public class UserManager
         accounts = new HashMap<>();
         accounts.put("Vlad", new User("Vlad", "1", "ROLE_USER, ROLE_ADMIN"));
         accounts.put("Dima", new User("Dima", "2", "ROLE_USER, ROLE_ADMIN"));
-        accounts.put("Kirill", new User("Kirill", "2", "ROLE_USER, ROLE_ADMIN"));
+        accounts.put("Kirill", new User("Kirill", "3ы", "ROLE_USER, ROLE_ADMIN"));
     }
 
     public User getUser(String username) throws UsernameNotFoundException{

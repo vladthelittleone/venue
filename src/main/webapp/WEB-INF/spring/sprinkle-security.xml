@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <http entry-point-ref="authenticationEntryPoint">
-        <intercept-url pattern="/sprinkle/**" access="ROLE_USER" />
+        <intercept-url pattern="/sprinkle/**" access="ROLE_ANONYMOUS, ROLE_USER" />
 
         <!-- successHandler returns code 200 after successful authentication
         failureHandler returns code 401 after failed authentication

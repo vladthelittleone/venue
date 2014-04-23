@@ -26,6 +26,9 @@
     <link href="resources/css/stylesheet.css" rel="stylesheet">
     <link href="resources/css/sign.css" rel="stylesheet">
 
+    <!-- History API-->
+    <!--<link href="resources/js/history.min.js">-->
+
     <!-- Mapbox core JavaScript
     ================================================== -->
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
@@ -57,24 +60,25 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li id="btn-sign-in" class="hidden"><a href="/signin">Sign in</a></li>
-                <li id="btn-sign-up" class="show"><a href="/signup">Sign up</a></li>
-                <li id="btn-log-out" class="show"><a href="/logout">Sign out</a></li>
+                <li class="hidden"><a class="ajax-link" id="btn-sign-in" href="/signin">Sign in</a></li>
+                <li class="hidden"><a class="ajax-link" id="btn-log-out" href="/loginout">Logout</a></li>
+                <li class="show"><a id="btn-forg-pas" class="ajax-link" href="/">Forgot a password?</a></li>
+                <li class="show"><a id="btn-sign-up" class="ajax-link" href="/signup">Sign up</a></li>
             </ul>
         </div><!--/.navbar-collapse -->
     </div>
 </div>
 
-<div id='map' class="starter-template"></div>
+<div id='map'></div>
 <script type="text/javascript">
     var map = L.mapbox.map('map', 'examples.map-9ijuk24y')
             .setView([40, -74.50], 9);
     map.zoomControl.setPosition('bottomleft');
 </script>
 
-<div class = "sign-in-container" class="container">
+<div id="sign-in-container" class="container">
     <form class="sign" role="form">
-        <h2 class="sign-heading">Please sign in</h2>
+        <h2 class="sign-heading">Sign in</h2>
         <div class="form-group">
             <input id="login" type="email" class="form-control sign-input" placeholder="Email address" required autofocus>
         </div>
@@ -84,10 +88,13 @@
         <label class="checkbox">
             <input type="checkbox" value="remember-me"> Remember me
         </label>
-        <button class="btn btn-block sign-button" onclick="signIn(); return false;">Sign in</button>
+        <button id ="sign-in-button" class="btn btn-block sign-button">Sign in</button>
+        <div id="sign-in-alert" class="sign-alert alert alert-dismissable sign-warning hidden">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <p id="alert-text"></p>
+        </div>
     </form>
 </div> <!-- /container -->
-
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -96,7 +103,7 @@
 <script src="resources/js/bootstrap.min.js"></script>
 
 <!-- Custom JavaScript -->
-<script src='resources/js/script.js'></script>
+<script src='resources/js/sprinkle.js'></script>
 
 </body>
 </html>
