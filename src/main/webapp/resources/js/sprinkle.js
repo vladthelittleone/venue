@@ -2,6 +2,8 @@
  * Created by vladthelittleone on 21.04.14.
  */
 
+    // ---------------- JQuery объекты
+
 $.fn.shake = function (intShakes, intDistance, intDuration) {
     this.each(function () {
         $(this).css("position", "relative");
@@ -28,6 +30,7 @@ $.fn.hideMe = function () {
     $(this).addClass("hidden").removeClass("show");
 };
 
+    // ---------------- History API
 
 $(function() {
 
@@ -65,7 +68,8 @@ $(function() {
 
 $(document).ready(function () {
 
-    // Обработчики
+    // ---------------- Обработчики
+
     $(document).on('click','#sign-in-button', function(e) {
         e.preventDefault();
         signIn();
@@ -76,6 +80,8 @@ $(document).ready(function () {
         $("#sign-in-container").hideMe();
     });
 });
+
+    // ---------------- Кастомные функции
 
 function signIn() {
     var user = $("#login").val();
@@ -110,9 +116,5 @@ function signIn() {
             }
         }
     });
-
-    function showMe(selector) {
-        $(selector).addClass("show").removeClass("hide");
-    }
 }
 
