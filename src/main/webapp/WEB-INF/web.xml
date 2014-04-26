@@ -1,34 +1,40 @@
 <web-app version="2.4"
-	xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-	<display-name>Sprinkle</display-name>
+    <display-name>Sprinkle</display-name>
+
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>Sprinkle</param-value>
+    </context-param>
 
     <welcome-file-list>
         <welcome-file>view/index.html</welcome-file>
     </welcome-file-list>
 
     <servlet>
-		<servlet-name>sprinkle-dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <servlet-name>sprinkle-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-	</servlet>
+    </servlet>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring/sprinkle-security.xml, /WEB-INF/spring/sprinkle-dispatcher-servlet.xml</param-value>
+        <param-value>/WEB-INF/spring/security/sprinkle-security.xml, /WEB-INF/spring/sprinkle-dispatcher-servlet.xml
+        </param-value>
     </context-param>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-	<servlet-mapping>
-		<servlet-name>sprinkle-dispatcher</servlet-name>
-		<url-pattern>/sprinkle/*</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sprinkle-dispatcher</servlet-name>
+        <url-pattern>/sprinkle/*</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -39,5 +45,12 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- Get information about events, during session life-cycle -->
+    <listener>
+        <listener-class>
+            org.springframework.security.web.session.HttpSessionEventPublisher
+        </listener-class>
+    </listener>
 
 </web-app>

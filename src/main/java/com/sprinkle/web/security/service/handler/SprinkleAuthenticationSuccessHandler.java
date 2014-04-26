@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
+public class SprinkleAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
 {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

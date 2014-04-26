@@ -2,7 +2,7 @@
  * Created by vladthelittleone on 21.04.14.
  */
 
-    // ---------------- JQuery объекты
+    // ---------------- JQuery objects
 
 $.fn.shake = function (intShakes, intDistance, intDuration) {
     this.each(function () {
@@ -34,41 +34,42 @@ $.fn.hideMe = function () {
 
 $(function() {
 
-    // ищем все ссылки и вешаем события на все ссылки в нашем документе
+    // looking for all the links and hang on the event, all references in this document
     $(document).on('click', 'a.ajax-link', function() {
-        // заносим ссылку в историю
+        // keep the link in the browser history
         history.pushState(null, null, this.href);
 
-        // тут можете вызвать подгрузку данных и т.п.
 
-        // не даем выполнить действие по умолчанию
+        // here can cause data loading, etc.
+
+
+        // do not give a default action
         return false;
     });
 
-    // вешаем событие на popstate которое срабатывает при нажатии back/forward в браузере
+    // hang on popstate event triggered by pressing back/forward in browser
     $(window).on('popstate', function(e) {
 
-        // получаем нормальный объект Location
+        // we get a normal Location object
 
         /*
-         * заметьте, это единственная разница при работе с данной библиотекой,
-         * так как объект document.location нельзя перезагрузить, поэтому
-         * библиотека history возвращает сформированный "location" объект внутри
-         * объекта window.history, поэтому получаем его из "history.location".
-         * Для браузеров поддерживающих "history.pushState" получаем
-         * сформированный объект "location" с обычного "document.location".
+         * Note, this is the only difference when using this library,
+         * because the object document.location cannot be overriden,
+         * so library the returns generated "location" object within
+         * an object window.history, so get it out of "history.location".
+         * For browsers supporting "history.pushState" get generated
+         * object "location" with the usual "document.location".
          */
         var loc = history.location || document.location;
 
-
-        // тут можете вызвать подгрузку данных и т.п.
+        // here can cause data loading, etc.
 
         });
 });
 
 $(document).ready(function () {
 
-    // ---------------- Обработчики
+    // ---------------- Event Listeners
 
     $(document).on('click','#sign-in-button', function(e) {
         e.preventDefault();
@@ -81,9 +82,10 @@ $(document).ready(function () {
     });
 });
 
-    // ---------------- Кастомные функции
+    // ---------------- Custom functions
 
 function signIn() {
+
     var user = $("#login").val();
     var pwd = $("#password").val();
     if (user == "" || pwd == "") {

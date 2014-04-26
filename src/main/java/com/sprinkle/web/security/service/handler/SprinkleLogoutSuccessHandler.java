@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
+public class SprinkleLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
 {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @author Skurishin Vladislav
  */
 @Service
-public class CustomUserDetailsService implements UserDetailsService
+public class SprinkleUserDetailsService implements UserDetailsService
 {
     @Autowired
     private UserManager userManager;

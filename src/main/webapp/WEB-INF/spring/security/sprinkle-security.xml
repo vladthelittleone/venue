@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <beans:import resource="sprinkle-security-beans.xml"/>
+
+    <http entry-point-ref="authenticationEntryPoint">
+        <intercept-url pattern="/sprinkle/**" access="ROLE_USER" requires-channel="https"/>
+
+        <form-login authentication-success-handler-ref="successHandler"
+                    authentication-failure-handler-ref="failureHandler"/>
+
+        <logout logout-url="/logout"
+                invalidate-session="true"
+                delete-cookies="true"
+                success-handler-ref="logoutSuccessHandler"/>
+
+        <!-- Can add timeouts -->
+        <remember-me user-service-ref="sprinkleUserDetailsService" key="sprinkle"/>
+
+        <session-management>
+            <!-- Limit the number of sessions -->
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="false"/>
+        </session-management>
+
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="sprinkleUserDetailsService">
+            <password-encoder hash="md5" ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans> 
