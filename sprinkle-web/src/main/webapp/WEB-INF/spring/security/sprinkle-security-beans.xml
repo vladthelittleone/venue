@@ -18,7 +18,6 @@
     <beans:bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
     <beans:bean id="logoutSuccessHandler" class="com.sprinkle.web.security.service.handler.SprinkleLogoutSuccessHandler" />
 
-    <beans:bean id="sprinkleUserDetailsService" class="com.sprinkle.web.security.service.SprinkleUserDetailsService"/>
     <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
 
 </beans:beans>

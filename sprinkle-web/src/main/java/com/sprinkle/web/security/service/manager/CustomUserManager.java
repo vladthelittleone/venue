@@ -1,6 +1,7 @@
 package com.sprinkle.web.security.service.manager;
 
 import com.sprinkle.web.security.domain.User;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,9 +17,11 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class CustomUserManager implements UserManager
 {
+    private final Logger logger = Logger.getLogger(CustomUserManager.class);
+
     private final AtomicLong userId = new AtomicLong(0);
     private final ConcurrentHashMap<Long, User> users = new ConcurrentHashMap<>();
-    private final ConcurrentSkipListSet<String> userNames = new ConcurrentSkipListSet<>();
+    private final ConcurrentSkipListSet<String> usernames = new ConcurrentSkipListSet<>();
 
     /**
      * Sign up new user.
@@ -31,12 +34,17 @@ public class CustomUserManager implements UserManager
     @Override
     public User signUp(final String username, final String fullname, final String password)
     {
-        if (!userNames.add(username)) return null;
-        if (username.isEmpty() || password.isEmpty() || username.isEmpty()) return null;
+        if (logger.isDebugEnabled())
+            logger.debug(String.format("Sign up new user [%s, %s, %s]", username, fullname, password));
+
+        if (!usernames.add(username)) return null;
+        if (username.isEmpty() || password.isEmpty() || fullname.isEmpty()) return null;
 
         Long id = userId.incrementAndGet();
         User user = new User(id, username, password, fullname, "ROLE_USER");
+
         users.put(id, user);
+
         return user;
     }
 
@@ -54,6 +62,9 @@ public class CustomUserManager implements UserManager
         {
             if (user.getUsername().equals(username))
             {
+                if (logger.isDebugEnabled())
+                    logger.debug(String.format("Get user %s", user));
+
                 return user;
             }
         }

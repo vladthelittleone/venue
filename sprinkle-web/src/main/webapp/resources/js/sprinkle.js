@@ -86,7 +86,15 @@ $(document).ready(function () {
 
         $(".sign-up").showMe();
         $(".sign-in").hideMe();
+    });
 
+    $(document).on('click','#btn-logout', function(e) {
+        e.preventDefault();
+
+        logout();
+
+        $("#sign-container").showMe();
+        $(".sign-in").showMe();
     });
 });
 
@@ -110,13 +118,14 @@ function signIn() {
         },
         statusCode: {
             200: function (response) {
-                $("#btn-log-out").showMe();
+                $("#btn-logout").showMe();
 
-                $("#sign-in").hideMe();
+                $(".sign-in").hideMe();
+                $(".sign-out").hideMe();
                 $("#sign-container").hideMe();
             },
             401: function (response) {
-                $("#sign-in").showMe();
+                $(".sign-in").showMe();
 
                 signAlert("<strong>Warning!</strong> Invalid e-mail address or password.");
 
@@ -132,6 +141,18 @@ function signIn() {
 function signAlert(html) {
     $("#sign-alert").showMe();
     $("#alert-text").html(html);
+}
+
+function logout() {
+    $.ajax({
+        type: "GET",
+        async: false,
+        url: "logout",
+        success: function () {
+            history.pushState(null, null, "/");
+            window.location.reload();
+        }
+    });
 }
 
 function signUp() {
@@ -152,7 +173,7 @@ function signUp() {
     $.ajax({
         type: "POST",
         async: false,
-        url: "sprinkle/register",
+        url: "sprinkle/signup",
         data: {
             login: $("#login").val(),
             name: $("#full-name").val(),
@@ -161,7 +182,8 @@ function signUp() {
         complete: function (xhr) {
             switch (xhr.status) {
                 case 200:
-                    signAlert("OK");
+                    $(".sign-up").hideMe();
+                    $(".sign-in").showMe();
                     break;
                 default:
                     $("#sign-container").shake(3, 7, 400);

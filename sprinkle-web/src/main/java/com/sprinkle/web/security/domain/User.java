@@ -1,6 +1,7 @@
 package com.sprinkle.web.security.domain;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -33,20 +34,13 @@ public class User implements UserDetails
 
     public void setRoles(String roles)
     {
-        this.authorities = new HashSet<>();
-        for (final String role : roles.split(",")) {
-            if (role != null && !"".equals(role.trim())) {
-                GrantedAuthority grandAuthority = new GrantedAuthority()
-                {
-                    private static final long serialVersionUID = 3958183417696804555L;
-
-                    @Override
-                    public String getAuthority()
-                    {
-                        return role.trim();
-                    }
-                };
-                this.authorities.add(grandAuthority);
+        authorities = new HashSet<>();
+        for (final String role : roles.split(","))
+        {
+            if (role != null && !"".equals(role.trim()))
+            {
+                GrantedAuthority grandAuthority = new SimpleGrantedAuthority(role.trim());
+                authorities.add(grandAuthority);
             }
         }
     }
@@ -121,6 +115,18 @@ public class User implements UserDetails
     public boolean isEnabled()
     {
         return true;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", authorities=" + authorities +
+                '}';
     }
 }
 

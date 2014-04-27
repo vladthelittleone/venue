@@ -32,7 +32,7 @@ public class WebController
      * @param name user full name
      * @return OK (200) or BAD REQUEST
      */
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> singUp(@RequestParam String login,
                                          @RequestParam String name,
@@ -42,11 +42,6 @@ public class WebController
                 new ResponseEntity<>("E-mail already exist", HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
-    }
-
-    public UserManager getUserManager()
-    {
-        return userManager;
     }
 
     public void setUserManager(UserManager userManager)

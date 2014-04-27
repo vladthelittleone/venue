@@ -17,7 +17,7 @@
 //
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@WebAppConfiguration
-//@ContextConfiguration("file:src/main/webapp/WEB-INF/sprinkle-dispatcher-servlet.xml")
+//@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/sprinkle-dispatcher-servlet.xml")
 //public class AppTests
 //{
 //    private MockMvc mockMvc;

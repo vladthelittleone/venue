@@ -1,24 +1,26 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="com.sprinkle.web"/>
-    <context:annotation-config/>
+    <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
+    <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
+
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/**" location="/view/"/>
 
     <!-- Application Message Bundle -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="/WEB-INF/messages/messages" />
-        <property name="cacheSeconds" value="0" />
+        <property name="basename" value="/WEB-INF/messages/messages"/>
+        <property name="cacheSeconds" value="0"/>
     </bean>
+
+    <!-- Imports user-defined @Controller beans that process client requests -->
+    <import resource="controllers.xml" />
 
 </beans>
