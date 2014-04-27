@@ -15,15 +15,19 @@ import java.util.HashSet;
 public class User implements UserDetails
 {
     private static final long serialVersionUID = 8266525488057072269L;
+    private long id;
     private String username;
     private String password;
+    private String fullname;
     private Collection<GrantedAuthority> authorities;
 
-    public User(String username, String password, String roles)
+    public User(Long id, String username, String password, String fullname, String roles)
     {
         super();
+        this.id = id;
         this.username = username;
         this.password = password;
+        this.fullname = fullname;
         this.setRoles(roles);
     }
 
@@ -55,6 +59,26 @@ public class User implements UserDetails
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
+    }
+
+    public void setFullname(String fullname)
+    {
+        this.fullname = fullname;
+    }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public String getFullname()
+    {
+        return fullname;
     }
 
     @Override

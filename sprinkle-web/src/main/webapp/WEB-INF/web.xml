@@ -33,7 +33,9 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring/security/sprinkle-security.xml, /WEB-INF/spring/sprinkle-dispatcher-servlet.xml
+        <param-value>
+            /WEB-INF/spring/security/sprinkle-security.xml,
+            /WEB-INF/spring/sprinkle-dispatcher-servlet.xml
         </param-value>
     </context-param>
 

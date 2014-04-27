@@ -1,42 +1,22 @@
-/* Bootstrap settings  */
-.sign .sign-heading,
-.sign .checkbox {
-    margin-bottom: 10px;
-}
-
-.sign .checkbox {
-    font-weight: normal;
-}
-.sign .form-control {
-    position: relative;
-    height: auto;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 10px;
-    font-size: 16px;
-}
-.sign .form-control:focus {
-    z-index: 2;
-}
-
-/* End */
-
 .sign input[type="email"] {
-    margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
+
+.sign input[type="text"] {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
 .sign input[type="password"] {
-    margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
 .sign {
     position: relative;
-    margin: 50px auto;
-    width: 280px;
+    width:30%;
+    margin: auto;
     padding: 33px 25px 29px;
     background: white;
     border-bottom: 1px solid #c4c4c4;
@@ -98,10 +78,6 @@ input {
 }
 
 .sign-input {
-    width: 100%;
-    height: 50px;
-    margin-bottom: 25px;
-    padding: 0 15px 2px;
     font-size: 17px;
     background: white;
     border: 2px solid #ebebeb;
@@ -147,6 +123,18 @@ input {
 }
 
 .sign-green-button {
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+    height: 54px;
+    padding: 0;
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
     background: #c5e199;
     -webkit-box-shadow: inset 0 -2px #acc672;
     border-bottom: 2px solid #acc672;

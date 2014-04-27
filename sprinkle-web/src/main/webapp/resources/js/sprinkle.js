@@ -76,9 +76,17 @@ $(document).ready(function () {
         signIn();
     });
 
+    $(document).on('click','#sign-up-button', function(e) {
+        e.preventDefault();
+        signUp();
+    });
+
     $(document).on('click','#btn-sign-up', function(e) {
         e.preventDefault();
-        $("#sign-in-container").hideMe();
+
+        $(".sign-up").showMe();
+        $(".sign-in").hideMe();
+
     });
 });
 
@@ -89,7 +97,7 @@ function signIn() {
     var user = $("#login").val();
     var pwd = $("#password").val();
     if (user == "" || pwd == "") {
-        $("#sign-in-container").shake(2, 7, 450);
+        $("#sign-container").shake(2, 7, 450);
         return;
     }
 
@@ -102,16 +110,17 @@ function signIn() {
         },
         statusCode: {
             200: function (response) {
-                $("#btn-sign-up").hideMe();
                 $("#btn-log-out").showMe();
-                $("#sign-in-container").hideMe();
+
+                $("#sign-in").hideMe();
+                $("#sign-container").hideMe();
             },
             401: function (response) {
-                $("#btn-sign-up").showMe();
-                $("#sign-in-alert").showMe();
-                $("#alert-text").html("<strong>Warning!</strong> Invalid e-mail address or password.");
+                $("#sign-in").showMe();
 
-                $("#sign-in-container").shake(2, 9, 450);
+                signAlert("<strong>Warning!</strong> Invalid e-mail address or password.");
+
+                $("#sign-container").shake(2, 9, 450);
 
                 $("#login").val("");
                 $("#password").val("");
@@ -120,3 +129,112 @@ function signIn() {
     });
 }
 
+function signAlert(html) {
+    $("#sign-alert").showMe();
+    $("#alert-text").html(html);
+}
+
+function signUp() {
+
+    if ($("#login").val() == "" || $("#password").val() == "" || $("#full-name").val() == "") {
+        $("#sign-container").shake(3, 7, 400);
+        return;
+    }
+
+    if($("#password").val() != $("#password-check").val()){
+        $("#btn-sign-in").shake(3,7,400);
+        signAlert("<strong>Warning!</strong> Passwords don't match.");
+        $("#password").val("").parent("div").addClass("has-error");
+        $("#password_check").val("").parent("div").addClass("has-error");
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "sprinkle/register",
+        data: {
+            login: $("#login").val(),
+            name: $("#full-name").val(),
+            password: $("#password").val()
+        },
+        complete: function (xhr) {
+            switch (xhr.status) {
+                case 200:
+                    signAlert("OK");
+                    break;
+                default:
+                    $("#sign-container").shake(3, 7, 400);
+                    signAlert("<strong>Warning!</strong> This e-mail is already registered.");
+            }
+        }
+    });
+}
+
+// ---------------- Checkbox icon
+
+$(function () {
+    $('.button-checkbox').each(function () {
+
+        // Settings
+        var $widget = $(this),
+            $button = $widget.find('button'),
+            $checkbox = $widget.find('input:checkbox'),
+            color = $button.data('color'),
+            settings = {
+                on: {
+                    icon: 'glyphicon glyphicon-check'
+                },
+                off: {
+                    icon: 'glyphicon glyphicon-unchecked'
+                }
+            };
+
+        // Event Handlers
+        $button.on('click', function () {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+        $checkbox.on('change', function () {
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $button.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $button.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+                $button
+                    .removeClass('btn-default')
+                    .addClass('btn-' + color + ' active');
+            }
+            else {
+                $button
+                    .removeClass('btn-' + color + ' active')
+                    .addClass('btn-default');
+            }
+        }
+
+        // Initialization
+        function init() {
+
+            updateDisplay();
+
+            // Inject the icon if applicable
+            if ($button.find('.state-icon').length == 0) {
+                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+            }
+        }
+        init();
+    });
+});

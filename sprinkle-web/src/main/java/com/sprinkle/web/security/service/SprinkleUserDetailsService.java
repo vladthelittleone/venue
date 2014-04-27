@@ -1,5 +1,6 @@
 package com.sprinkle.web.security.service;
 
+import com.sprinkle.web.security.service.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

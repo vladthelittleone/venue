@@ -9,3 +9,7 @@ body {
     bottom: 0;
     width: 100%;
 }
+
+#sign-container {
+    margin: 50px;
+}
