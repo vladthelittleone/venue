@@ -27,7 +27,7 @@
     <link href="resources/css/sign.css" rel="stylesheet">
 
     <!-- History API-->
-    <!--<link href="resources/js/history.min.js">-->
+    <link href="resources/js/history.min.js">
 
     <!-- Mapbox core JavaScript
     ================================================== -->
@@ -62,26 +62,22 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="ajax-link sign-up hidden" id="btn-sign-in" href="signin">Sign in</a></li>
                 <li><a class="ajax-link hidden" id="btn-logout" href="logout">Logout</a></li>
-                <li><a class="ajax-link sign-in show" id="btn-forg-pas" href="fpassword">Forgot a password?</a></li>
-                <li><a class="ajax-link sign-in show" id="btn-sign-up" href="signup">Sign up</a></li>
+                <li><a class="ajax-link sign-in" id="btn-forg-pas" href="fpassword">Forgot a password?</a></li>
+                <li><a class="ajax-link sign-in" id="btn-sign-up" href="signup">Sign up</a></li>
             </ul>
         </div><!--/.navbar-collapse -->
     </div>
 </div>
 
+<!-- Map Box -->
 <div id='map'></div>
-<script type="text/javascript">
-    var map = L.mapbox.map('map', 'examples.map-9ijuk24y')
-            .setView([40, -74.50], 9);
-    map.zoomControl.setPosition('bottomleft');
-</script>
 
 <div id="sign-container" class="container">
     <form class="sign" role="form">
         <h2 class="sign-heading sign-in">Have an account?</h2>
         <h2 class="sign-heading sign-up hidden">New to Sprinkle?</h2>
         <div class="form-group">
-            <input id="login" type="email" class="form-control input-lg sign-input" placeholder="Email address" required autofocus>
+            <input id="email" type="email" class="form-control input-lg sign-input" placeholder="Email address" required autofocus>
         </div>
         <div class="form-group sign-up hidden">
             <input id="full-name" type="text" class="form-control input-lg sign-input" placeholder="Full name" required>
@@ -125,6 +121,9 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
+
+<!-- Custom map JavaScriot -->
+<script src='resources/js/sprinklemap.js'></script>
 
 <!-- Custom JavaScript -->
 <script src='resources/js/sprinkle.js'></script>

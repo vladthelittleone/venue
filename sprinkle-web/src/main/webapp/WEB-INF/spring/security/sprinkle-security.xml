@@ -10,7 +10,7 @@
     <beans:import resource="sprinkle-security-beans.xml"/>
 
     <http entry-point-ref="authenticationEntryPoint">
-        <intercept-url pattern="/sprinkle/profile" access="ROLE_USER" requires-channel="https"/>
+        <intercept-url pattern="/sprinkle/setmarket" access="ROLE_USER"/> <!-- requires-channel="https" -->
 
         <form-login authentication-success-handler-ref="successHandler"
                     authentication-failure-handler-ref="failureHandler"/>
