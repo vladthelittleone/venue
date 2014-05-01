@@ -1,5 +1,6 @@
 package com.sprinkle.web.controllers;
 
+import com.sprinkle.web.security.domain.User;
 import com.sprinkle.web.security.service.manager.UserManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
+import java.security.Principal;
+
 /**
  * package: com.sprinkle.web.controllers
  * date: 27.04.14
@@ -21,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/")
 public class WebController
 {
+    private Logger logger = Logger.getLogger(WebController.class);
+
     @Autowired
     private UserManager userManager;
 
@@ -41,6 +47,20 @@ public class WebController
         if (userManager.signUp(login, name, password) == null) return
                 new ResponseEntity<>("E-mail already exist", HttpStatus.BAD_REQUEST);
 
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/setmarket", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> setMarket(@RequestParam Double lng,
+                                            @RequestParam Double lat,
+                                            @RequestParam String title,
+                                            @RequestParam String description,
+                                            @RequestParam String size,
+                                            @RequestParam String color,
+                                            @RequestParam String type)
+    {
+        logger.debug(lng + " " + lat + " " + title + " " + description + " " + size + " " + color + " " + type);
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 

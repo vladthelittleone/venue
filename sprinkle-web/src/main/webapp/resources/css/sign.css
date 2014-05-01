@@ -122,6 +122,15 @@ input {
     box-shadow: none;
 }
 
+.sign-input-error {
+    font-size: 17px;
+    background: white;
+    border: 2px solid #953228;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 -2px #953228;
+    box-shadow: inset 0 -2px #953228;
+}
+
 .sign-green-button {
     position: relative;
     vertical-align: top;
