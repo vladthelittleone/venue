@@ -29,7 +29,7 @@ function SprinkleMap() {
         $.ajax({
             type: "POST",
             async: false,
-            url: "sprinkle/setmarket",
+            url: "setmarket",
             data: {
                 lng: lng,
                 lat: lat,

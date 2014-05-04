@@ -1,6 +1,5 @@
 package com.sprinkle.web.controllers;
 
-import com.sprinkle.web.security.domain.User;
 import com.sprinkle.web.security.service.manager.UserManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.math.BigDecimal;
-import java.security.Principal;
 
 /**
  * package: com.sprinkle.web.controllers
@@ -62,6 +58,11 @@ public class WebController
     {
         logger.debug(lng + " " + lat + " " + title + " " + description + " " + size + " " + color + " " + type);
         return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @RequestMapping
+    public String getMainPage() {
+        return "index";
     }
 
     public void setUserManager(UserManager userManager)

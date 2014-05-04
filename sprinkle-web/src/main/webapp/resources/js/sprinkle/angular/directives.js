@@ -2,5 +2,10 @@
 
 /* Directives */
 
-var directives = angular.module('sprinkle.directives', []);
 
+angular.module('sprinkle.directives', []).
+  directive('appVersion', ['version', function(version) {
+    return function(scope, elm, attrs) {
+      elm.text(version);
+    };
+  }]);

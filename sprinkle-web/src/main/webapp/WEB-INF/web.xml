@@ -11,10 +11,6 @@
         <param-value>Sprinkle</param-value>
     </context-param>
 
-    <welcome-file-list>
-        <welcome-file>view/index.html</welcome-file>
-    </welcome-file-list>
-
     <!-- Processes application requests -->
     <servlet>
         <servlet-name>sprinkle-dispatcher</servlet-name>
@@ -40,10 +36,11 @@
 
     <servlet-mapping>
         <servlet-name>sprinkle-dispatcher</servlet-name>
-        <url-pattern>/sprinkle/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!-- Scurity -->
+
+    <!-- Security -->
 
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>

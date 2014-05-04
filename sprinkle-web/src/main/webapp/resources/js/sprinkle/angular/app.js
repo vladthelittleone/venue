@@ -1,24 +1,22 @@
 'use strict';
 
-var sprinkle = {};
-
-var app = angular.module('sprinkle', [
-    'sprinkle.filters',
-    'sprinkle.services',
-    'sprinkle.directives'
-]);
 
 // Declare app level module which depends on filters, and services
-app.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/', {
-        templateUrl: 'main/index',
-        controller: SprinkleCtrl
-    });
+angular.module('sprinkle', [
+  'ngRoute',
+  'sprinkle.filters',
+  'sprinkle.services',
+  'sprinkle.directives',
+  'sprinkle.controllers'
+]).
+config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  $routeProvider.when('/main', {
+      templateUrl: 'main',
+      controller: 'SignInCtrl'
+  });
 
-    $routeProvider.when('/sign', {
-        templateUrl: 'sign/index',
-        controller: SignCtrl
-    });
+  $routeProvider.otherwise({redirectTo: '/'});
 
-    $routeProvider.otherwise({redirectTo: '/'});
+  // Use html5 mode.
+  $locationProvider.html5Mode(true)
 }]);
