@@ -13,7 +13,9 @@
 
     <title>Sprinkle</title>
     <!-- Prevent the Angular html template from being briefly displayed by the browser while application is loading -->
-    <style>[ng-cloak] { display: none; }</style>
+    <style>[ng-cloak] {
+        display: none;
+    }</style>
 
     <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
 
@@ -21,7 +23,7 @@
     <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
     <!-- Mapbox core css -->
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet'/>
 
     <!-- Custom styles for this template -->
     <link href="resources/css/sprinkle/sprinkle.css" rel="stylesheet">
@@ -36,8 +38,8 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -61,19 +63,21 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="ajax-link sign-up hidden" id="btn-sign-in" href="signin">Sign in</a></li>
-                <li><a class="ajax-link hidden" id="btn-logout" href="logout">Logout</a></li>
-                <li><a class="ajax-link sign-in" id="btn-forg-pas" href="fpassword">Forgot a password?</a></li>
-                <li><a class="ajax-link sign-in" id="btn-sign-up" href="signup">Sign up</a></li>
+                <li><a class="ajax-link sign-up hidden" id="btn-sign-in" href="#/authentication/signin">Sign in</a></li>
+                <li><a class="ajax-link hidden" id="btn-logout" href="#/logout">Logout</a></li>
+                <li><a class="ajax-link sign-in" id="btn-forg-pas" href="#/fpassword">Forgot a password?</a></li>
+                <li><a class="ajax-link sign-in" id="btn-sign-up" href="#/authentication">Sign up</a></li>
             </ul>
-        </div><!--/.navbar-collapse -->
+        </div>
+        <!--/.navbar-collapse -->
     </div>
 </div>
 
-<div ng-view></div>
-
 <!-- Map Box -->
 <div id='map'></div>
+
+<div id="sign-container" class="container" ng-view></div>
+<!-- /container -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -95,5 +99,6 @@
 <script src="resources/js/sprinkle/angular/directives.js"></script>
 <script src="resources/js/sprinkle/angular/controllers.js"></script>
 <script src="resources/js/sprinkle/angular/filters.js"></script>
+
 </body>
 </html>
