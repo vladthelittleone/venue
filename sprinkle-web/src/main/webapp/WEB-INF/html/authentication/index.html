@@ -41,8 +41,8 @@
     <button id="sign-up-button" class="btn btn-block sign-green-button" ng-hide="isSignIn">Sign up</button>
     <button type="submit" class="btn btn-block sign-button" ng-show="isSignIn">Sign in</button>
 
-    <div class="sign-alert alert alert-dismissable sign-warning" ng-hide="isSignIn">
+    <div class="sign-alert alert alert-dismissable sign-warning" ng-show="signAlert.show">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <p id="alert-text"></p>
+        <p>{{signAlert.message}}</p>
     </div>
 </form>

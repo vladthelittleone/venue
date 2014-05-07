@@ -6,6 +6,10 @@ angular.module('sprinkle.controllers', [])
   .controller('authenticationCtrl', ['$scope',
     function($scope) {
         $scope.isSignIn = true;
+        $scope.signAlert = {
+            show: false,
+            message: ""
+        };
         $scope.sign = {};
 
         $scope.signIn = function() {
