@@ -1,4 +1,4 @@
-<form class="sign" ng-submit="signIn()" role="form" novalidate>
+<form class="sign" role="form" novalidate>
 
     <h2 class="sign-heading" ng-show="isSignIn">Have an account?</h2>
 
@@ -34,15 +34,15 @@
             </span>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 text-center" style="font-size: 0.9em;">
-            New to Sprinkle? <br><a class="ajax-link" href="/authentication/signup">Sign up now</a>
+            New to Sprinkle? <br><a class="ajax-link" href="#/signup">Sign up now</a>
         </div>
     </div>
 
-    <button id="sign-up-button" class="btn btn-block sign-green-button" ng-hide="isSignIn">Sign up</button>
-    <button type="submit" class="btn btn-block sign-button" ng-show="isSignIn">Sign in</button>
+    <button ng-click="signUp()" class="btn btn-block sign-green-button" ng-hide="isSignIn">Sign up</button>
+    <button ng-click="signIn()" class="btn btn-block sign-button" ng-show="isSignIn">Sign in</button>
 
-    <div class="sign-alert alert alert-dismissable sign-warning" ng-show="signAlert.show">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <p>{{signAlert.message}}</p>
+    <div class="sign-alert alert alert-dismissable" ng-show="signAlert.show">
+        <button type="button" class="close" ng-click="signAlert.show = false;">&times;</button>
+        <p><strong>Warning!</strong> {{signAlert.message}}</p>
     </div>
 </form>

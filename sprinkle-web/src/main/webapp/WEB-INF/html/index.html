@@ -41,9 +41,11 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!--TODO bower & grunt -->
 </head>
 
-<body>
+<body ng-controller="bodyCtrl">
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -63,10 +65,10 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="ajax-link sign-up hidden" id="btn-sign-in" href="#/authentication/signin">Sign in</a></li>
-                <li><a class="ajax-link hidden" id="btn-logout" href="#/logout">Logout</a></li>
-                <li><a class="ajax-link sign-in" id="btn-forg-pas" href="#/fpassword">Forgot a password?</a></li>
-                <li><a class="ajax-link sign-in" id="btn-sign-up" href="#/authentication">Sign up</a></li>
+                <li><a class="ajax-link"         id="btn-logout"    href="#/logout"                ng-show="auth.isAuthenticate()">Logout</a></li>
+                <li><a class="ajax-link"         id="btn-forg-pas"  href="#/fpassword"             ng-hide="auth.isAuthenticate() ||  !auth.isSignIn">Forgot a password?</a></li>
+                <li><a class="ajax-link"         id="btn-sign-up"   href="#/signup"                ng-hide="auth.isAuthenticate() ||  !auth.isSignIn">Sign up</a></li>
+                <li><a class="ajax-link"         id="btn-sign-in"   href="#/signin"                ng-hide="auth.isAuthenticate() ||   auth.isSignIn">Sign in</a></li>
             </ul>
         </div>
         <!--/.navbar-collapse -->

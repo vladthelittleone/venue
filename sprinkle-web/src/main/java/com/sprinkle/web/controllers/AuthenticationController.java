@@ -29,18 +29,18 @@ public class AuthenticationController
     /**
      * Sign up new user
      *
-     * @param login    user login
+     * @param email    user email
      * @param password user password
-     * @param name user full name
+     * @param fullName user full fullName
      * @return OK (200) or BAD REQUEST
      */
-    @RequestMapping(value = "/authentication/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> singUp(@RequestParam String login,
-                                         @RequestParam String name,
+    public ResponseEntity<String> singUp(@RequestParam String email,
+                                         @RequestParam String fullName,
                                          @RequestParam String password)
     {
-        if (userManager.signUp(login, name, password) == null) return
+        if (userManager.signUp(email, fullName, password) == null) return
                 new ResponseEntity<>("E-mail already exist", HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
@@ -48,7 +48,6 @@ public class AuthenticationController
 
     @RequestMapping
     public String getAuthenticationPage() {
-        logger.debug("Get authentication page");
         return "/authentication/index";
     }
 

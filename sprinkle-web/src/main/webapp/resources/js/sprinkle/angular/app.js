@@ -1,22 +1,40 @@
 'use strict';
 
-
 // Declare app level module which depends on filters, and services
 angular.module('sprinkle', [
     'ngRoute',
     'sprinkle.filters',
     'sprinkle.services',
     'sprinkle.directives',
-    'sprinkle.controllers'
+    'sprinkle.authentication'
 ]).
-    config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-        $routeProvider.when('/authentication', {
-            templateUrl: 'authentication',
-            controller: 'authenticationCtrl'
-        });
+    config(['$routeProvider',
+        function ($routeProvider) {
+            $routeProvider.when('/signin', {
+                templateUrl: 'authentication',
+                controller: 'signInCtrl'
+            });
 
-        $routeProvider.otherwise({redirectTo: '/'});
+            $routeProvider.when('/signup', {
+                templateUrl: 'authentication',
+                controller: 'signUpCtrl'
+            });
 
-        // Use html5 mode.
-//        $locationProvider.html5Mode(true)
-    }]);
+            $routeProvider.otherwise({redirectTo: '/'});
+
+            // Use html5 mode.
+            // $locationProvider.html5Mode(true)
+        }
+    ])
+    .run(['$location', '$authentication',
+        function ($location, $authentication) {
+            if (!$authentication.isAuthenticate()){
+                $location.path("/signin");
+            }
+        }
+    ])
+    .controller('bodyCtrl', ['$scope', '$authentication',
+        function ($scope, $authentication) {
+            $scope.auth = $authentication;
+        }
+    ]);

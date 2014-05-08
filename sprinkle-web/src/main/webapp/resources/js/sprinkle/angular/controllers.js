@@ -2,86 +2,117 @@
 
 /* Controllers */
 
-angular.module('sprinkle.controllers', [])
-  .controller('authenticationCtrl', ['$scope',
-    function($scope) {
-        $scope.isSignIn = true;
-        $scope.signAlert = {
-            show: false,
-            message: ""
-        };
-        $scope.sign = {};
+angular.module('sprinkle.authentication', [])
+    .controller('signInCtrl', ['$scope', '$location', '$http', '$authentication',
+        function ($scope, $location, $http, $authentication) {
+            // Private functions
+            function alertWarning () {
+                $scope.signAlert.change('Invalid e-mail address or password.', true);
+                $scope.signAlert.invalidEmail = true;
+                $scope.signAlert.invalidPassword = true;
+                jQuery("#sign-container").shake(3, 7, 400);
+            }
 
-        $scope.signIn = function() {
-            $scope.isSignIn = false;
-        };
+            $scope.isSignIn = $authentication.isSignIn = true;
+            // Authentication information
+            $scope.sign = new Authentication();
+            // Alert information
+            $scope.signAlert = new AuthenticationAlert($scope.sign);
 
-        checkboxStyle();
-     }]);
-
-// ---------------- Checkbox icon
-function checkboxStyle() {
-    jQuery('.button-checkbox').each(function () {
-
-        // Settings
-        var $widget = jQuery(this),
-            $button = $widget.find('button'),
-            $checkbox = $widget.find('input:checkbox'),
-            color = $button.data('color'),
-            settings = {
-                on: {
-                    icon: 'glyphicon glyphicon-check'
-                },
-                off: {
-                    icon: 'glyphicon glyphicon-unchecked'
+            $scope.signIn = function () {
+                if (!isValidEmailAddress($scope) || $scope.sign.password == '') {
+                    alertWarning();
+                    return;
                 }
+
+                $http.post("j_spring_security_check",
+                    {
+                        j_username: $scope.sign.email,
+                        j_password: $scope.sign.password
+                    }).success(function () {
+                        $authentication.signIn();
+                        $location.path("/profile");
+                    }).error(function () {
+                        alertWarning();
+                    });
             };
 
-        // Event Handlers
-        $button.on('click', function () {
-            $checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-        $checkbox.on('change', function () {
-            updateDisplay();
-        });
-
-        // Actions
-        function updateDisplay() {
-            var isChecked = $checkbox.is(':checked');
-
-            // Set the button's state
-            $button.data('state', (isChecked) ? "on" : "off");
-
-            // Set the button's icon
-            $button.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$button.data('state')].icon);
-
-            // Update the button's color
-            if (isChecked) {
-                $button
-                    .removeClass('btn-default')
-                    .addClass('btn-' + color + ' active');
-            }
-            else {
-                $button
-                    .removeClass('btn-' + color + ' active')
-                    .addClass('btn-default');
-            }
+            checkboxStyle();
         }
+    ])
+    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$location',
+        function ($scope, $authentication, $http, $location) {
+            // Private functions
+            function alertWarning (message, invalidEmail, invalidPassword) {
+                $scope.signAlert.change(message, true);
 
-        // Initialization
-        function init() {
+                if (invalidPassword){
+                    $scope.signAlert.invalidPassword = true;
+                }
+                else if (invalidEmail) {
+                    $scope.signAlert.invalidEmail = true;
+                } else {
+                    $scope.signAlert.invalidFullName = true;
+                }
 
-            updateDisplay();
-
-            // Inject the icon if applicable
-            if ($button.find('.state-icon').length == 0) {
-                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i>');
+                jQuery("#sign-container").shake(3, 7, 400);
             }
+
+            $scope.isSignIn = $authentication.isSignIn = false;
+            // Authentication information
+            $scope.sign = new Authentication();
+            // Alert information
+            $scope.signAlert = new AuthenticationAlert($scope.sign);
+
+            $scope.signUp = function () {
+                if ($scope.sign.password != $scope.sign.passwordCheck) {
+                    alertWarning("Passwords don't match.", false, true);
+                    return;
+                }
+                if (!isValidEmailAddress($scope) || $scope.sign.fullName == '') {
+                    alertWarning('Invalid e-mail address or full name.', true, false);
+                    return;
+                }
+                $http.post("/authentication/signup",
+                {
+                    email: $scope.sign.email,
+                    fullName: $scope.sign.fullName,
+                    password: $scope.sign.password
+                }).success(function () {
+                    $authentication.signUp();
+                    $location.path("/signin");
+                }).error(function () {
+                    alertWarning('This e-mail is already registered.', false, false);
+                });
+            };
         }
-        init();
-    });
+    ]);
+
+function AuthenticationAlert (sign) {
+    var show = false;
+    var message = "";
+
+    var invalidPassword = false;
+    var invalidFullName = false;
+    var invalidEmail = false;
+
+    this.change = function (message, show) {
+        this.show = show;
+        this.message = message;
+        sign.reset();
+    };
+}
+
+function Authentication () {
+    var email = '';
+    var password = '';
+    var passwordCheck = '';
+    var fullName = '';
+
+    this.reset = function () {
+        this.email = '';
+        this.password = '';
+        this.passwordCheck = '';
+        this.fullName = '';
+    };
 }
