@@ -31,7 +31,8 @@ public class MapController
                                             @RequestParam String color,
                                             @RequestParam String type)
     {
-        logger.debug(String.format("Set market [%f, %f, %s, %s, %s, %s, %s]", lng, lat, title, description, size, color, type));
+        if (logger.isTraceEnabled())
+            logger.trace(String.format("Set market [%f, %f, %s, %s, %s, %s, %s]", lng, lat, title, description, size, color, type));
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 }

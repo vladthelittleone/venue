@@ -22,7 +22,7 @@ angular.module('sprinkle', [
 
             $routeProvider.otherwise({redirectTo: '/'});
 
-            // Use html5 mode.
+            // TODO Use html5 mode.
             // $locationProvider.html5Mode(true)
         }
     ])

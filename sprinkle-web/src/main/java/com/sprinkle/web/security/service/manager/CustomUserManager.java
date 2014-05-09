@@ -2,6 +2,8 @@ package com.sprinkle.web.security.service.manager;
 
 import com.sprinkle.web.security.domain.User;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,6 +21,9 @@ public class CustomUserManager implements UserManager
 {
     private final Logger logger = Logger.getLogger(CustomUserManager.class);
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private final AtomicLong userId = new AtomicLong(0);
     private final ConcurrentHashMap<Long, User> users = new ConcurrentHashMap<>();
     private final ConcurrentSkipListSet<String> usernames = new ConcurrentSkipListSet<>();
@@ -34,14 +39,17 @@ public class CustomUserManager implements UserManager
     @Override
     public User signUp(final String username, final String fullname, final String password)
     {
-        if (logger.isDebugEnabled())
-            logger.debug(String.format("Sign up new user [%s, %s, %s]", username, fullname, password));
+        String hashedPassword = passwordEncoder.encode(password);
+
+        if (logger.isTraceEnabled())
+            logger.trace(String.format("Sign up new user [%s, %s, %s]", username, fullname, hashedPassword));
 
         if (username.isEmpty() || password.isEmpty() || fullname.isEmpty()) return null;
         if (!usernames.add(username)) return null;
 
         Long id = userId.incrementAndGet();
-        User user = new User(id, username, password, fullname, "ROLE_USER");
+
+        User user = new User(id, username, hashedPassword, fullname, "ROLE_USER");
 
         users.put(id, user);
 
@@ -62,8 +70,8 @@ public class CustomUserManager implements UserManager
         {
             if (user.getUsername().equals(username))
             {
-                if (logger.isDebugEnabled())
-                    logger.debug(String.format("Get user %s", user));
+                if (logger.isTraceEnabled())
+                    logger.trace(String.format("Get user %s", user));
 
                 return user;
             }

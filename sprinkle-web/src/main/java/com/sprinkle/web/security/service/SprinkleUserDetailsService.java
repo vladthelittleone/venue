@@ -26,15 +26,15 @@ public class SprinkleUserDetailsService implements UserDetailsService
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException
     {
-        if (logger.isDebugEnabled())
-            logger.debug(String.format("Load user by username [%s]", username));
+        if (logger.isTraceEnabled())
+            logger.trace(String.format("Load user by username [%s]", username));
 
         UserDetails userDetails = userManager.getUser(username);
 
         if (userDetails == null)
         {
-            if (logger.isDebugEnabled())
-                logger.debug(String.format("User [%s] not found", username));
+            if (logger.isTraceEnabled())
+                logger.trace(String.format("User [%s] not found", username));
 
             throw new UsernameNotFoundException(String.format("User [%s] not found", username));
         }

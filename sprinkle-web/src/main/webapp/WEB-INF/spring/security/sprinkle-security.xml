@@ -32,7 +32,7 @@
 
     <authentication-manager>
         <authentication-provider user-service-ref="sprinkleUserDetailsService">
-            <!--<password-encoder hash="md5" ref="passwordEncoder"/>-->
+            <password-encoder ref = "passwordEncoder"/>
         </authentication-provider>
     </authentication-manager>
 
