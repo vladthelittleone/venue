@@ -3,111 +3,144 @@
 /* Controllers */
 
 angular.module('sprinkle.authentication', [])
-    .controller('signInCtrl', ['$scope', '$location', '$http', '$authentication',
-        function ($scope, $location, $http, $authentication) {
-            // Private functions
-            function alertWarning () {
-                $scope.signAlert.change('Invalid e-mail address or password.', true);
-                $scope.signAlert.invalidEmail = true;
-                $scope.signAlert.invalidPassword = true;
-                jQuery("#sign-container").shake(3, 7, 400);
+
+/**
+ * Controller that handling sign in information and events.
+ * Send user sign in info on server {@link signIn} and get response.
+ * @controller
+ */
+.controller('signInCtrl', ['$scope', '$location', '$http', '$authentication',
+    function ($scope, $location, $http, $authentication) {
+        // Private functions
+        function alertWarning() {
+            $scope.alert.change('Invalid e-mail address or password.', true);
+            $scope.alert.invalidEmail = true;
+            $scope.alert.invalidPassword = true;
+            jQuery("#sign-container").shake(3, 7, 400);
+        }
+
+        // Set global model
+        $scope.isSignIn = $authentication.isSignIn = true;
+        // Authentication information
+        $scope.sign = new Authentication();
+        // Alert information
+        $scope.alert = new AuthenticationAlert($scope.sign);
+
+        $scope.signIn = function () {
+            if (!isValidEmailAddress($scope) || !$scope.sign.password) {
+                alertWarning();
+                return;
             }
 
-            $scope.isSignIn = $authentication.isSignIn = true;
-            // Authentication information
-            $scope.sign = new Authentication();
-            // Alert information
-            $scope.signAlert = new AuthenticationAlert($scope.sign);
-
-            $scope.signIn = function () {
-                if (!isValidEmailAddress($scope) || $scope.sign.password == '') {
-                    alertWarning();
-                    return;
-                }
-
-                $http.post("j_spring_security_check",
-                    {
-                        j_username: $scope.sign.email,
-                        j_password: $scope.sign.password
-                    }).success(function () {
-                        $authentication.signIn();
-                        $location.path("/profile");
-                    }).error(function () {
-                        alertWarning();
-                    });
+            var payload = 'j_username=' + $scope.sign.email + '&j_password=' + $scope.sign.password;
+            var config = {
+                headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
             };
 
-            checkboxStyle();
+            $http.post("j_spring_security_check", payload, config).
+                success(function () {
+                    $authentication.authenticate();
+                    $location.path("/profile");
+                }).error(function () {
+                    alertWarning();
+                });
+        };
+
+        checkboxStyle();
+    }
+])
+
+/**
+ * Controller that handling sign up information and events.
+ * Send user sign up info on server {@link signUp} and get response.
+ * Change authentication service parameters, such like isAuthenticate variable.
+ * @controller
+ */
+.controller('signUpCtrl', ['$scope', '$authentication', '$http', '$location',
+    function ($scope, $authentication, $http, $location) {
+
+        // Private functions
+        // =============================================================================
+        function alertWarning(message, invalidEmail, invalidPassword, invalidFullName) {
+            $scope.alert.change(message, true);
+
+            $scope.alert.invalidPassword = invalidPassword;
+            $scope.alert.invalidEmail = invalidEmail;
+            $scope.alert.invalidFullName = invalidFullName;
+
+            jQuery("#sign-container").shake(3, 7, 400);
         }
-    ])
-    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$location',
-        function ($scope, $authentication, $http, $location) {
-            // Private functions
-            function alertWarning (message, invalidEmail, invalidPassword) {
-                $scope.signAlert.change(message, true);
 
-                if (invalidPassword){
-                    $scope.signAlert.invalidPassword = true;
-                }
-                else if (invalidEmail) {
-                    $scope.signAlert.invalidEmail = true;
-                } else {
-                    $scope.signAlert.invalidFullName = true;
-                }
-
-                jQuery("#sign-container").shake(3, 7, 400);
+        function valid() {
+            if (!isValidEmailAddress($scope) || !$scope.sign.fullName) {
+                alertWarning('Invalid e-mail address or full name.', true, false, true);
+                return false;
             }
 
-            $scope.isSignIn = $authentication.isSignIn = false;
-            // Authentication information
-            $scope.sign = new Authentication();
-            // Alert information
-            $scope.signAlert = new AuthenticationAlert($scope.sign);
+            if ($scope.sign.password != $scope.sign.passwordCheck) {
+                alertWarning("Passwords don't match.", false, true, false);
+                return false;
+            }
 
-            $scope.signUp = function () {
-                if ($scope.sign.password != $scope.sign.passwordCheck) {
-                    alertWarning("Passwords don't match.", false, true);
-                    return;
-                }
-                if (!isValidEmailAddress($scope) || $scope.sign.fullName == '') {
-                    alertWarning('Invalid e-mail address or full name.', true, false);
-                    return;
-                }
-                $http.post("/authentication/signup",
+            if (!$scope.sign.password || !$scope.sign.passwordCheck){
+                alertWarning('Invalid password.', false, true, false);
+                return false;
+            }
+
+            return true;
+        }
+        // =============================================================================
+
+        // Set global model
+        $scope.isSignIn = $authentication.isSignIn = false;
+        // Authentication information
+        $scope.sign = new Authentication();
+        // Alert information
+        $scope.alert = new AuthenticationAlert($scope.sign);
+
+        $scope.signUp = function () {
+
+            if (!valid()) return;
+
+            $http.post("/authentication/signup",
                 {
-                    email: $scope.sign.email,
-                    fullName: $scope.sign.fullName,
+                    username: $scope.sign.email,
+                    fullname: $scope.sign.fullName,
                     password: $scope.sign.password
                 }).success(function () {
-                    $authentication.signUp();
                     $location.path("/signin");
                 }).error(function () {
-                    alertWarning('This e-mail is already registered.', false, false);
+                    alertWarning('This e-mail is already registered.', true, false, false);
                 });
-            };
-        }
-    ]);
+        };
+    }
+]);
 
-function AuthenticationAlert (sign) {
-    var show = false;
-    var message = "";
+// Help objects
 
-    var invalidPassword = false;
-    var invalidFullName = false;
-    var invalidEmail = false;
+function AuthenticationAlert(sign) {
+    this.show = false;
+    this.message = "";
+
+    this.invalidPassword = false;
+    this.invalidFullName = false;
+    this.invalidEmail = false;
 
     this.change = function (message, show) {
         this.show = show;
         this.message = message;
+        this.invalidPassword = false;
+        this.invalidFullName = false;
+        this.invalidEmail = false;
         sign.reset();
     };
 }
 
-function Authentication () {
-    var email = '';
-    var password = '';
-    var passwordCheck = '';
-    var fullName = '';
+function Authentication() {
+    this.email = '';
+    this.password = '';
+    this.passwordCheck = '';
+    this.fullName = '';
 
     this.reset = function () {
         this.email = '';

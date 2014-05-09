@@ -1,14 +1,15 @@
 package com.sprinkle.web.controllers;
 
+import com.sprinkle.web.security.domain.Authentication;
 import com.sprinkle.web.security.service.manager.UserManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -29,25 +30,22 @@ public class AuthenticationController
     /**
      * Sign up new user
      *
-     * @param email    user email
-     * @param password user password
-     * @param fullName user full fullName
+     * @param a - authentication information, such as username, password, fullname.
      * @return OK (200) or BAD REQUEST
      */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> singUp(@RequestParam String email,
-                                         @RequestParam String fullName,
-                                         @RequestParam String password)
+    public ResponseEntity<String> singUp(@RequestBody Authentication a)
     {
-        if (userManager.signUp(email, fullName, password) == null) return
+        if (userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword()) == null) return
                 new ResponseEntity<>("E-mail already exist", HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
     @RequestMapping
-    public String getAuthenticationPage() {
+    public String getAuthenticationPage()
+    {
         return "/authentication/index";
     }
 
@@ -55,5 +53,4 @@ public class AuthenticationController
     {
         this.userManager = userManager;
     }
-
 }

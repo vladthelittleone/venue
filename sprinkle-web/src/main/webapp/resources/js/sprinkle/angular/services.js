@@ -2,22 +2,24 @@
 
 /* Services */
 
-// Demonstrate how to register services
-// In this case it is a simple value service.
+/**
+ * Service that contains information about authentication and authentication logic.
+ */
 angular.module('sprinkle.services', [])
-    .factory('$authentication', function () {
+    .factory('$authentication',
+    function () {
         var isAuthenticate = localStorage.getItem('isAuthenticate');
 
         return {
             isSignIn: true,
             isAuthenticate: function () {
-                return localStorage.getItem('isAuthenticate') || false;
+                return localStorage.getItem('isAuthenticate') === 'true';
             },
             authenticate: function () {
-                localStorage.setItem('isAuthenticate', true);
+                localStorage.setItem('isAuthenticate', 'true');
             },
             logout: function () {
-                localStorage.setItem('isAuthenticate', false);
+                localStorage.setItem('isAuthenticate', 'false');
             }
         };
     }

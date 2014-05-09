@@ -122,7 +122,7 @@ input {
     box-shadow: none;
 }
 
-.sign-input-error {
+.invalid {
     font-size: 17px;
     background: white;
     border: 2px solid #953228;

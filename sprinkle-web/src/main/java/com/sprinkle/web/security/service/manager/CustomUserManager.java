@@ -37,8 +37,8 @@ public class CustomUserManager implements UserManager
         if (logger.isDebugEnabled())
             logger.debug(String.format("Sign up new user [%s, %s, %s]", username, fullname, password));
 
-        if (!usernames.add(username)) return null;
         if (username.isEmpty() || password.isEmpty() || fullname.isEmpty()) return null;
+        if (!usernames.add(username)) return null;
 
         Long id = userId.incrementAndGet();
         User user = new User(id, username, password, fullname, "ROLE_USER");

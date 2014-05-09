@@ -34,7 +34,12 @@ angular.module('sprinkle', [
         }
     ])
     .controller('bodyCtrl', ['$scope', '$authentication',
+        // TODO logout
         function ($scope, $authentication) {
             $scope.auth = $authentication;
+
+            $scope.logout = function () {
+                $scope.auth.logout();
+            }
         }
     ]);
