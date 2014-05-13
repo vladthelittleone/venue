@@ -21,7 +21,7 @@
                 success-handler-ref="logoutSuccessHandler"/>
 
          <!--Can add timeouts-->
-        <remember-me user-service-ref="sprinkleUserDetailsService" key="sprinkle"/>
+        <remember-me services-ref="rememberMeServices"/>
 
         <session-management>
              <!--Limit the number of sessions-->
@@ -30,7 +30,7 @@
 
     </http>
 
-    <authentication-manager>
+    <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="sprinkleUserDetailsService">
             <password-encoder ref = "passwordEncoder"/>
         </authentication-provider>

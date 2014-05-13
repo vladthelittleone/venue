@@ -59,8 +59,9 @@ $.fn.shake = function (intShakes, intDistance, intDuration) {
 };
 
 // ---------------- Button-checkbox style
-// TODO переделать с JQuery(smt) на $scope!
-// TODO $apply
+// TODO
+// переделать с JQuery(smt) на $scope, $apply
+// Переделать remember-me модель
 function checkboxStyle() {
     jQuery('.button-checkbox').each(function () {
 

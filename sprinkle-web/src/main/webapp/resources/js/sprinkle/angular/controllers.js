@@ -32,17 +32,23 @@ angular.module('sprinkle.authentication', [])
                 return;
             }
 
-            var payload = 'j_username=' + $scope.sign.email + '&j_password=' + $scope.sign.password;
+            var payload =
+                'j_username=' + $scope.sign.email +
+                '&j_password=' + $scope.sign.password +
+                '&_spring_security_remember_me=' + $scope.sign.rememberMe;
+
             var config = {
                 headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
             };
 
             $http.post("j_spring_security_check", payload, config).
-                success(function () {
-                    $authentication.authenticate();
-                    $location.path("/profile");
-                }).error(function () {
-                    alertWarning();
+                success(function (data) {
+                    if (data.signedIn) {
+                        $authentication.authenticate();
+                        $location.path("/profile");
+                    } else {
+                        alertWarning();
+                    }
                 });
         };
 
@@ -137,10 +143,15 @@ function AuthenticationAlert(sign) {
 }
 
 function Authentication() {
+    this.rememberMe = false;
     this.email = '';
     this.password = '';
     this.passwordCheck = '';
     this.fullName = '';
+
+    this.switchRememberMe = function () {
+        this.rememberMe = !this.rememberMe;
+    };
 
     this.reset = function () {
         this.email = '';
