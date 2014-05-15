@@ -6,12 +6,12 @@ package com.sprinkle.web.security.domain.json;
  *
  * @author Skurishin Vladislav
  */
-public class SignInStatus
+public class AuthenticationStatus
 {
     private final boolean signedIn;
     private final String username;
 
-    public SignInStatus(boolean signedIn, String username) {
+    public AuthenticationStatus(boolean signedIn, String username) {
         this.signedIn = signedIn;
         this.username = username;
     }

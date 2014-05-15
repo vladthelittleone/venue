@@ -1,6 +1,6 @@
 package com.sprinkle.web.security.service.handler;
 
-import com.sprinkle.web.security.domain.json.SignInStatus;
+import com.sprinkle.web.security.domain.json.AuthenticationStatus;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -21,10 +21,11 @@ public class SprinkleAuthenticationFailureHandler implements AuthenticationFailu
 {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
-                                        HttpServletResponse response, AuthenticationException auth)
+                                        HttpServletResponse response,
+                                        AuthenticationException auth)
             throws IOException, ServletException
     {
-        SignInStatus status = new SignInStatus(false, null);
+        AuthenticationStatus status = new AuthenticationStatus(false, null);
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }

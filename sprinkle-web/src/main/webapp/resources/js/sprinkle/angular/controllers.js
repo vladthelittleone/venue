@@ -27,7 +27,7 @@ angular.module('sprinkle.authentication', [])
         $scope.alert = new AuthenticationAlert($scope.sign);
 
         $scope.signIn = function () {
-            if (!isValidEmailAddress($scope) || !$scope.sign.password) {
+            if (!$authentication.isValidEmailAddress($scope) || !$scope.sign.password) {
                 alertWarning();
                 return;
             }
@@ -78,7 +78,7 @@ angular.module('sprinkle.authentication', [])
         }
 
         function valid() {
-            if (!isValidEmailAddress($scope) || !$scope.sign.fullName) {
+            if (!$authentication.isValidEmailAddress($scope) || !$scope.sign.fullName) {
                 alertWarning('Invalid e-mail address or full name.', true, false, true);
                 return false;
             }

@@ -1,5 +1,6 @@
 package com.sprinkle.web.controllers;
 
+import com.sprinkle.web.security.domain.json.AuthenticationStatus;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class MapController
 
     @RequestMapping(value = "/setmarket", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> setMarket(@RequestParam Double lng,
+    public AuthenticationStatus setMarket(@RequestParam Double lng,
                                             @RequestParam Double lat,
                                             @RequestParam String title,
                                             @RequestParam String description,
@@ -33,6 +34,6 @@ public class MapController
     {
         if (logger.isTraceEnabled())
             logger.trace(String.format("Set market [%f, %f, %s, %s, %s, %s, %s]", lng, lat, title, description, size, color, type));
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new AuthenticationStatus(true, null);
     }
 }
