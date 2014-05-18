@@ -1,44 +1,3 @@
-
-//    // ---------------- History API
-//
-//$(function() {
-//
-//    // looking for all the links and hang on the event, all references in this document
-//    $(document).on('click', 'a.ajax-link', function() {
-//        // keep the link in the browser history
-//        history.pushState(null, null, this.href);
-//
-//
-//        // here can cause data loading, etc.
-//
-//
-//        // do not give a default action
-//        return false;
-//    });
-//
-//    // hang on popstate event triggered by pressing back/forward in browser
-//    $(window).on('popstate', function(e) {
-//
-//        // we get a normal Location object
-//
-//        /*
-//         * Note, this is the only difference when using this library,
-//         * because the object document.location cannot be overriden,
-//         * so library the returns generated "location" object within
-//         * an object window.history, so get it out of "history.location".
-//         * For browsers supporting "history.pushState" get generated
-//         * object "location" with the usual "document.location".
-//         */
-//        var loc = history.location || document.location;
-//
-//        // here can cause data loading, etc.
-//
-//        });
-//});
-//
-//$(document).ready(function () {
-//
-
 // TODO put into directives.
 
 // ---------------- JQuery shake
@@ -61,8 +20,6 @@ $.fn.shake = function (intShakes, intDistance, intDuration) {
 };
 
 // ---------------- Button-checkbox style
-// TODO
-// переделать с JQuery(smt) на $scope, $apply
 function checkboxStyle() {
     jQuery('.button-checkbox').each(function () {
 

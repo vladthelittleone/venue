@@ -41,7 +41,6 @@ function SprinkleMap() {
             },
             dataType: 'json',
             success: function (responce) {
-                console.log(responce + responce.signedIn);
                 if (responce.signedIn) {
                     L.mapbox.featureLayer({
                         // this feature is in the GeoJSON format: see geojson.org
