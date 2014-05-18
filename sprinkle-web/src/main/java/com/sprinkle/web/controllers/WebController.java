@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Skurishin Vladislav
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/*")
 public class WebController
 {
     private Logger logger = Logger.getLogger(WebController.class);

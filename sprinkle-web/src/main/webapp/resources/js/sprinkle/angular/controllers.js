@@ -27,22 +27,28 @@ angular.module('sprinkle.authentication', [])
         $scope.alert = new AuthenticationAlert($scope.sign);
 
         $scope.signIn = function () {
-            if (!isValidEmailAddress($scope) || !$scope.sign.password) {
+            if (!$authentication.isValidEmailAddress($scope) || !$scope.sign.password) {
                 alertWarning();
                 return;
             }
 
-            var payload = 'j_username=' + $scope.sign.email + '&j_password=' + $scope.sign.password;
+            var payload =
+                'j_username=' + $scope.sign.email +
+                '&j_password=' + $scope.sign.password +
+                '&_spring_security_remember_me=' + $scope.sign.rememberMe;
+
             var config = {
                 headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
             };
 
             $http.post("j_spring_security_check", payload, config).
-                success(function () {
-                    $authentication.authenticate();
-                    $location.path("/profile");
-                }).error(function () {
-                    alertWarning();
+                success(function (data) {
+                    if (data.signedIn) {
+                        $authentication.authenticate();
+                        $location.path("/profile");
+                    } else {
+                        alertWarning();
+                    }
                 });
         };
 
@@ -72,7 +78,7 @@ angular.module('sprinkle.authentication', [])
         }
 
         function valid() {
-            if (!isValidEmailAddress($scope) || !$scope.sign.fullName) {
+            if (!$authentication.isValidEmailAddress($scope) || !$scope.sign.fullName) {
                 alertWarning('Invalid e-mail address or full name.', true, false, true);
                 return false;
             }
@@ -107,10 +113,12 @@ angular.module('sprinkle.authentication', [])
                     username: $scope.sign.email,
                     fullname: $scope.sign.fullName,
                     password: $scope.sign.password
-                }).success(function () {
-                    $location.path("/signin");
-                }).error(function () {
-                    alertWarning('This e-mail is already registered.', true, false, false);
+                }).success(function (data) {
+                    if (data.success) {
+                        $location.path("/signin");
+                    } else {
+                        alertWarning('This e-mail is already registered.', true, false, false);
+                    }
                 });
         };
     }
@@ -137,10 +145,15 @@ function AuthenticationAlert(sign) {
 }
 
 function Authentication() {
+    this.rememberMe = false;
     this.email = '';
     this.password = '';
     this.passwordCheck = '';
     this.fullName = '';
+
+    this.switchRememberMe = function () {
+        this.rememberMe = !this.rememberMe;
+    };
 
     this.reset = function () {
         this.email = '';

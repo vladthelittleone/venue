@@ -2,8 +2,8 @@ package com.sprinkle.web.security.service.handler;
 
 import com.sprinkle.web.security.domain.json.AuthenticationStatus;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,15 +17,15 @@ import java.io.OutputStream;
  *
  * @author Skurishin Vladislav
  */
-public class SprinkleAuthenticationSuccessHandler implements AuthenticationSuccessHandler
+public class SprinkleAuthenticationFailureHandler implements AuthenticationFailureHandler
 {
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request,
+    public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        Authentication authentication)
-            throws ServletException, IOException
+                                        AuthenticationException auth)
+            throws IOException, ServletException
     {
-        AuthenticationStatus status = new AuthenticationStatus(authentication.isAuthenticated(), authentication.getName(), true);
+        AuthenticationStatus status = new AuthenticationStatus(false, null, false);
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }

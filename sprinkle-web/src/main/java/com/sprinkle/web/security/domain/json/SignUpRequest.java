@@ -1,4 +1,4 @@
-package com.sprinkle.web.security.domain;
+package com.sprinkle.web.security.domain.json;
 
 /**
  * package: com.sprinkle.web.security.domain
@@ -6,7 +6,7 @@ package com.sprinkle.web.security.domain;
  *
  * @author Skurishin Vladislav
  */
-public class Authentication
+public class SignUpRequest
 {
     private String username;
     private String password;

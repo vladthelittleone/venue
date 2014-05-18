@@ -8,8 +8,8 @@ angular.module('sprinkle', [
     'sprinkle.directives',
     'sprinkle.authentication'
 ]).
-    config(['$routeProvider',
-        function ($routeProvider) {
+    config(['$routeProvider', '$locationProvider',
+        function ($routeProvider, $locationProvider) {
             $routeProvider.when('/signin', {
                 templateUrl: 'authentication',
                 controller: 'signInCtrl'
@@ -22,8 +22,8 @@ angular.module('sprinkle', [
 
             $routeProvider.otherwise({redirectTo: '/'});
 
-            // TODO Use html5 mode.
-            // $locationProvider.html5Mode(true)
+            $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
         }
     ])
     .run(['$location', '$authentication',
@@ -33,13 +33,15 @@ angular.module('sprinkle', [
             }
         }
     ])
-    .controller('bodyCtrl', ['$scope', '$authentication',
-        // TODO logout
-        function ($scope, $authentication) {
+    .controller('bodyCtrl', ['$scope', '$authentication', '$http',
+        function ($scope, $authentication, $http) {
             $scope.auth = $authentication;
 
             $scope.logout = function () {
-                $scope.auth.logout();
+                $http.get("/logout").
+                    success(function () {
+                        $scope.auth.logout();
+                    });
             }
         }
     ]);

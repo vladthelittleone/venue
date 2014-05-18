@@ -1,6 +1,7 @@
 package com.sprinkle.web.controllers;
 
-import com.sprinkle.web.security.domain.Authentication;
+import com.sprinkle.web.security.domain.json.AuthenticationStatus;
+import com.sprinkle.web.security.domain.json.SignUpRequest;
 import com.sprinkle.web.security.service.manager.UserManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +36,12 @@ public class AuthenticationController
      */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> singUp(@RequestBody Authentication a)
+    public AuthenticationStatus singUp(@RequestBody SignUpRequest a)
     {
-        if (userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword()) == null) return
-                new ResponseEntity<>("E-mail already exist", HttpStatus.BAD_REQUEST);
+        if (userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword()) == null)
+            return new AuthenticationStatus(false, null, false);
 
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new AuthenticationStatus(false, null, true);
     }
 
     @RequestMapping
