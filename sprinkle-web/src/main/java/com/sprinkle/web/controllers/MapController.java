@@ -34,6 +34,6 @@ public class MapController
     {
         if (logger.isTraceEnabled())
             logger.trace(String.format("Set market [%f, %f, %s, %s, %s, %s, %s]", lng, lat, title, description, size, color, type));
-        return new AuthenticationStatus(true, null);
+        return new AuthenticationStatus(true, null, true);
     }
 }

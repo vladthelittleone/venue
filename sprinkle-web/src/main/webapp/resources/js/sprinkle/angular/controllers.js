@@ -113,10 +113,12 @@ angular.module('sprinkle.authentication', [])
                     username: $scope.sign.email,
                     fullname: $scope.sign.fullName,
                     password: $scope.sign.password
-                }).success(function () {
-                    $location.path("/signin");
-                }).error(function () {
-                    alertWarning('This e-mail is already registered.', true, false, false);
+                }).success(function (data) {
+                    if (data.success) {
+                        $location.path("/signin");
+                    } else {
+                        alertWarning('This e-mail is already registered.', true, false, false);
+                    }
                 });
         };
     }

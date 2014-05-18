@@ -25,7 +25,7 @@ public class SprinkleAuthenticationSuccessHandler implements AuthenticationSucce
                                         Authentication authentication)
             throws ServletException, IOException
     {
-        AuthenticationStatus status = new AuthenticationStatus(authentication.isAuthenticated(), authentication.getName());
+        AuthenticationStatus status = new AuthenticationStatus(authentication.isAuthenticated(), authentication.getName(), true);
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }

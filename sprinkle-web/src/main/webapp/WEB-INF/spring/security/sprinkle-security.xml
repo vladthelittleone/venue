@@ -11,8 +11,8 @@
 
     <http entry-point-ref="authenticationEntryPoint">
         <intercept-url pattern="/map/setmarket" access="ROLE_USER"/> <!-- requires-channel="https" -->
-
         <form-login authentication-success-handler-ref="successHandler"
+                    default-target-url="/signin"
                     authentication-failure-handler-ref="failureHandler"/>
 
         <logout logout-url="/logout"

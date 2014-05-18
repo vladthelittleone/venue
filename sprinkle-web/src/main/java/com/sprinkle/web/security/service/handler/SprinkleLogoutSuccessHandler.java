@@ -25,7 +25,7 @@ public class SprinkleLogoutSuccessHandler implements LogoutSuccessHandler
                                 Authentication authentication)
             throws IOException, ServletException
     {
-        AuthenticationStatus status = new AuthenticationStatus(false, null);
+        AuthenticationStatus status = new AuthenticationStatus(false, null, true);
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }

@@ -9,11 +9,13 @@ package com.sprinkle.web.security.domain.json;
 public class AuthenticationStatus
 {
     private final boolean signedIn;
+    private final boolean success;
     private final String username;
 
-    public AuthenticationStatus(boolean signedIn, String username) {
+    public AuthenticationStatus(boolean signedIn, String username, boolean success) {
         this.signedIn = signedIn;
         this.username = username;
+        this.success = success;
     }
 
     public boolean isSignedIn() {
@@ -22,5 +24,10 @@ public class AuthenticationStatus
 
     public String getUsername() {
         return username;
+    }
+
+    public boolean isSuccess()
+    {
+        return success;
     }
 }

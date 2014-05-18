@@ -25,7 +25,7 @@ public class SprinkleAuthenticationEntryPoint implements AuthenticationEntryPoin
                          AuthenticationException authException)
             throws IOException, ServletException
     {
-        AuthenticationStatus status = new AuthenticationStatus(false, null);
+        AuthenticationStatus status = new AuthenticationStatus(false, null, false);
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }
