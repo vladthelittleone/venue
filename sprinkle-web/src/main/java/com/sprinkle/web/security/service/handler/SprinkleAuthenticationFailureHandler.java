@@ -25,7 +25,7 @@ public class SprinkleAuthenticationFailureHandler implements AuthenticationFailu
                                         AuthenticationException auth)
             throws IOException, ServletException
     {
-        AuthenticationStatus status = new AuthenticationStatus(false, null, false);
+        AuthenticationStatus status = new AuthenticationStatus(false, null, auth.getMessage(), false);
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }

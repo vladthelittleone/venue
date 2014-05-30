@@ -13,8 +13,8 @@ angular.module('sprinkle.authentication', [])
     function ($scope, $location, $http, $authentication) {
         // Private functions
         // =============================================================================
-        function alertWarning() {
-            $scope.alert.change('Invalid e-mail address or password.', true);
+        function alertWarning(msg) {
+            $scope.alert.change(msg, true);
             $scope.alert.invalidEmail = true;
             $scope.alert.invalidPassword = true;
             jQuery("#sign-container").shake(3, 7, 400);
@@ -35,7 +35,7 @@ angular.module('sprinkle.authentication', [])
 
         $scope.authenticate = function () {
             if (!$authentication.isValidEmailAddress($scope) || !$scope.sign.password) {
-                alertWarning();
+                alertWarning('Invalid e-mail address or password.');
                 return;
             }
 
@@ -54,7 +54,7 @@ angular.module('sprinkle.authentication', [])
                         $authentication.authenticate();
                         $location.path("/");
                     } else {
-                        alertWarning();
+                        alertWarning(data.message);
                     }
                 });
         };

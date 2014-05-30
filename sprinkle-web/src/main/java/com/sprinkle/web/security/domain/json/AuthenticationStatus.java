@@ -17,7 +17,7 @@ public class AuthenticationStatus
         this.signedIn = signedIn;
         this.username = username;
         this.success = success;
-        this.message = message;
+        this.message = formatString(message);
     }
 
     public AuthenticationStatus(boolean signedIn, String username, boolean success) {
@@ -43,5 +43,13 @@ public class AuthenticationStatus
     public String getMessage()
     {
         return message;
+    }
+
+    private String formatString(String string)
+    {
+        return new StringBuilder()
+                .append(string)
+                .append(".")
+                .toString();
     }
 }

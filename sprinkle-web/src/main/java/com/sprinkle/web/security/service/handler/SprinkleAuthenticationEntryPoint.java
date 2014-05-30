@@ -22,10 +22,10 @@ public class SprinkleAuthenticationEntryPoint implements AuthenticationEntryPoin
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
-                         AuthenticationException authException)
+                         AuthenticationException auth)
             throws IOException, ServletException
     {
-        AuthenticationStatus status = new AuthenticationStatus(false, null, false);
+        AuthenticationStatus status = new AuthenticationStatus(false, null, auth.getMessage(), false);
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }
