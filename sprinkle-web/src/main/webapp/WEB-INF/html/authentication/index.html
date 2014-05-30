@@ -1,4 +1,4 @@
-<form class="sign" role="form" novalidate>
+<form class="sign" role="form" novalidate ng-submit="authenticate()">
 
     <h2 class="sign-heading" ng-show="isSignIn">Have an account?</h2>
 
@@ -38,8 +38,8 @@
         </div>
     </div>
 
-    <button ng-click="signUp()" class="btn btn-block sign-green-button" ng-hide="isSignIn">Sign up</button>
-    <button ng-click="signIn()" class="btn btn-block sign-button" ng-show="isSignIn">Sign in</button>
+    <button type="submit" class="btn btn-block sign-green-button" ng-hide="isSignIn">Sign up</button>
+    <button type="submit" class="btn btn-block sign-button" ng-show="isSignIn">Sign in</button>
 
     <div class="sign-alert alert alert-dismissable" ng-show="alert.show">
         <button type="button" class="close" ng-click="alert.show = false;">&times;</button>

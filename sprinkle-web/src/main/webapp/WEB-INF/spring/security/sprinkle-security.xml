@@ -24,7 +24,8 @@
 
         <session-management>
              <!--Limit the number of sessions-->
-            <concurrency-control max-sessions="1" error-if-maximum-exceeded="false"/>
+            <concurrency-control max-sessions="1"
+                                 error-if-maximum-exceeded="true"/>
         </session-management>
 
     </http>

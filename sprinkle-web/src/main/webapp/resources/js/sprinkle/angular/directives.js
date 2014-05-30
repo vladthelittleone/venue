@@ -2,7 +2,6 @@
 
 /* Directives */
 
-
 angular.module('sprinkle.directives', []).
   directive('appVersion', ['version',
         function(version) {

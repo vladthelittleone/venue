@@ -39,7 +39,7 @@ public class AuthenticationController
     public AuthenticationStatus singUp(@RequestBody SignUpRequest a)
     {
         if (userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword()) == null)
-            return new AuthenticationStatus(false, null, false);
+            return new AuthenticationStatus(false, null, "This e-mail is already registered.", false);
 
         return new AuthenticationStatus(false, null, true);
     }
