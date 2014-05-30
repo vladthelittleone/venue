@@ -12,11 +12,18 @@ angular.module('sprinkle.authentication', [])
 .controller('signInCtrl', ['$scope', '$location', '$http', '$authentication',
     function ($scope, $location, $http, $authentication) {
         // Private functions
+        // =============================================================================
         function alertWarning() {
             $scope.alert.change('Invalid e-mail address or password.', true);
             $scope.alert.invalidEmail = true;
             $scope.alert.invalidPassword = true;
             jQuery("#sign-container").shake(3, 7, 400);
+        }
+        // =============================================================================
+
+        if ($authentication.isAuthenticate()){
+            $location.path("/");
+            return;
         }
 
         // Set global model
@@ -64,7 +71,6 @@ angular.module('sprinkle.authentication', [])
  */
 .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$location',
     function ($scope, $authentication, $http, $location) {
-
         // Private functions
         // =============================================================================
         function alertWarning(message, invalidEmail, invalidPassword, invalidFullName) {
@@ -96,6 +102,11 @@ angular.module('sprinkle.authentication', [])
             return true;
         }
         // =============================================================================
+
+        if ($authentication.isAuthenticate()){
+            $location.path("/");
+            return;
+        }
 
         // Set global model
         $scope.isSignIn = $authentication.isSignIn = false;
