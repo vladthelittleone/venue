@@ -11,11 +11,20 @@ public class AuthenticationStatus
     private final boolean signedIn;
     private final boolean success;
     private final String username;
+    private final String message;
+
+    public AuthenticationStatus(boolean signedIn, String username, String message, boolean success) {
+        this.signedIn = signedIn;
+        this.username = username;
+        this.success = success;
+        this.message = message;
+    }
 
     public AuthenticationStatus(boolean signedIn, String username, boolean success) {
         this.signedIn = signedIn;
         this.username = username;
         this.success = success;
+        this.message = "";
     }
 
     public boolean isSignedIn() {
@@ -29,5 +38,10 @@ public class AuthenticationStatus
     public boolean isSuccess()
     {
         return success;
+    }
+
+    public String getMessage()
+    {
+        return message;
     }
 }

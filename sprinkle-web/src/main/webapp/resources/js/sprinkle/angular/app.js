@@ -33,14 +33,15 @@ angular.module('sprinkle', [
             }
         }
     ])
-    .controller('bodyCtrl', ['$scope', '$authentication', '$http',
-        function ($scope, $authentication, $http) {
+    .controller('bodyCtrl', ['$scope', '$authentication', '$http', '$location',
+        function ($scope, $authentication, $http, $location) {
             $scope.auth = $authentication;
 
             $scope.logout = function () {
                 $http.get("/logout").
                     success(function () {
                         $scope.auth.logout();
+                        $location.path("/signin");
                     });
             }
         }

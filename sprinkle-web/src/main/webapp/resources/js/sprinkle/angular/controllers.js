@@ -6,7 +6,7 @@ angular.module('sprinkle.authentication', [])
 
 /**
  * Controller that handling sign in information and events.
- * Send user sign in info on server {@link signIn} and get response.
+ * Send user sign in info on server {@link authenticate} and get response.
  * @controller
  */
 .controller('signInCtrl', ['$scope', '$location', '$http', '$authentication',
@@ -26,7 +26,7 @@ angular.module('sprinkle.authentication', [])
         // Alert information
         $scope.alert = new AuthenticationAlert($scope.sign);
 
-        $scope.signIn = function () {
+        $scope.authenticate = function () {
             if (!$authentication.isValidEmailAddress($scope) || !$scope.sign.password) {
                 alertWarning();
                 return;
@@ -45,7 +45,7 @@ angular.module('sprinkle.authentication', [])
                 success(function (data) {
                     if (data.signedIn) {
                         $authentication.authenticate();
-                        $location.path("/profile");
+                        $location.path("/");
                     } else {
                         alertWarning();
                     }
@@ -104,7 +104,7 @@ angular.module('sprinkle.authentication', [])
         // Alert information
         $scope.alert = new AuthenticationAlert($scope.sign);
 
-        $scope.signUp = function () {
+        $scope.authenticate = function () {
 
             if (!valid()) return;
 
@@ -117,7 +117,7 @@ angular.module('sprinkle.authentication', [])
                     if (data.success) {
                         $location.path("/signin");
                     } else {
-                        alertWarning('This e-mail is already registered.', true, false, false);
+                        alertWarning(data.message, true, false, false);
                     }
                 });
         };
