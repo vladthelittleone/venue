@@ -1,6 +1,8 @@
 package com.sprinkle.web.security.service.handler;
 
+import com.sprinkle.web.security.domain.User;
 import com.sprinkle.web.security.domain.json.AuthenticationStatus;
+import com.sprinkle.web.security.domain.json.ProfileStatus;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -25,7 +27,7 @@ public class SprinkleAuthenticationSuccessHandler implements AuthenticationSucce
                                         Authentication authentication)
             throws ServletException, IOException
     {
-        AuthenticationStatus status = new AuthenticationStatus(authentication.isAuthenticated(), authentication.getName(), true);
+        ProfileStatus status = new ProfileStatus(authentication.isAuthenticated(), authentication.getName(), ((User) authentication.getPrincipal()).getId());
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }

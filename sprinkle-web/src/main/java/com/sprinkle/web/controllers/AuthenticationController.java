@@ -1,12 +1,15 @@
 package com.sprinkle.web.controllers;
 
+import com.sprinkle.web.security.domain.User;
 import com.sprinkle.web.security.domain.json.AuthenticationStatus;
+import com.sprinkle.web.security.domain.json.ProfileStatus;
 import com.sprinkle.web.security.domain.json.SignUpRequest;
 import com.sprinkle.web.security.service.manager.UserManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,16 +35,32 @@ public class AuthenticationController
      * Sign up new user
      *
      * @param a - authentication information, such as username, password, fullname.
-     * @return OK (200) or BAD REQUEST
+     * @return authentication status
      */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
     public AuthenticationStatus singUp(@RequestBody SignUpRequest a)
     {
         if (userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword()) == null)
-            return new AuthenticationStatus(false, null, "This e-mail is already registered.", false);
+            return new AuthenticationStatus(false, null, "This e-mail is already registered", false);
 
         return new AuthenticationStatus(false, null, true);
+    }
+
+    /**
+     * Check user authentication. If not authenticate, then spring security
+     * send error using {@link com.sprinkle.web.security.service.handler.SprinkleAuthenticationEntryPoint}.
+     *
+     * @see {@link com.sprinkle.web.security.service.handler.SprinkleAuthenticationEntryPoint}
+     * @see {@link com.sprinkle.web.security.domain.json.AuthenticationStatus}
+     * @return authentication status
+     */
+    @RequestMapping(value = "/isauthenticate")
+    @ResponseBody
+    public AuthenticationStatus isAuthenticate()
+    {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new ProfileStatus(true, user.getUsername(), user.getId());
     }
 
     @RequestMapping

@@ -8,8 +8,8 @@
         <input ng-model="sign.email" ng-class="{invalid : alert.invalidEmail}" type="email"
                class="form-control input-lg sign-input" placeholder="Email address" required autofocus>
     </div>
-    <div class="form-group" ng-hide="isSignIn" >
-        <input ng-model="sign.fullName"  ng-class="{invalid : alert.invalidFullName}" type="text"
+    <div class="form-group" ng-hide="isSignIn">
+        <input ng-model="sign.fullName" ng-class="{invalid : alert.invalidFullName}" type="text"
                class="form-control input-lg sign-input" placeholder="Full name" required>
     </div>
     <div class="form-group">
@@ -29,8 +29,10 @@
     <div class="row form-group" ng-show="isSignIn">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <span class="button-checkbox">
-                            <button ng-click="sign.switchRememberMe()" type="button" class="btn" data-color="info">Remember-me</button>
-                            <input type="checkbox" class="hidden"  value="1">
+                            <button ng-click="sign.switchRememberMe()" type="button" class="btn" data-color="info">
+                                Remember-me
+                            </button>
+                            <input type="checkbox" class="hidden" value="1">
             </span>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 text-center" style="font-size: 0.9em;">

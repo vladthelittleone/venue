@@ -6,7 +6,8 @@ angular.module('sprinkle', [
     'sprinkle.filters',
     'sprinkle.services',
     'sprinkle.directives',
-    'sprinkle.authentication'
+    'sprinkle.authentication',
+    'ui.bootstrap'
 ]).
     config(['$routeProvider', '$locationProvider',
         function ($routeProvider, $locationProvider) {
@@ -20,29 +21,38 @@ angular.module('sprinkle', [
                 controller: 'signUpCtrl'
             });
 
+            $routeProvider.when('/id=:profileId', {
+                templateUrl: 'profile'
+            });
+
             $routeProvider.otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode(true);
             $locationProvider.hashPrefix('!');
         }
     ])
-    .run(['$location', '$authentication',
-        function ($location, $authentication) {
-            if (!$authentication.isAuthenticate()){
-                $location.path("/signin");
-            }
-        }
-    ])
-    .controller('bodyCtrl', ['$scope', '$authentication', '$http', '$location',
-        function ($scope, $authentication, $http, $location) {
-            $scope.auth = $authentication;
-
-            $scope.logout = function () {
-                $http.get("/logout").
-                    success(function () {
-                        $scope.auth.logout();
-                        $location.path("/signin");
+    .run(['$location', '$authentication', '$rootScope', '$http',
+        function ($location, $authentication, $rootScope, $http) {
+            /**
+             * Check authentication. If authenticate, then send username to authentication service.
+             * Else logout and clear local storage.
+             */
+            $rootScope.$on('$routeChangeSuccess', function () {
+                $http.get("/authentication/isauthenticate").
+                    success(function (data) {
+                        if (data.signedIn) {
+                            $authentication.authenticate(data);
+                        } else {
+                            $authentication.logout();
+                        }
                     });
+            });
+
+            /**
+             * Redirect on run.
+             */
+            if (!$authentication.isAuthenticate()) {
+                $location.path("/signin");
             }
         }
     ]);
