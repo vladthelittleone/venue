@@ -13,6 +13,9 @@ angular.module('sprinkle.services', [])
             getUsername: function () {
                 return localStorage.getItem('username');
             },
+            getId: function () {
+                return localStorage.getItem('id');
+            },
             isAuthenticate: function () {
                 return localStorage.getItem('isAuthenticate') === 'true';
             },
@@ -35,5 +38,21 @@ angular.module('sprinkle.services', [])
                 return s != '';
             }
         };
-    }
-);
+    })
+    .factory('$redirect', ['$location', '$authentication',
+    function ($location, $authentication) {
+        return {
+            toProfile: function () {
+                $location.path("/id" + $authentication.getId());
+            },
+            toProfileWithId: function (id) {
+                $location.path("/id" + id);
+            },
+            toSignIn: function () {
+                $location.path("/signin");
+            },
+            toSignUp: function () {
+                $location.path("/signup");
+            }
+        };
+    }]);

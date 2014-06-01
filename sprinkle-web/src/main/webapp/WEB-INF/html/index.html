@@ -62,14 +62,38 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="ajax-link" href="/profile" ng-show="auth.isAuthenticate()"><strong
-                        ng-bind-template="{{auth.getUsername()}}"></strong></a></li>
-                <li><a class="ajax-link" href="/new" tooltip-placement="bottom" tooltip="Profile"
-                       ng-show="auth.isAuthenticate()"><span class="glyphicon glyphicon-user"></span></a></li>
-                <li><a class="ajax-link" href="/new" tooltip-placement="bottom" tooltip="New..."
-                       ng-show="auth.isAuthenticate()"><span class="glyphicon glyphicon-plus"></span></a></li>
-                <li><a class="ajax-link" href="/logout" tooltip-placement="bottom" tooltip="Logout" ng-click="logout()"
-                       ng-show="auth.isAuthenticate()"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li>
+                    <a class="ajax-link" href="/profile" ng-show="auth.isAuthenticate()">
+                        <strong ng-bind-template="{{auth.getUsername()}}"></strong>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="ajax-link" href="/new" tooltip-placement="bottom" tooltip="Profile"
+                       ng-show="auth.isAuthenticate()">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                </li>
+
+                <li class="dropdown" on-toggle="toggled(open)">
+                    <a class="dropdown-toggle ajax-link" href="/new" tooltip-placement="bottom" tooltip="New..."
+                       ng-show="auth.isAuthenticate()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="ajax-link" href="/logout" tooltip-placement="bottom" tooltip="Logout" ng-click="logout()"
+                       ng-show="auth.isAuthenticate()">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                    </a>
+                </li>
                 <li><a class="ajax-link" ng-bind-template="Forgot a password?" href="/fpassword"
                        ng-hide="auth.isAuthenticate() ||  !auth.isSignIn"></a></li>
                 <li><a class="ajax-link" ng-bind-template="Sign in" href="/signin"

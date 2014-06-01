@@ -21,7 +21,7 @@ angular.module('sprinkle', [
                 controller: 'signUpCtrl'
             });
 
-            $routeProvider.when('/id=:profileId', {
+            $routeProvider.when('/id:profileId', {
                 templateUrl: 'profile'
             });
 
@@ -31,8 +31,8 @@ angular.module('sprinkle', [
             $locationProvider.hashPrefix('!');
         }
     ])
-    .run(['$location', '$authentication', '$rootScope', '$http',
-        function ($location, $authentication, $rootScope, $http) {
+    .run(['$authentication', '$rootScope', '$http', '$redirect',
+        function ($authentication, $rootScope, $http, $redirect) {
             /**
              * Check authentication. If authenticate, then send username to authentication service.
              * Else logout and clear local storage.
@@ -52,7 +52,9 @@ angular.module('sprinkle', [
              * Redirect on run.
              */
             if (!$authentication.isAuthenticate()) {
-                $location.path("/signin");
+                $redirect.toSignIn();
+            } else {
+                $redirect.toProfile();
             }
         }
     ]);

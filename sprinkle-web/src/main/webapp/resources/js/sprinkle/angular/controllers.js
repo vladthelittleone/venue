@@ -9,8 +9,8 @@ angular.module('sprinkle.authentication', [])
      * Send user sign in info on server {@link authenticate} and get response.
      * @controller
      */
-    .controller('signInCtrl', ['$scope', '$location', '$http', '$authentication',
-        function ($scope, $location, $http, $authentication) {
+    .controller('signInCtrl', ['$scope', '$redirect', '$http', '$authentication',
+        function ($scope, $redirect, $http, $authentication) {
             // Private functions
             // =============================================================================
             function alertWarning(msg) {
@@ -22,17 +22,7 @@ angular.module('sprinkle.authentication', [])
 
             // =============================================================================
 
-            if ($authentication.isAuthenticate()) {
-                $location.path("/profile");
-                return;
-            }
-
-            // Set global model
-            $scope.isSignIn = $authentication.isSignIn = true;
-            // Authentication information
-            $scope.sign = new Authentication();
-            // Alert information
-            $scope.alert = new AuthenticationAlert($scope.sign);
+            initialize(true, $scope, $authentication, $redirect);
 
             $scope.authenticate = function () {
                 if (!$authentication.isValidEmailAddress($scope) || !$scope.sign.password) {
@@ -50,11 +40,11 @@ angular.module('sprinkle.authentication', [])
                 };
 
                 $http.post("j_spring_security_check", payload, config).
-                    success(function (data) {
-                        if (data.signedIn) {
-                            $location.path("/id=" + data.id);
+                    success(function (profileStatus) {
+                        if (profileStatus.signedIn) {
+                            $redirect.toProfileWithId(profileStatus.id);
                         } else {
-                            alertWarning(data.message);
+                            alertWarning(profileStatus.message);
                         }
                     });
             };
@@ -69,8 +59,8 @@ angular.module('sprinkle.authentication', [])
      * Change authentication service parameters, such like isAuthenticate variable.
      * @controller
      */
-    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$location',
-        function ($scope, $authentication, $http, $location) {
+    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$redirect',
+        function ($scope, $authentication, $http, $redirect) {
             // Private functions
             // =============================================================================
             function alertWarning(message, invalidEmail, invalidPassword, invalidFullName) {
@@ -104,17 +94,7 @@ angular.module('sprinkle.authentication', [])
 
             // =============================================================================
 
-            if ($authentication.isAuthenticate()) {
-                $location.path("/profile");
-                return;
-            }
-
-            // Set global model
-            $scope.isSignIn = $authentication.isSignIn = false;
-            // Authentication information
-            $scope.sign = new Authentication();
-            // Alert information
-            $scope.alert = new AuthenticationAlert($scope.sign);
+            initialize(false, $scope, $authentication, $redirect);
 
             $scope.authenticate = function () {
 
@@ -125,11 +105,11 @@ angular.module('sprinkle.authentication', [])
                         username: $scope.sign.email,
                         fullname: $scope.sign.fullName,
                         password: $scope.sign.password
-                    }).success(function (data) {
-                        if (data.success) {
-                            $location.path("/signin");
+                    }).success(function (authStatus) {
+                        if (authStatus.success) {
+                            $redirect.toSignIn();
                         } else {
-                            alertWarning(data.message, true, false, false);
+                            alertWarning(authStatus.message, true, false, false);
                         }
                     });
             };
@@ -139,15 +119,15 @@ angular.module('sprinkle.authentication', [])
     /**
      * Main controller that handle body content.
      */
-    .controller('bodyCtrl', ['$scope', '$authentication', '$http', '$location',
-        function ($scope, $authentication, $http, $location) {
+    .controller('bodyCtrl', ['$scope', '$authentication', '$http', '$redirect',
+        function ($scope, $authentication, $http, $redirect) {
             $scope.auth = $authentication;
 
             $scope.logout = function () {
                 $http.get("/logout").
                     success(function () {
                         $scope.auth.logout();
-                        $location.path("/signin");
+                        $redirect.toSignIn();
                     });
             }
         }
@@ -190,4 +170,18 @@ function Authentication() {
         this.passwordCheck = '';
         this.fullName = '';
     };
+}
+
+function initialize(isSignIn, $scope, $authentication, $redirect) {
+    if ($authentication.isAuthenticate()) {
+        $redirect.toProfile();
+        return;
+    }
+
+    // Set global model
+    $scope.isSignIn = $authentication.isSignIn = isSignIn;
+    // Authentication information
+    $scope.sign = new Authentication();
+    // Alert information
+    $scope.alert = new AuthenticationAlert($scope.sign);
 }
