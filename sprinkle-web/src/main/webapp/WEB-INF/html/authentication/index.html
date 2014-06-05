@@ -1,50 +1,52 @@
-<form class="sign" role="form" novalidate ng-submit="authenticate()">
+<div id="authentication" class="container">
+    <form class="content" role="form" novalidate ng-submit="authenticate()">
 
-    <h2 class="sign-heading" ng-show="isSignIn">Have an account?</h2>
+        <h2 class="content-heading" ng-show="isSignIn">Have an account?</h2>
 
-    <h2 class="sign-heading" ng-hide="isSignIn">New to Sprinkle?</h2>
+        <h2 class="content-heading" ng-hide="isSignIn">New to Sprinkle?</h2>
 
-    <div class="form-group">
-        <input ng-model="sign.email" ng-class="{invalid : alert.invalidEmail}" type="email"
-               class="form-control input-lg sign-input" placeholder="Email address" required autofocus>
-    </div>
-    <div class="form-group" ng-hide="isSignIn">
-        <input ng-model="sign.fullName" ng-class="{invalid : alert.invalidFullName}" type="text"
-               class="form-control input-lg sign-input" placeholder="Full name" required>
-    </div>
-    <div class="form-group">
-        <input ng-model="sign.password" ng-class="{invalid : alert.invalidPassword}" type="password"
-               class="form-control input-lg sign-input" placeholder="Password" required>
-    </div>
-    <div class="form-group" ng-hide="isSignIn">
-        <input ng-model="sign.passwordCheck" ng-class="{invalid : alert.invalidPassword}" type="password"
-               class="form-control input-lg sign-input" placeholder="Re-enter password" required>
-    </div>
-    <div class="form-group" ng-hide="isSignIn">
-        By clicking <strong class="label label-primary">Sign up</strong>,
-        you agree to the <a href="#" data-toggle="modal" data-target="#target">
-        Terms and Conditions</a> set out by this site.
-    </div>
-
-    <div class="row form-group" ng-show="isSignIn">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <span class="button-checkbox">
-                            <button ng-click="sign.switchRememberMe()" type="button" class="btn" data-color="info">
-                                Remember-me
-                            </button>
-                            <input type="checkbox" class="hidden" value="1">
-            </span>
+        <div class="form-group">
+            <input ng-model="sign.email" ng-class="{invalid : alert.invalidEmail}" type="email"
+                   class="form-control input-lg content-input" placeholder="Email address" required autofocus>
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 text-center" style="font-size: 0.9em;">
-            New to Sprinkle? <br><a class="ajax-link" href="/signup">Sign up now</a>
+        <div class="form-group" ng-hide="isSignIn">
+            <input ng-model="sign.fullName" ng-class="{invalid : alert.invalidFullName}" type="text"
+                   class="form-control input-lg content-input" placeholder="Full name" required>
         </div>
-    </div>
+        <div class="form-group">
+            <input ng-model="sign.password" ng-class="{invalid : alert.invalidPassword}" type="password"
+                   class="form-control input-lg content-input" placeholder="Password" required>
+        </div>
+        <div class="form-group" ng-hide="isSignIn">
+            <input ng-model="sign.passwordCheck" ng-class="{invalid : alert.invalidPassword}" type="password"
+                   class="form-control input-lg content-input" placeholder="Re-enter password" required>
+        </div>
+        <div class="form-group" ng-hide="isSignIn">
+            By clicking <strong class="label label-primary">Sign up</strong>,
+            you agree to the <a href="#" data-toggle="modal" data-target="#target">
+            Terms and Conditions</a> set out by this site.
+        </div>
 
-    <button type="submit" class="btn btn-block sign-green-button" ng-hide="isSignIn">Sign up</button>
-    <button type="submit" class="btn btn-block sign-button" ng-show="isSignIn">Sign in</button>
+        <div class="row form-group" ng-show="isSignIn">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <span class="button-checkbox">
+                                <button ng-click="sign.switchRememberMe()" type="button" class="btn" data-color="info">
+                                    Remember-me
+                                </button>
+                                <input type="checkbox" class="hidden" value="1">
+                </span>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 text-center" style="font-size: 0.9em;">
+                New to Sprinkle? <br><a class="ajax-link" href="/signup">Sign up now</a>
+            </div>
+        </div>
 
-    <div class="sign-alert alert alert-dismissable" ng-show="alert.show">
-        <button type="button" class="close" ng-click="alert.show = false;">&times;</button>
-        <p><strong>Warning!</strong> {{alert.message}}</p>
-    </div>
-</form>
+        <button type="submit" class="btn btn-block content-green-button" ng-hide="isSignIn">Sign up</button>
+        <button type="submit" class="btn btn-block content-button" ng-show="isSignIn">Sign in</button>
+
+        <div class="content-alert alert alert-dismissable" ng-show="alert.show">
+            <button type="button" class="close" ng-click="alert.show = false;">&times;</button>
+            <p><strong>Warning!</strong> {{alert.message}}</p>
+        </div>
+    </form>
+</div>
