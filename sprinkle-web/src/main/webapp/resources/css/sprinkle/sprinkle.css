@@ -10,6 +10,12 @@ body {
     width: 100%;
 }
 
-#sign-container {
-    margin: 50px;
+#authentication {
+    margin-top: 50px;
+}
+
+#profile {
+    margin-right: -60px;
+    margin-top: 10px;
+    float: right;
 }
