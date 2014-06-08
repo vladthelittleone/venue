@@ -2,13 +2,16 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('sprinkle', [
-    'ngRoute',
-    'sprinkle.filters',
-    'sprinkle.services',
-    'sprinkle.directives',
-    'sprinkle.authentication',
-    'ui.bootstrap'
-]).
+        'ngRoute',
+        'sprinkle.filters',
+        'sprinkle.services',
+        'sprinkle.directives',
+        'sprinkle.controllers',
+        'ui.bootstrap'
+    ]).
+    /**
+     * Route provider configuration.
+     */
     config(['$routeProvider', '$locationProvider',
         function ($routeProvider, $locationProvider) {
             $routeProvider.when('/signin', {
@@ -21,8 +24,12 @@ angular.module('sprinkle', [
                 controller: 'signUpCtrl'
             });
 
+            /**
+             * Rest like link, that contains id of user.
+             */
             $routeProvider.when('/id:profileId', {
-                templateUrl: 'profile'
+                templateUrl: 'profile',
+                controller: 'profileCtrl'
             });
 
             $routeProvider.otherwise({redirectTo: '/'});
@@ -31,6 +38,10 @@ angular.module('sprinkle', [
             $locationProvider.hashPrefix('!');
         }
     ])
+
+    /**
+     * Block that run when application start.
+     */
     .run(['$authentication', '$rootScope', '$http', '$redirect',
         function ($authentication, $rootScope, $http, $redirect) {
             /**
@@ -50,6 +61,7 @@ angular.module('sprinkle', [
 
             /**
              * Redirect on run.
+             * If user isn't authenticate, redirect to sign in page, else to profile.
              */
             if (!$authentication.isAuthenticate()) {
                 $redirect.toSignIn();

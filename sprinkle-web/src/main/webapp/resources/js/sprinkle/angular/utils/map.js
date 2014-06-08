@@ -1,20 +1,8 @@
 /**
  * Created by vladthelittleone on 29.04.14.
+ * Class responding for map configurations.
+ * @constructor
  */
-
-$(document).ready(function () {
-    // --------------- LOAD MAP
-    var sprinkleMap = new SprinkleMap();
-    var map = sprinkleMap.getMap();
-
-    // Set setting panel to bottom left position
-    map.zoomControl.setPosition('bottomleft');
-
-    map.on('click', function(e) {
-        sprinkleMap.setMarker(e.latlng.lng, e.latlng.lat, "Bicycle", "Friends, let's go cycling!", "large", "#ff4444", "bicycle");
-    });
-});
-
 function SprinkleMap() {
     // Initialize mapbox
     var map = L.mapbox.map('map', 'examples.map-i86nkdio')
@@ -67,3 +55,25 @@ function SprinkleMap() {
         });
     }
 }
+
+//$(document).ready(function () {
+//    // Load map
+//    var sprinkleMap = new SprinkleMap();
+//    var map = sprinkleMap.getMap();
+//
+//    // Set setting panel to bottom left position
+//    map.zoomControl.setPosition('bottomleft');
+//
+//    map.on('click', function(e) {
+//        var elem = angular.element(document);
+//        // Profile service.
+//        var service = elem.injector().get('$profile');
+//        if (service.isEventCreationOn()) {
+//            service.eventCreationOn(false);
+//            service.isEventPlaced = true;
+//            // Apply all changes.
+//            elem.scope().$apply();
+//            sprinkleMap.setMarker(e.latlng.lng, e.latlng.lat, "Bicycle", "Friends, let's go cycling!", "large", "#ff4444", "circle-stroked");
+//        }
+//    });
+//});

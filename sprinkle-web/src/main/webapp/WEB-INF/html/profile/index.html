@@ -1,4 +1,21 @@
-<div class="container">
-    <div id="profile" class="content">
-    </div>
-</div>>
+<!--<div class="container">-->
+    <!--<div id="profile" class="content">-->
+    <!--</div>-->
+<!--</div>-->
+
+<!-- New event container-->
+<div class="container content-margin" ng-show="profileService.isEventPlaced">
+    <form class="content content-large" role="form" novalidate> <!--ng-submit=""-->
+
+        <h2 class="content-heading">New event</h2>
+
+        <div class="form-group">
+            <input type="text" class="form-control input-lg content-input" placeholder="Event name" required autofocus>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control input-lg content-input" rows="10" placeholder="Description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-block content-normal-button">Create</button>
+    </form>
+</div>

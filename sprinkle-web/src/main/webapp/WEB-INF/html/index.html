@@ -43,7 +43,7 @@
     <!--TODO bower & grunt -->
 </head>
 
-<body ng-controller="bodyCtrl">
+<body ng-controller="mainCtrl">
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -64,43 +64,46 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="ajax-link" href="/profile" ng-show="auth.isAuthenticate()">
-                        <strong ng-bind-template="{{auth.getUsername()}}"></strong>
+                    <a href="/profile" ng-show="authenticationService.isAuthenticate()">
+                        <strong ng-bind-template="{{authenticationService.getUsername()}}"></strong>
                     </a>
                 </li>
 
                 <li>
-                    <a class="ajax-link" href="/new" tooltip-placement="bottom" tooltip="Profile"
-                       ng-show="auth.isAuthenticate()">
+                    <a href="/profile" tooltip-popup-delay="500" tooltip-placement="bottom" tooltip="Profile"
+                       ng-show="authenticationService.isAuthenticate()">
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
                 </li>
 
-                <li class="dropdown" on-toggle="toggled(open)">
-                    <a class="dropdown-toggle ajax-link" href="/new" tooltip-placement="bottom" tooltip="New..."
-                       ng-show="auth.isAuthenticate()">
+                <li>
+                    <a href="" tooltip-popup-delay="500" tooltip-placement="bottom" tooltip="New event"
+                       ng-show="authenticationService.isAuthenticate()" ng-click="profileService.eventCreationOn(true)">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
                 </li>
                 <li>
-                    <a class="ajax-link" href="/logout" tooltip-placement="bottom" tooltip="Logout" ng-click="logout()"
-                       ng-show="auth.isAuthenticate()">
+                    <a href="/logout" tooltip-popup-delay="500" tooltip-placement="bottom" tooltip="Logout"
+                       ng-click="logout()"
+                       ng-show="authenticationService.isAuthenticate()">
                         <span class="glyphicon glyphicon-log-out"></span>
                     </a>
                 </li>
-                <li><a class="ajax-link" ng-bind-template="Forgot a password?" href="/fpassword"
-                       ng-hide="auth.isAuthenticate() ||  !auth.isSignIn"></a></li>
-                <li><a class="ajax-link" ng-bind-template="Sign in" href="/signin"
-                       ng-hide="auth.isAuthenticate() ||   auth.isSignIn"></a></li>
-                <li><a class="ajax-link" ng-bind-template="Sign up" href="/signup"
-                       ng-hide="auth.isAuthenticate() ||  !auth.isSignIn"></a></li>
+                <li>
+                    <a ng-bind-template="Forgot a password?" href="/fpassword"
+                       ng-hide="authenticationService.isAuthenticate() || !authenticationService.isSignIn">
+                    </a>
+                </li>
+                <li>
+                    <a ng-bind-template="Sign in" href="/signin"
+                       ng-hide="authenticationService.isAuthenticate() ||  authenticationService.isSignIn">
+                    </a>
+                </li>
+                <li>
+                    <a ng-bind-template="Sign up" href="/signup"
+                       ng-hide="authenticationService.isAuthenticate() || !authenticationService.isSignIn">
+                    </a>
+                </li>
             </ul>
         </div>
         <!--/.navbar-collapse -->
@@ -108,10 +111,9 @@
 </div>
 
 <!-- Map Box -->
-<div id='map'></div>
+<div id='map' ng-controller="mapCtrl"></div>
 
 <div ng-view></div>
-<!-- /container -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -125,16 +127,29 @@
 
 <!-- Angular JS ui -->
 <script src='resources/js/bootstrap/ui-bootstrap-tpls-0.11.0.min.js'></script>
+<script src='resources/js/sprinkle/sprinkle-ui.js'></script>
 
-<!-- Custom map JavaScriot -->
-<script src='resources/js/sprinkle/sprinkle-map.js'></script>
+<!-- JavaScript utils -->
+<script src="resources/js/sprinkle/angular/utils/authentication.js"></script>
+<script src='resources/js/sprinkle/angular/utils/map.js'></script>
 
 <!-- Custom JavaScript -->
-<script src='resources/js/sprinkle/sprinkle-ui.js'></script>
 <script src="resources/js/sprinkle/angular/app.js"></script>
-<script src="resources/js/sprinkle/angular/services.js"></script>
+
+<!-- Services -->
+<script src="resources/js/sprinkle/angular/services/authentication.js"></script>
+<script src="resources/js/sprinkle/angular/services/profile.js"></script>
+<script src="resources/js/sprinkle/angular/services/redirect.js"></script>
+
+<!-- Directives -->
 <script src="resources/js/sprinkle/angular/directives.js"></script>
-<script src="resources/js/sprinkle/angular/controllers.js"></script>
+
+<!-- Controllers-->
+<script src="resources/js/sprinkle/angular/controllers/authentication.js"></script>
+<script src="resources/js/sprinkle/angular/controllers/main.js"></script>
+<script src="resources/js/sprinkle/angular/controllers/profile.js"></script>
+<script src="resources/js/sprinkle/angular/controllers/map.js"></script>
+
 <script src="resources/js/sprinkle/angular/filters.js"></script>
 
 </body>
