@@ -1,0 +1,13 @@
+<div id="map-shake" class="container map-content">
+    <form role="form" novalidate> <!--ng-submit=""-->
+        <div class="form-group">
+            <input ng-class="{invalid : newEvent.error}" type="text" ng-model="newEvent.name"
+                   class="form-control input-lg content-input" placeholder="Event name" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <textarea ng-class="{invalid : newEvent.error}" class="form-control input-lg content-input" ng-model="newEvent.description"
+                      rows="10" placeholder="Description"></textarea>
+        </div>
+    </form>
+</div>

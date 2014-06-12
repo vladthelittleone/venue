@@ -20,6 +20,9 @@ angular.module('sprinkle.services')
                 },
                 toSignUp: function () {
                     $location.path("/signup");
+                },
+                toNewEvent: function () {
+                    $location.path("/new_event");
                 }
             };
     }]);

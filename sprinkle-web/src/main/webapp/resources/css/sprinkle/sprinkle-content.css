@@ -1,3 +1,31 @@
+textarea {
+    resize: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.content-margin-top-50 {
+    margin-top: 50px;
+}
+
+.map-content {
+    padding: 33px 25px 29px;
+    position: relative;
+    width: 30%;
+    margin: 0;
+    float: right;
+}
+
+.map-content input {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.map-content textarea {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
 .content input[type="email"] {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
@@ -9,12 +37,6 @@
 }
 
 .content input[type="password"] {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-.content textarea {
-    resize: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
@@ -31,18 +53,9 @@
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
 
-.content-large {
-    width: 40%;
-    height:50%;
-}
-
 .content:after {
     bottom: 3px;
     border-color: #dcdcdc;
-}
-
-.content-margin {
-    margin-top: 50px;
 }
 
 .content:before, .content:after {

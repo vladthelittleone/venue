@@ -29,7 +29,12 @@ angular.module('sprinkle', [
              */
             $routeProvider.when('/id:profileId', {
                 templateUrl: 'profile',
-                controller: 'profileCtrl'
+                controller: 'mainCtrl'
+            });
+
+            $routeProvider.when('/new_event', {
+                templateUrl: 'newevent',
+                controller: 'mainCtrl'
             });
 
             $routeProvider.otherwise({redirectTo: '/'});

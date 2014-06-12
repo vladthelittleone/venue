@@ -63,12 +63,6 @@ public class AuthenticationController
         return new ProfileStatus(true, user.getUsername(), user.getId());
     }
 
-    @RequestMapping
-    public String getAuthenticationPage()
-    {
-        return "/authentication/index";
-    }
-
     public void setUserManager(UserManager userManager)
     {
         this.userManager = userManager;

@@ -13,9 +13,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/profile")
 public class ProfileController
 {
-    @RequestMapping
-    public String getProfilePage()
-    {
-        return "/profile/index";
-    }
+
 }

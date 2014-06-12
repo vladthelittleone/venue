@@ -27,4 +27,22 @@ public class WebController
         logger.debug("Get index page");
         return "index";
     }
+
+    @RequestMapping ("/profile")
+    public String getProfilePage()
+    {
+        return "/profile/index";
+    }
+
+    @RequestMapping ("/newevent")
+    public String getNewEventPage() {
+        return "/profile/new/event/index";
+    }
+
+    @RequestMapping ("/authentication")
+    public String getAuthenticationPage()
+    {
+        return "/authentication/index";
+    }
+
 }

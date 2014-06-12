@@ -43,7 +43,7 @@
     <!--TODO bower & grunt -->
 </head>
 
-<body ng-controller="mainCtrl">
+<body ng-controller="navigateCtrl">
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -54,15 +54,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Sprinkle</a>
+            <a class="navbar-brand" href="/">Sprinkle</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+
+                <!-- profile -->
+
                 <li>
                     <a href="/profile" ng-show="authenticationService.isAuthenticate()">
                         <strong ng-bind-template="{{authenticationService.getUsername()}}"></strong>
@@ -77,8 +80,8 @@
                 </li>
 
                 <li>
-                    <a href="" tooltip-popup-delay="500" tooltip-placement="bottom" tooltip="New event"
-                       ng-show="authenticationService.isAuthenticate()" ng-click="profileService.eventCreationOn(true)">
+                    <a href="/new_event" tooltip-popup-delay="500" tooltip-placement="bottom" tooltip="New event"
+                       ng-show="authenticationService.isAuthenticate()" ng-click="mapService.setEventCreationOn(true)">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </li>
@@ -89,6 +92,9 @@
                         <span class="glyphicon glyphicon-log-out"></span>
                     </a>
                 </li>
+
+                <!-- end profile -->
+
                 <li>
                     <a ng-bind-template="Forgot a password?" href="/fpassword"
                        ng-hide="authenticationService.isAuthenticate() || !authenticationService.isSignIn">
@@ -111,7 +117,7 @@
 </div>
 
 <!-- Map Box -->
-<div id='map' ng-controller="mapCtrl"></div>
+<div id="map"></div>
 
 <div ng-view></div>
 
@@ -138,7 +144,7 @@
 
 <!-- Services -->
 <script src="resources/js/sprinkle/angular/services/authentication.js"></script>
-<script src="resources/js/sprinkle/angular/services/profile.js"></script>
+<script src="resources/js/sprinkle/angular/services/map.js"></script>
 <script src="resources/js/sprinkle/angular/services/redirect.js"></script>
 
 <!-- Directives -->
@@ -147,8 +153,7 @@
 <!-- Controllers-->
 <script src="resources/js/sprinkle/angular/controllers/authentication.js"></script>
 <script src="resources/js/sprinkle/angular/controllers/main.js"></script>
-<script src="resources/js/sprinkle/angular/controllers/profile.js"></script>
-<script src="resources/js/sprinkle/angular/controllers/map.js"></script>
+<script src="resources/js/sprinkle/angular/controllers/navigate.js"></script>
 
 <script src="resources/js/sprinkle/angular/filters.js"></script>
 

@@ -4,24 +4,49 @@
 
 angular.module('sprinkle.controllers')
     /**
-     * Main controller that handle body content.
+     * Main controller that handle information, events related
+     * with profile configurations and map configurations.
      * @controller
      */
-    .controller('mainCtrl', ['$scope', '$authentication', '$http', '$redirect', '$profile',
-        function ($scope, $authentication, $http, $redirect, $profile) {
+    .controller('mainCtrl', ['$scope', '$map', '$authentication', '$redirect',
+        function ($scope, $map, $authentication, $redirect) {
+            $scope.mapService = $map;
             $scope.authenticationService = $authentication;
-            $scope.profileService = $profile;
+
+            var sprinkleMap = $map.getSprinkleMap();
+
+            // Information form event creation form
+            $scope.newEvent = {
+                name: "",
+                description: "",
+                error: false
+            };
 
             /**
-             * Function for logout button,
-             * clear localStorage and logout from server.
+             * Handle click on map.
              */
-            $scope.logout = function () {
-                $http.get("/logout").
-                    success(function () {
-                        $scope.authenticationService.logout();
-                        $redirect.toSignIn();
+            sprinkleMap.getMap().on('click', function(e) {
+                var service = $scope.mapService;
+
+                // Check event creation on
+                if (service.isEventCreationOn()) {
+                    $scope.$apply(function () {
+                        // Validate
+                        if ($scope.newEvent.name == "" || $scope.newEvent.description == "") {
+                            $scope.newEvent.error = true;
+                            jQuery("#map-shake").shake(3, 7, 400);
+                            return;
+                        }
+                        // Set event creation off
+                        service.isEventCreationOn(false);
+
+                        // Redirect to profile
+                        $redirect.toProfile();
+
+                        // Apply all changes.
+                        sprinkleMap.setMarker(e.latlng.lng, e.latlng.lat, $scope.newEvent.name, $scope.newEvent.description, "large", "#ff4444", "circle-stroked");
                     });
-            }
+                }
+            });
         }
     ]);
