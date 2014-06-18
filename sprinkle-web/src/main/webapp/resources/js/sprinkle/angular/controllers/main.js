@@ -22,6 +22,26 @@ angular.module('sprinkle.controllers')
                 error: false
             };
 
+
+            $scope.eventTypes = {
+                sport: {
+                    name: "Sport",
+                    color: "#FFFFF"
+                },
+                science: {
+                    name: "Science",
+                    color: "#FFFFF"
+                },
+                friendship: {
+                    name: "Friendship",
+                    color: "#FFFFF"
+                },
+                music: {
+                    name: "Music",
+                    color: "#FFFFF"
+                }
+            };
+
             /**
              * Handle click on map.
              */
