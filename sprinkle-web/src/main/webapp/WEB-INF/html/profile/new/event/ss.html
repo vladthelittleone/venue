@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="sprinkle">
+<head>
+    <meta charset="utf-8">
+
+    <!--  Allows us to choose what version of Internet Explorer the page should be rendered as !-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- For mobile browsers !-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sprinkle</title>
+    <!-- Prevent the Angular html template from being briefly displayed by the browser while application is loading -->
+    <style>[ng-cloak] {
+        display: none;
+    }</style>
+
+    <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../../../../resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Mapbox core css -->
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet'/>
+
+    <!-- Custom styles for this template -->
+    <link href="../../../../../resources/css/sprinkle/sprinkle.css" rel="stylesheet">
+    <link href="../../../../../resources/css/sprinkle/sprinkle-content.css" rel="stylesheet">
+
+
+    <!-- Mapbox core JavaScript
+    ================================================== -->
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--TODO bower & grunt -->
+</head>
+
+<body ng-controller="navigateCtrl">
+<div class="map-container-back"></div>
+<div id="map-shake" class="container map-container">
+    <form role="form" novalidate> <!--ng-submit=""-->
+        <div>
+            <input ng-class="{invalid : newEvent.error}" type="text" ng-model="newEvent.name"
+                   class="form-control input-lg content-input" placeholder="Event name" required autofocus>
+        </div>
+
+        <div class="btn-group btn-group-justified">
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle nw-event-btn" data-toggle="dropdown">
+                    {{getSelectedType()}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="type in eventTypes">
+                        <a href="" ng-click="setTypeOfNewEvent(type)">{{type.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn nw-event-btn" ng-click="closeEventCreation()"> Close
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <textarea ng-class="{invalid : newEvent.error}" class="form-control input-lg content-input" ng-model="newEvent.description"
+                      rows="10" placeholder="Description"></textarea>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../../../../resources/js/jquery/jquery.min.js"></script>
+<script src="../../../../../resources/js/bootstrap/bootstrap.min.js"></script>
+
+</body>
+</html>

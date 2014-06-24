@@ -21,8 +21,7 @@ angular.module('sprinkle.controllers')
             $scope.newEvent = {
                 name: "",
                 description: "",
-                type: null,
-                error: false
+                type: null
             };
 
             /**
@@ -64,6 +63,20 @@ angular.module('sprinkle.controllers')
             };
 
             /**
+             * Return color of event marker.
+             * If type equals null, then return "black".
+             * @returns {string}
+             */
+            $scope.getColor = function () {
+                var t = $scope.newEvent.type;
+                if (t != null) {
+                    return t.color;
+                } else {
+                    return "#999999";
+                }
+            };
+
+            /**
              * Handle click on map.
              */
             sprinkleMap.getMap().on('click', function (e) {
@@ -76,7 +89,6 @@ angular.module('sprinkle.controllers')
                         if ($scope.newEvent.name == ""
                             || $scope.newEvent.description == ""
                             || $scope.newEvent.type == null) {
-                            $scope.newEvent.error = true;
                             jQuery("#map-shake").shake(3, 7, 400);
                             return;
                         }

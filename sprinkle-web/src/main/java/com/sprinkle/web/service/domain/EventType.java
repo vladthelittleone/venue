@@ -19,7 +19,7 @@ import java.io.IOException;
 @JsonSerialize(using = EventType.Serializer.class)
 public enum EventType
 {
-    Music("#4444ff", "music"),
+    Music("#0097AC", "music"),
     Sport("#6eba4f", "soccer"),
     Science("#ff881a", "college"),
     Friendship("#ff4444", "heart");

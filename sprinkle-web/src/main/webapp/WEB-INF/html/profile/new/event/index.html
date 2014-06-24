@@ -1,14 +1,15 @@
 <div class="map-container-back"></div>
 <div id="map-shake" class="container map-container">
     <form role="form" novalidate> <!--ng-submit=""-->
-        <div class="form-group">
-            <input ng-class="{invalid : newEvent.error}" type="text" ng-model="newEvent.name"
-                   class="form-control input-lg content-input" placeholder="Event name" required autofocus>
+        <div>
+            <input type="text" ng-model="newEvent.name"
+                   class="form-control input-lg content-input nw-event-input" placeholder="Event name" required autofocus>
         </div>
 
-        <div class="form-group btn-group btn-group-justified">
+        <div class="btn-group btn-group-justified">
             <div class="btn-group">
-                <button type="button" class="btn content-sm-btn content-sm-btn-grn dropdown-toggle" data-toggle="dropdown">
+                <button type="button" ng-style="{background : getColor()}"
+                        class="btn dropdown-toggle nw-event-btn nw-event-btn-l" data-toggle="dropdown">
                     {{getSelectedType()}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -18,14 +19,15 @@
                 </ul>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn content-sm-btn content-sm-btn-red" ng-click="closeEventCreation()"> Close
-                    <span class="glyphicon glyphicon-remove"></span>
+                <button type="button" ng-style="{background : getColor()}"
+                        class="btn nw-event-btn nw-event-btn-r" ng-click="closeEventCreation()">
+                    Close
                 </button>
             </div>
         </div>
 
-        <div class="form-group">
-            <textarea ng-class="{invalid : newEvent.error}" class="form-control input-lg content-input" ng-model="newEvent.description"
+        <div>
+            <textarea class="form-control input-lg content-input nw-event-input" ng-model="newEvent.description"
                       rows="10" placeholder="Description"></textarea>
         </div>
     </form>
