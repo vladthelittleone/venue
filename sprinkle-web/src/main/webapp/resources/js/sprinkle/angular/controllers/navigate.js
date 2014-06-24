@@ -7,21 +7,21 @@ angular.module('sprinkle.controllers')
      * Body controller that handle body content.
      * @controller
      */
-    .controller('navigateCtrl', ['$scope', '$authentication', '$http', '$redirect', '$map',
-        function ($scope, $authentication, $http, $redirect, $map) {
+    .controller('navigateCtrl', ['$scope', '$authentication', '$http', '$url', '$map',
+        function ($scope, $authentication, $http, $url, $map) {
             $scope.authenticationService = $authentication;
             $scope.mapService = $map;
-            $scope.redirect = $redirect;
+            $scope.redirect = $url.redirect;
 
             /**
              * Function for logout button,
              * clear localStorage and logout from server.
              */
             $scope.logout = function () {
-                $http.get("/logout").
+                $http.get($url.logout).
                     success(function () {
                         $scope.authenticationService.logout();
-                        $redirect.toSignIn();
+                        $url.redirect.toSignIn();
                     });
             };
         }

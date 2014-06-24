@@ -1,4 +1,4 @@
-package com.sprinkle.web.controllers;
+package com.sprinkle.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,5 +13,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/profile")
 public class ProfileController
 {
-
 }

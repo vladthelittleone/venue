@@ -7,25 +7,26 @@ function SprinkleMap() {
     // Initialize mapbox
     var map = L.mapbox.map('map', 'examples.map-i86nkdio')
         .setView([40, -74.50], 9);
+    // Create feature for markers
+    var featureLayer = L.mapbox.featureLayer().addTo(map);
 
     this.getMap = function () {
         return map;
     };
 
     // Latitude and Longitude
-    this.setMarker = function (lng, lat, title, description, size, color, type){
+    this.setMarker = function (url, lng, lat, title, description, size, type){
         $.ajax({
             type: "POST",
             async: false,
-            url: "map/setmarket",
+            url: url,
             data: {
                 lng: lng,
                 lat: lat,
                 title: title,
                 description: description,
                 size: size,
-                color: color,
-                type: type
+                type: type.name
             },
             dataType: 'json',
             success: function (responce) {
@@ -46,12 +47,20 @@ function SprinkleMap() {
                             // one can customize markers by adding simplestyle properties
                             // http://mapbox.com/developers/simplestyle/
                             'marker-size': size,
-                            'marker-color': color,
-                            'marker-symbol': type
+                            'marker-color': type.color,
+                            'marker-symbol': type.icon
                         }
                     }).addTo(map);
                 }
             }
         });
+    };
+
+    /**
+     * Add markers from url.
+     * @param url - array of GeoJson markers
+     */
+    this.setMarkers = function (url) {
+        featureLayer.loadURL(url);
     }
 }

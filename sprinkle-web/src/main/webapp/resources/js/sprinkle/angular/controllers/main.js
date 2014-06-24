@@ -3,56 +3,79 @@
  */
 
 angular.module('sprinkle.controllers')
-    /**
-     * Main controller that handle information, events related
-     * with profile configurations and map configurations.
-     * @controller
-     */
-    .controller('mainCtrl', ['$scope', '$map', '$authentication', '$redirect',
-        function ($scope, $map, $authentication, $redirect) {
+/**
+ * Main controller that handle information, events, related
+ * with profile configurations and map configurations.
+ * @controller
+ */
+    .controller('mainCtrl', ['$scope', '$map', '$authentication', '$url', '$http',
+        function ($scope, $map, $authentication, $url, $http) {
             $scope.mapService = $map;
             $scope.authenticationService = $authentication;
 
             var sprinkleMap = $map.getSprinkleMap();
 
-            // Information form event creation form
+            /**
+             * Information about new event.
+             */
             $scope.newEvent = {
                 name: "",
                 description: "",
+                type: null,
                 error: false
             };
 
+            /**
+             * Get types of event from server.
+             */
+            $http.get($url.resources.types).success(function (types) {
+                $scope.eventTypes = types;
+            });
 
-            $scope.eventTypes = {
-                sport: {
-                    name: "Sport",
-                    color: "#FFFFF"
-                },
-                science: {
-                    name: "Science",
-                    color: "#FFFFF"
-                },
-                friendship: {
-                    name: "Friendship",
-                    color: "#FFFFF"
-                },
-                music: {
-                    name: "Music",
-                    color: "#FFFFF"
+            /**
+             * Function redirect user to profile and switch creation off.
+             * @see map service
+             */
+            $scope.closeEventCreation = function () {
+                $map.setEventCreationOn(false);
+                $url.redirect.toProfile();
+            };
+
+            /**
+             * Set type of event.
+             * @param type - event type.
+             */
+            $scope.setTypeOfNewEvent = function (type) {
+                $scope.newEvent.type = type;
+            };
+
+            /**
+             * Return type name of new event.
+             * If type equals null, then return "Select event type".
+             * @returns {string}
+             */
+            $scope.getSelectedType = function () {
+                var t = $scope.newEvent.type;
+                if (t != null) {
+                    return t.name;
+                } else {
+                    return "Select event type";
                 }
             };
 
             /**
              * Handle click on map.
              */
-            sprinkleMap.getMap().on('click', function(e) {
+            sprinkleMap.getMap().on('click', function (e) {
                 var service = $scope.mapService;
 
                 // Check event creation on
                 if (service.isEventCreationOn()) {
                     $scope.$apply(function () {
-                        // Validate
-                        if ($scope.newEvent.name == "" || $scope.newEvent.description == "") {
+                        // Validate fields
+                        if ($scope.newEvent.name == ""
+                            || $scope.newEvent.description == ""
+                            || $scope.newEvent.type == null) {
                             $scope.newEvent.error = true;
                             jQuery("#map-shake").shake(3, 7, 400);
                             return;
@@ -61,10 +84,12 @@ angular.module('sprinkle.controllers')
                         service.isEventCreationOn(false);
 
                         // Redirect to profile
-                        $redirect.toProfile();
+                        $url.redirect.toProfile();
 
+                        var m = $scope.newEvent;
                         // Apply all changes.
-                        sprinkleMap.setMarker(e.latlng.lng, e.latlng.lat, $scope.newEvent.name, $scope.newEvent.description, "large", "#ff4444", "circle-stroked");
+                        sprinkleMap.setMarker($url.setEvent, e.latlng.lng, e.latlng.lat,
+                            m.name, m.description, "large", m.type);
                     });
                 }
             });

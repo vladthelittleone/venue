@@ -47,14 +47,14 @@ angular.module('sprinkle', [
     /**
      * Block that run when application start.
      */
-    .run(['$authentication', '$rootScope', '$http', '$redirect',
-        function ($authentication, $rootScope, $http, $redirect) {
+    .run(['$authentication', '$rootScope', '$http', '$url', '$map',
+        function ($authentication, $rootScope, $http, $url, $map) {
             /**
              * Check authentication. If authenticate, then send username to authentication service.
-             * Else logout and clear local storage.
+             * Else logout and clear local storage. Also load events form server and add them on the map.
              */
             $rootScope.$on('$routeChangeSuccess', function () {
-                $http.get("/authentication/isauthenticate").
+                $http.get($url.resources.profileStatus).
                     success(function (data) {
                         if (data.signedIn) {
                             $authentication.authenticate(data);
@@ -62,6 +62,11 @@ angular.module('sprinkle', [
                             $authentication.logout();
                         }
                     });
+
+                /**
+                 * Get events from server and add them on the map.
+                 */
+                $map.getSprinkleMap().setMarkers($url.resources.events);
             });
 
             /**
@@ -69,9 +74,9 @@ angular.module('sprinkle', [
              * If user isn't authenticate, redirect to sign in page, else to profile.
              */
             if (!$authentication.isAuthenticate()) {
-                $redirect.toSignIn();
+                $url.redirect.toSignIn();
             } else {
-                $redirect.toProfile();
+                $url.redirect.toProfile();
             }
         }
     ]);

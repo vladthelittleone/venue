@@ -16,8 +16,8 @@
         <intercept-url pattern="/authentication/signup" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <!-- USER -->
-        <intercept-url pattern="/authentication/isauthenticate" access="ROLE_USER"/>
-        <intercept-url pattern="/map/setmarket" access="ROLE_USER"/> <!-- requires-channel="https" -->
+        <intercept-url pattern="/authentication/profilestatus.json" access="ROLE_USER"/>
+        <intercept-url pattern="/map/setevent" access="ROLE_USER"/> <!-- requires-channel="https" -->
         <intercept-url pattern="/profile/**" access="ROLE_USER"/>
         <intercept-url pattern="/new_event" access="ROLE_USER"/>
 

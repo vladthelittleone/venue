@@ -1,7 +1,6 @@
 package com.sprinkle.web.security.service.handler;
 
 import com.sprinkle.web.security.domain.User;
-import com.sprinkle.web.security.domain.json.AuthenticationStatus;
 import com.sprinkle.web.security.domain.json.ProfileStatus;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.security.core.Authentication;

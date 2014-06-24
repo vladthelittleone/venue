@@ -8,15 +8,15 @@ angular.module('sprinkle.controllers', [])
      * Send user sign in info on server {@link authenticate} and get response.
      * @controller
      */
-    .controller('signInCtrl', ['$scope', '$redirect', '$authentication', '$http',
-        function ($scope, $redirect, $authentication, $http) {
+    .controller('signInCtrl', ['$scope', '$url', '$authentication', '$http',
+        function ($scope, $url, $authentication, $http) {
 
             /**
              * Initializing. isSignIn field equals true, this means that authenticationDetails in components will be shown.
              * @see html/authentication/index.html
              * @see controllers/utils.js
              */
-            initialize(true, $scope, $authentication, $redirect);
+            initialize(true, $scope, $authentication, $url.redirect);
             var alert = $scope.authenticationAlert;
             var details = $scope.authenticationDetails;
 
@@ -39,14 +39,14 @@ angular.module('sprinkle.controllers', [])
                     headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
                 };
 
-                $http.post("j_spring_security_check", payload, config).
+                $http.post($url.signIn, payload, config).
                     success(function (profileStatus) {
                         /**
                          * If user sing in, then redirect to profile page.
                          * Else display warning.
                          */
                         if (profileStatus.signedIn) {
-                            $redirect.toProfileWithId(profileStatus.id);
+                            $url.redirect.toProfileWithId(profileStatus.id);
                         } else {
                             alert.alertMessage(profileStatus.message);
                         }
@@ -62,8 +62,8 @@ angular.module('sprinkle.controllers', [])
      * Change authentication service parameters, such like isAuthenticate variable.
      * @controller
      */
-    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$redirect',
-        function ($scope, $authentication, $http, $redirect) {
+    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$url',
+        function ($scope, $authentication, $http, $url) {
 
             // -------------------------------
             // Private functions.
@@ -101,7 +101,7 @@ angular.module('sprinkle.controllers', [])
              * @see html/authentication/index.html
              * @see controllers/utils.js
              */
-            initialize(false, $scope, $authentication, $redirect);
+            initialize(false, $scope, $authentication, $url.redirect);
             var alert = $scope.authenticationAlert;
             var details = $scope.authenticationDetails;
 
@@ -109,7 +109,7 @@ angular.module('sprinkle.controllers', [])
 
                 if (!valid()) return;
 
-                $http.post("/authentication/signup",
+                $http.post($url.signUp,
                     {
                         username: details.email,
                         fullname: details.fullName,
@@ -120,7 +120,7 @@ angular.module('sprinkle.controllers', [])
                          * Else display warning.
                          */
                         if (authStatus.success) {
-                            $redirect.toSignIn();
+                            $url.redirect.toSignIn();
                         } else {
                             alert.alertWarning(authStatus.message, true, false, false);
                         }
@@ -134,14 +134,14 @@ angular.module('sprinkle.controllers', [])
  * @param isSignIn - set isSignIn field.
  * @param $scope - controller scope.
  * @param $authentication - authenticate service.
- * @param $redirect - redirect service.
+ * @param redirect - redirect service.
  */
-function initialize(isSignIn, $scope, $authentication, $redirect) {
+function initialize(isSignIn, $scope, $authentication, redirect) {
     /**
      * Check authentication of user.
      */
     if ($authentication.isAuthenticate()) {
-        $redirect.toProfile();
+        redirect.toProfile();
         return;
     }
 

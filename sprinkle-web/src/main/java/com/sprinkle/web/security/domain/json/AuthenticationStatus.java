@@ -13,25 +13,29 @@ public class AuthenticationStatus
     private final String username;
     private final String message;
 
-    public AuthenticationStatus(boolean signedIn, String username, String message, boolean success) {
+    public AuthenticationStatus(boolean signedIn, String username, String message, boolean success)
+    {
         this.signedIn = signedIn;
         this.username = username;
         this.success = success;
         this.message = formatString(message);
     }
 
-    public AuthenticationStatus(boolean signedIn, String username, boolean success) {
+    public AuthenticationStatus(boolean signedIn, String username, boolean success)
+    {
         this.signedIn = signedIn;
         this.username = username;
         this.success = success;
         this.message = "";
     }
 
-    public boolean isSignedIn() {
+    public boolean isSignedIn()
+    {
         return signedIn;
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
