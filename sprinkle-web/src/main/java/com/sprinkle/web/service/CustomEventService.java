@@ -26,16 +26,16 @@ public class CustomEventService implements EventService
     @Override
     public Event create(double longitude, double latitude, String title, String description, String size, String type)
     {
-        if (logger.isTraceEnabled())
-            logger.trace(String.format("Create new event [%f, %f, %s, %s, %s]",
-                    longitude, latitude, title, description, type));
-
         // Validate new event
         if (!validate(longitude, latitude, title, description, type)) return null;
 
-        Long id = eventId.incrementAndGet();
+        long id = eventId.incrementAndGet();
 
-        Event event = new Event(longitude, latitude, title, description, size, EventType.valueOf(type));
+        Event event = new Event(id, longitude, latitude, title, description, size, EventType.valueOf(type));
+
+        if (logger.isTraceEnabled())
+            logger.trace(String.format("Create new event [%d, %f, %f, %s, %s, %s]",
+                    id, longitude, latitude, title, description, type));
 
         events.put(id, event);
 

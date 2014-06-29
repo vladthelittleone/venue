@@ -47,7 +47,7 @@ public class CustomUserManager implements UserManager
         if (username.isEmpty() || password.isEmpty() || fullname.isEmpty()) return null;
         if (!usernames.add(username)) return null;
 
-        Long id = userId.incrementAndGet();
+        long id = userId.incrementAndGet();
 
         User user = new User(id, username, hashedPassword, fullname, "ROLE_USER");
 

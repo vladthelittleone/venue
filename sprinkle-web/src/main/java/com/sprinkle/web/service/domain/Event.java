@@ -21,10 +21,10 @@ public class Event
     private Properties properties;
 
     @JsonIgnore
-    public Event(double longitude, double latitude, String title, String description, String size, EventType type)
+    public Event(long eventId, double longitude, double latitude, String title, String description, String size, EventType type)
     {
         this.geometry = new Geometry("Point", new double[]{longitude, latitude});
-        this.properties = new Properties(title, description, size, type.getColor(), type.getIcon());
+        this.properties = new Properties(eventId, title, description, size, type.getColor(), type.getIcon());
     }
 
     public String getType()
@@ -59,18 +59,9 @@ public class Event
 
     static class Properties
     {
+        private long eventId;
         private String title;
         private String description;
-
-        @JsonIgnore
-        Properties(String title, String description, String markerSize, String markerColor, String markerSymbol)
-        {
-            this.title = title;
-            this.description = description;
-            this.markerSize = markerSize;
-            this.markerColor = markerColor;
-            this.markerSymbol = markerSymbol;
-        }
 
         @JsonProperty("marker-size")
         private String markerSize;
@@ -80,6 +71,17 @@ public class Event
 
         @JsonProperty("marker-symbol")
         private String markerSymbol;
+
+        @JsonIgnore
+        Properties(long eventId, String title, String description, String markerSize, String markerColor, String markerSymbol)
+        {
+            this.eventId = eventId;
+            this.title = title;
+            this.description = description;
+            this.markerSize = markerSize;
+            this.markerColor = markerColor;
+            this.markerSymbol = markerSymbol;
+        }
 
         public String getTitle()
         {
@@ -129,6 +131,16 @@ public class Event
         public void setMarkerSymbol(String markerSymbol)
         {
             this.markerSymbol = markerSymbol;
+        }
+
+        public long getEventId()
+        {
+            return eventId;
+        }
+
+        public void setEventId(long eventId)
+        {
+            this.eventId = eventId;
         }
     }
 

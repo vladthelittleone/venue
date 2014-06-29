@@ -4,11 +4,41 @@
  * @constructor
  */
 function SprinkleMap() {
+    // Angular JS injector
+//    var injector = angular.element(document).injector();
+
+    // Construct a bounding box for this map that the user cannot
+    // move out of
+    var southWest = L.latLng(-90, -180),
+        northEast = L.latLng(90, 180),
+        bounds = L.latLngBounds(southWest, northEast);
+
     // Initialize mapbox
-    var map = L.mapbox.map('map', 'examples.map-i86nkdio')
-        .setView([40, -74.50], 9);
+    var map = L.mapbox.map('map', 'examples.map-i86nkdio', {
+        // set that bounding box as maxBounds to restrict moving the map
+        // see full maxBounds documentation:
+        // http://leafletjs.com/reference.html#map-maxbounds
+        maxBounds: bounds,
+        maxZoom: 19,
+        minZoom: 2
+    })
+    .setView([40, -74.50], 9);
+
     // Create feature for markers
     var featureLayer = L.mapbox.featureLayer().addTo(map);
+
+    // Centring
+    featureLayer.on('click', function(e) {
+        map.panTo(e.layer.getLatLng());
+        var marker = e.layer;
+        var feature = marker.feature;
+        console.log(feature.properties.eventId);
+//        /**
+//         * @see url.js file.
+//         */
+//        var service = injector.get('$url')
+//        service.redirect.to
+    });
 
     this.getMap = function () {
         return map;

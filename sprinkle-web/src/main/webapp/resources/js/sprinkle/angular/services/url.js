@@ -28,6 +28,12 @@ angular.module('sprinkle.services')
                     toNewEvent: function () {
                         $location.path("/new_event");
                     }
+//                    toEvent: function () {
+//                        $location.path("/event" + $authentication);
+//                    },
+//                    toEventWithId: function (id) {
+//                        $location.path("/event" + id);
+//                    }
                 },
                 /**
                  * Resources
