@@ -10,11 +10,12 @@
     <beans:import resource="sprinkle-security-beans.xml"/>
 
     <http entry-point-ref="authenticationEntryPoint">
-        <intercept-url pattern="/j_spring_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/authentication/signup" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/authentication/isauthenticate" access="ROLE_USER"/>
-        <intercept-url pattern="/map/setmarket" access="ROLE_USER"/> <!-- requires-channel="https" -->
-        <intercept-url pattern="/profile/**" access="ROLE_USER"/>
+    	<intercept-url pattern="/**" requires-channel="https"/>
+        <intercept-url pattern="/j_spring_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
+        <intercept-url pattern="/authentication/signup" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
+		<intercept-url pattern="/authentication/isauthenticate" access="ROLE_USER" requires-channel="https"/>
+        <intercept-url pattern="/map/setmarket" access="ROLE_USER" requires-channel="https"/>
+        <intercept-url pattern="/profile/**" access="ROLE_USER" requires-channel="https"/>
         <form-login authentication-success-handler-ref="successHandler"
                     authentication-failure-handler-ref="failureHandler"/>
 
