@@ -1,0 +1,9 @@
+.event-container-back {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30%;
+    background: #ffffff;
+    opacity: 0.25;
+}

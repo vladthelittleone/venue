@@ -8,34 +8,6 @@ textarea {
     margin-top: 50px;
 }
 
-.map-container-back {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 30%;
-    background: #ffffff;
-    opacity: 0.25;
-}
-
-.map-container {
-    padding: 33px 25px 29px;
-    position: relative;
-    width: 30%;
-    margin: 0;
-    float: right;
-}
-
-.map-container input {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.map-container textarea {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
 .content input[type="email"] {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;

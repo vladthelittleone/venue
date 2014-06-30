@@ -28,13 +28,17 @@ angular.module('sprinkle', [
              * Rest like link, that contains id of user.
              */
             $routeProvider.when('/id:profileId', {
-                templateUrl: 'profile',
-                controller: 'mainCtrl'
+                templateUrl: 'profile'
+            });
+
+            $routeProvider.when('/event:eventId', {
+                templateUrl: 'event',
+                controller: 'eventViewCtrl'
             });
 
             $routeProvider.when('/new_event', {
                 templateUrl: 'newevent',
-                controller: 'mainCtrl'
+                controller: 'newEventCtrl'
             });
 
             $routeProvider.otherwise({redirectTo: '/'});

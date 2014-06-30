@@ -4,11 +4,10 @@
 
 angular.module('sprinkle.controllers')
 /**
- * Main controller that handle information, events, related
- * with profile configurations and map configurations.
+ * Controller that handle new event operation.
  * @controller
  */
-    .controller('mainCtrl', ['$scope', '$map', '$authentication', '$url', '$http',
+    .controller('newEventCtrl', ['$scope', '$map', '$authentication', '$url', '$http',
         function ($scope, $map, $authentication, $url, $http) {
             $scope.mapService = $map;
             $scope.authenticationService = $authentication;

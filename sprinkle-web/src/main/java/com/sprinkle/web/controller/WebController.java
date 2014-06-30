@@ -30,7 +30,7 @@ public class WebController
     @RequestMapping("/newevent")
     public String getNewEventPage()
     {
-        return "/profile/new/event/index";
+        return "/new/event/index";
     }
 
     @RequestMapping("/authentication")

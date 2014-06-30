@@ -27,13 +27,10 @@ angular.module('sprinkle.services')
                     },
                     toNewEvent: function () {
                         $location.path("/new_event");
+                    },
+                    toEventWithId: function (id) {
+                        $location.path("/event" + id);
                     }
-//                    toEvent: function () {
-//                        $location.path("/event" + $authentication);
-//                    },
-//                    toEventWithId: function (id) {
-//                        $location.path("/event" + id);
-//                    }
                 },
                 /**
                  * Resources
