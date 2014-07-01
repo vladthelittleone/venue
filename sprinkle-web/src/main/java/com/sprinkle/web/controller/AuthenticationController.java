@@ -1,14 +1,11 @@
-package com.sprinkle.web.controllers;
+package com.sprinkle.web.controller;
 
 import com.sprinkle.web.security.domain.User;
 import com.sprinkle.web.security.domain.json.AuthenticationStatus;
 import com.sprinkle.web.security.domain.json.ProfileStatus;
 import com.sprinkle.web.security.domain.json.SignUpRequest;
 import com.sprinkle.web.security.service.manager.UserManager;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,14 +17,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * package: com.sprinkle.web.controllers
  * date: 06.05.14
  *
+ * Controller that responding for authentication.
+ * Provides sign up function and profile status.
+ *
+ * @see com.sprinkle.web.security.service.manager.UserManager
  * @author Skurishin Vladislav
  */
 @Controller
 @RequestMapping("/authentication")
 public class AuthenticationController
 {
-    private Logger logger = Logger.getLogger(AuthenticationController.class);
-
     @Autowired
     private UserManager userManager;
 
@@ -51,22 +50,16 @@ public class AuthenticationController
      * Check user authentication. If not authenticate, then spring security
      * send error using {@link com.sprinkle.web.security.service.handler.SprinkleAuthenticationEntryPoint}.
      *
+     * @return authentication status
      * @see {@link com.sprinkle.web.security.service.handler.SprinkleAuthenticationEntryPoint}
      * @see {@link com.sprinkle.web.security.domain.json.AuthenticationStatus}
-     * @return authentication status
      */
-    @RequestMapping(value = "/isauthenticate")
+    @RequestMapping(value = "/profilestatus.json")
     @ResponseBody
-    public AuthenticationStatus isAuthenticate()
+    public AuthenticationStatus getProfileStatus()
     {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new ProfileStatus(true, user.getUsername(), user.getId());
-    }
-
-    @RequestMapping
-    public String getAuthenticationPage()
-    {
-        return "/authentication/index";
     }
 
     public void setUserManager(UserManager userManager)

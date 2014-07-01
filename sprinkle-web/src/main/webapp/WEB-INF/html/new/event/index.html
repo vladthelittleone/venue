@@ -1,0 +1,34 @@
+<div class="map-container-back"></div>
+<div id="map-shake" class="container map-container">
+    <form role="form" novalidate> <!--ng-submit=""-->
+        <div>
+            <input type="text" ng-model="newEvent.name"
+                   class="form-control input-lg content-input nw-event-input" placeholder="Event name" required autofocus>
+        </div>
+
+        <div class="btn-group btn-group-justified">
+            <div class="btn-group">
+                <button type="button" ng-style="{background : getColor()}"
+                        class="btn dropdown-toggle nw-event-btn nw-event-btn-l" data-toggle="dropdown">
+                    {{getSelectedType()}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="type in eventTypes">
+                        <a href="" ng-click="setTypeOfNewEvent(type)">{{type.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" ng-style="{background : getColor()}"
+                        class="btn nw-event-btn nw-event-btn-r" ng-click="closeEventCreation()">
+                    Close
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <textarea class="form-control input-lg content-input nw-event-input" ng-model="newEvent.description"
+                      rows="10" placeholder="Description"></textarea>
+        </div>
+    </form>
+</div>

@@ -22,7 +22,7 @@ public class User implements UserDetails
     private String fullname;
     private Collection<GrantedAuthority> authorities;
 
-    public User(Long id, String username, String password, String fullname, String roles)
+    public User(long id, String username, String password, String fullname, String roles)
     {
         super();
         this.id = id;

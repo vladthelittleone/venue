@@ -10,12 +10,9 @@ body {
     width: 100%;
 }
 
-#authentication {
-    margin-top: 50px;
-}
-
 #profile {
     margin-right: -60px;
     margin-top: 10px;
     float: right;
 }
+
