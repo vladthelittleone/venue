@@ -4,9 +4,6 @@
  * @constructor
  */
 function SprinkleMap() {
-    // Angular JS injector
-//    var injector = angular.element(document).injector();
-
     // Construct a bounding box for this map that the user cannot
     // move out of
     var southWest = L.latLng(-90, -180),
@@ -32,12 +29,20 @@ function SprinkleMap() {
         map.panTo(e.layer.getLatLng());
         var marker = e.layer;
         var feature = marker.feature;
-        console.log(feature.properties.eventId);
-//        /**
-//         * @see url.js file.
-//         */
-//        var service = injector.get('$url')
-//        service.redirect.to
+
+        // Get angular js element
+        var elem = angular.element(document);
+
+        /**
+         * Get angular js service using injector
+         * to interact with framework.
+         * @see url.js file.
+         */
+        var service = elem.injector().get('$url');
+
+        // redirect to event
+        service.redirect.toEventWithId(feature.properties.eventId);
+        elem.scope().$apply();
     });
 
     this.getMap = function () {
