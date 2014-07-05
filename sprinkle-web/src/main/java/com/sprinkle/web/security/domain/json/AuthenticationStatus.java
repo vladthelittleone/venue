@@ -51,9 +51,6 @@ public class AuthenticationStatus
 
     private String formatString(String string)
     {
-        return new StringBuilder()
-                .append(string)
-                .append(".")
-                .toString();
+        return string + ".";
     }
 }

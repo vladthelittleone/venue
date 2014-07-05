@@ -31,7 +31,7 @@ function SprinkleMap() {
         var feature = marker.feature;
 
         // Get angular js element
-        var elem = angular.element(document);
+        var elem = angular.element(document.getElementById("map"));
 
         /**
          * Get angular js service using injector
@@ -40,8 +40,10 @@ function SprinkleMap() {
          */
         var service = elem.injector().get('$url');
 
-        // redirect to event
+        // Redirect to event
         service.redirect.toEventWithId(feature.properties.eventId);
+
+        // Apply changes
         elem.scope().$apply();
     });
 

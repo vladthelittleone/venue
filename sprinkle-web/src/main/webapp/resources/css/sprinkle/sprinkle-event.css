@@ -2,8 +2,17 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    margin: auto;
-    width: 30%;
+    width: 90%;
     background: #ffffff;
     opacity: 0.25;
+    right: 5%;
+}
+
+.event-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80%;
+    background: #ffffff;
+    right: 10%;
 }
