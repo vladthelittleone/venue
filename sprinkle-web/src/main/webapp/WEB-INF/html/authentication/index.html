@@ -1,9 +1,9 @@
+<div class="white-back"></div>
 <div id="sign-shake" class="container content-margin-top-50">
     <form class="content" role="form" novalidate ng-submit="authenticate()">
 
         <h2 class="content-heading" ng-show="isSignIn">Have an account?</h2>
-
-        <h2 class="content-heading" ng-hide="isSignIn">New to Sprinkle?</h2>
+        <h2 class="content-heading content-heading-green" ng-hide="isSignIn">New to Sprinkle?</h2>
 
         <div class="form-group">
             <input ng-model="authenticationDetails.email"
@@ -46,8 +46,8 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-block content-green-button" ng-hide="isSignIn">Sign up</button>
-        <button type="submit" class="btn btn-block content-button" ng-show="isSignIn">Sign in</button>
+        <button type="submit" class="btn btn-block content-green-btn" ng-hide="isSignIn">Sign up</button>
+        <button type="submit" class="btn btn-block content-btn" ng-show="isSignIn">Sign in</button>
 
         <div class="content-alert alert alert-dismissable" ng-show="authenticationAlert.show">
             <button type="button" class="close" ng-click="authenticationAlert.show = false;">&times;</button>

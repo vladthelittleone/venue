@@ -71,7 +71,7 @@ angular.module('sprinkle.controllers')
                 if (t != null) {
                     return t.color;
                 } else {
-                    return "#999999";
+                    return "#5ea2af";
                 }
             };
 
@@ -88,7 +88,7 @@ angular.module('sprinkle.controllers')
                         if ($scope.newEvent.name == ""
                             || $scope.newEvent.description == ""
                             || $scope.newEvent.type == null) {
-                            jQuery("#map-shake").shake(3, 7, 400);
+                            jQuery("#nw-event-shake").shake(3, 7, 400);
                             return;
                         }
                         // Set event creation off
