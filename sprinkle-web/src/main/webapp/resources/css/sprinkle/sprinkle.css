@@ -18,7 +18,7 @@ body, head {
 .navbar-inverse {
     background: rgb(80,80,80);
     /*border-bottom: solid 1px rgba(129, 119, 180, 0.95);*/
-    border-bottom: solid 1px rgba(94, 162, 175, 1);
+    border-bottom: solid 3px rgba(68,114,122,1);
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -41,7 +41,14 @@ body, head {
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-    background: rgba(94, 162, 175, 1);
+    background: rgb(94,162,175); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(94,162,175,1) 0%, rgba(68,114,122,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(94,162,175,1)), color-stop(100%,rgba(68,114,122,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(94,162,175,1) 0%,rgba(68,114,122,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(94,162,175,1) 0%,rgba(68,114,122,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(94,162,175,1) 0%,rgba(68,114,122,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(94,162,175,1) 0%,rgba(68,114,122,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5ea2af', endColorstr='#44727a',GradientType=0 ); /* IE6-9 */
     /*background: rgba(148, 137, 207, 1); */
     color: #D8D8D8;
 }
