@@ -1,27 +1,17 @@
-.map-container-back {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 30%;
-    background: #ffffff;
-    opacity: 0.25;
-}
-
-.map-container {
-    padding: 33px 25px 29px;
+.nw-event-container {
+    padding: 0 25px 29px;
     position: relative;
     width: 30%;
     margin: 0;
     float: right;
 }
 
-.map-container input {
+.nw-event-container input {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.map-container textarea {
+.nw-event-container textarea {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
@@ -31,7 +21,7 @@
     text-align: center;
     cursor: pointer;
     font-size: 17px;
-    background: #999999;
+    background: #4F4F4F;
     opacity: 0.8;
     border: 0;
     border-radius: 0;

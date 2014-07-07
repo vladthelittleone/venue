@@ -1,6 +1,5 @@
-<!-- IMPORTANT: WITH CLOSE TAG!!! -->
-<div class="map-container-back"></div>
-<div id="map-shake" class="container map-container">
+<div class="white-back-30-right"></div>
+<div id="nw-event-shake" class="container nw-event-container">
     <form role="form" novalidate> <!--ng-submit=""-->
         <div>
             <input type="text" ng-model="newEvent.name"
@@ -13,7 +12,7 @@
                         class="btn dropdown-toggle nw-event-btn nw-event-btn-l" data-toggle="dropdown">
                     {{getSelectedType()}} <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" ng-style="{'border-color': getColor()}">
                     <li ng-repeat="type in eventTypes">
                         <a href="" ng-click="setTypeOfNewEvent(type)">{{type.name}}</a>
                     </li>
