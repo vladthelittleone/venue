@@ -42,7 +42,7 @@ textarea {
     right: 0;
     width: 30%;
     background: #ffffff;
-    opacity: 0.25;
+    opacity: 0.2;
 }
 
 .blackBack30Right {
@@ -52,10 +52,10 @@ textarea {
     right: 0;
     width: 30%;
     background: #000000;
-    opacity: 0.25;
+    opacity: 0.1;
 }
 
-.blackBack50Mid {
+.blackBack60Mid {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -125,8 +125,9 @@ input, textarea {
 }
 
 .contentInput {
-    font-size: 17px;
+    font-size: 1.1em;
     background: white;
+    color: rgb(80, 80, 80);
     border: 2px solid #ebebeb;
     border-radius: 4px;
     -webkit-box-shadow: inset 0 -2px #ebebeb;
