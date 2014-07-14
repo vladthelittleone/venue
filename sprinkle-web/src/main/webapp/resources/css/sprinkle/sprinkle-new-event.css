@@ -1,22 +1,4 @@
-.nw-event-container {
-    padding: 0 25px 29px;
-    position: relative;
-    width: 30%;
-    margin: 0;
-    float: right;
-}
-
-.nw-event-container input {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.nw-event-container textarea {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-.nw-event-btn {
+.newEventBtn {
     color: white;
     text-align: center;
     cursor: pointer;
@@ -27,16 +9,13 @@
     border-radius: 0;
 }
 
-.nw-event-btn-l {
+.btnGroup {
     border-left: 2px solid #ebebeb;
-}
-
-.nw-event-btn-r {
     border-right: 2px solid #ebebeb;
 }
 
-.nw-event-btn:hover,
-.nw-event-btn:focus {
+.newEventBtn:hover,
+.newEventBtn:focus {
     opacity: 1.0;
     outline: none;
     -webkit-box-shadow: none;
@@ -45,24 +24,42 @@
 
 /* When dropdown is open */
 .btn-group.open
-.nw-event-btn {
+.newEventBtn {
     opacity: 1.0;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.nw-event-btn:active,
-.nw-event-btn.active {
+.newEventBtn:active,
+.newEventBtn.active {
     opacity: 1.0;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.nw-event-input:focus {
+.newEventInput:focus {
     border-color: #ebebeb;
     outline: none;
     -webkit-box-shadow: inset 0 -2px #ebebeb;
     box-shadow: inset 0 -2px #ebebeb;
+}
+
+.newEventContent {
+    position: relative;
+    width: 30%;
+    margin: 0;
+    float: right;
+    padding: 0 25px 29px;
+}
+
+.newEventContent input {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.newEventContent textarea {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

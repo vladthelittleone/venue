@@ -88,7 +88,7 @@ angular.module('sprinkle.controllers')
                         if ($scope.newEvent.name == ""
                             || $scope.newEvent.description == ""
                             || $scope.newEvent.type == null) {
-                            jQuery("#nw-event-shake").shake(3, 7, 400);
+                            jQuery("#newEventShake").shake(3, 7, 400);
                             return;
                         }
                         // Set event creation off

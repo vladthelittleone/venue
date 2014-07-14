@@ -1,15 +1,15 @@
-<div class="white-back-30-right"></div>
-<div id="nw-event-shake" class="container nw-event-container">
+<div class="whiteBack30Right"></div>
+<div id="newEventShake" class="container newEventContent">
     <form role="form" novalidate> <!--ng-submit=""-->
         <div>
             <input type="text" ng-model="newEvent.name"
-                   class="form-control input-lg content-input nw-event-input" placeholder="Event name" required autofocus>
+                   class="form-control input-lg contentInput newEventInput" placeholder="Event name" required autofocus>
         </div>
 
-        <div class="btn-group btn-group-justified">
+        <div class="btn-group btn-group-justified btnGroup">
             <div class="btn-group">
                 <button type="button" ng-style="{background : getColor()}"
-                        class="btn dropdown-toggle nw-event-btn nw-event-btn-l" data-toggle="dropdown">
+                        class="btn dropdown-toggle newEventBtn" data-toggle="dropdown">
                     {{getSelectedType()}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" ng-style="{'border-color': getColor()}">
@@ -20,14 +20,14 @@
             </div>
             <div class="btn-group">
                 <button type="button" ng-style="{background : getColor()}"
-                        class="btn nw-event-btn nw-event-btn-r" ng-click="closeEventCreation()">
+                        class="btn newEventBtn" ng-click="closeEventCreation()">
                     Close
                 </button>
             </div>
         </div>
 
         <div>
-            <textarea class="form-control input-lg content-input nw-event-input" ng-model="newEvent.description"
+            <textarea msd-elastic class="form-control input-lg contentInput newEventInput" ng-model="newEvent.description"
                       rows="10" placeholder="Description"></textarea>
         </div>
     </form>

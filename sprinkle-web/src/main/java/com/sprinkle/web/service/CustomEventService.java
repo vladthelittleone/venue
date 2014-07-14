@@ -31,7 +31,7 @@ public class CustomEventService implements EventService
 
         long id = eventId.incrementAndGet();
 
-        Event event = new Event(id, longitude, latitude, title, description, size, EventType.valueOf(type));
+        Event event = new Event(id, longitude, latitude, title, description, size, type);
 
         if (logger.isTraceEnabled())
             logger.trace(String.format("Create new event [%d, %f, %f, %s, %s, %s]",

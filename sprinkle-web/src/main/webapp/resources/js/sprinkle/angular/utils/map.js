@@ -43,8 +43,34 @@ function SprinkleMap() {
         // Redirect to event
         service.redirect.toEventWithId(feature.properties.eventId);
 
+        // Root scope for global fields.
+        // All fields of root scope available for all child scopes.
+        var rootScope = angular.element(document).
+            injector().invoke(
+            function($rootScope){
+                return $rootScope;
+            });
+
+        // TODO loading form server
+        // Add to root scope, information about selected event.
+        rootScope.selectedEvent = feature;
+
         // Apply changes
         elem.scope().$apply();
+    });
+
+    /**
+     * Show a markers tooltip on mouse over instead of on click.
+     */
+    featureLayer.on('mouseover', function(e) {
+//        e.layer.openPopup();
+    });
+
+    /**
+     * Hide a markers tooltip on mouse out.
+     */
+    featureLayer.on('mouseout', function(e) {
+//        e.layer.closePopup();
     });
 
     this.getMap = function () {

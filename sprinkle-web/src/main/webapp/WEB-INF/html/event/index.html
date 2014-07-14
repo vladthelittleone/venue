@@ -1,5 +1,28 @@
 <!-- WITH CLOSE TAG!!! -->
-<div class="white-back-30-right"></div>
-<div class="container event-container">
-
+<div class="whiteBack30Right" ng-class="{blackBack50Mid : resizeFull}"></div>
+<div class="container" ng-class="{eventContentMid : resizeFull, eventContent : !resizeFull}">
+    <ul>
+        <li class="eventContentTitle">{{properties.title}}</li>
+        <li class="btn-group btn-group-justified btnGroup">
+            <div class="btn-group">
+                <button type="button" ng-style="{background : properties['marker-color']}"
+                        class="btn newEventBtn" ng-click="closeEventView()">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" ng-style="{background : properties['marker-color']}"
+                        class="btn newEventBtn">
+                    <span class="glyphicon glyphicon-heart"></span>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" ng-style="{background : properties['marker-color']}"
+                        class="btn newEventBtn" ng-click="resize()">
+                    <span class="glyphicon" ng-class="{'glyphicon-resize-small' : resizeFull,'glyphicon-resize-full' : !resizeFull}"></span>
+                </button>
+            </div>
+        </li>
+        <li class="eventContentDescription">{{properties.description}}</li>
+    </ul>
 </div>

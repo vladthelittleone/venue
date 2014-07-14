@@ -21,10 +21,10 @@ public class Event
     private Properties properties;
 
     @JsonIgnore
-    public Event(long eventId, double longitude, double latitude, String title, String description, String size, EventType type)
+    public Event(long eventId, double longitude, double latitude, String title, String description, String size, String type)
     {
         this.geometry = new Geometry("Point", new double[]{longitude, latitude});
-        this.properties = new Properties(eventId, title, description, size, type.getColor(), type.getIcon());
+        this.properties = new Properties(eventId, title, description, size, type);
     }
 
     public String getType()
@@ -62,6 +62,7 @@ public class Event
         private long eventId;
         private String title;
         private String description;
+        private String type;
 
         @JsonProperty("marker-size")
         private String markerSize;
@@ -73,14 +74,18 @@ public class Event
         private String markerSymbol;
 
         @JsonIgnore
-        Properties(long eventId, String title, String description, String markerSize, String markerColor, String markerSymbol)
+        Properties(long eventId, String title, String description, String markerSize, String type)
         {
+            // Get type properties
+            EventType p = EventType.valueOf(type);
+
+            this.type = type;
             this.eventId = eventId;
             this.title = title;
             this.description = description;
             this.markerSize = markerSize;
-            this.markerColor = markerColor;
-            this.markerSymbol = markerSymbol;
+            this.markerColor = p.getColor();
+            this.markerSymbol = p.getIcon();
         }
 
         public String getTitle()
@@ -141,6 +146,16 @@ public class Event
         public void setEventId(long eventId)
         {
             this.eventId = eventId;
+        }
+
+        public String getType()
+        {
+            return type;
+        }
+
+        public void setType(String type)
+        {
+            this.type = type;
         }
     }
 
