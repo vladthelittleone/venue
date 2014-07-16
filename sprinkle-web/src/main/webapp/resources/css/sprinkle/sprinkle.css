@@ -1,3 +1,10 @@
+#map {
+    position: fixed;
+    top: 30px;
+    bottom: 0;
+    width: 100%;
+}
+
 html {
     overflow: hidden;
     font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
@@ -6,13 +13,6 @@ html {
 body {
     padding-top: 50px;
     padding-bottom: 40px;
-}
-
-#map {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 100%;
 }
 
 /* Header */
@@ -72,7 +72,7 @@ body {
 .navbar-toggle {
     padding: 5px;
     margin-top: 2px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .dropdown-menu {
@@ -82,4 +82,31 @@ body {
     border: 2px solid #5EA2AF;
     box-shadow: 0 4px 10px rgba(0, 0, 0, .175);
 }
+
+/* Marker popup */
+.markerPopup {
+    text-align:center;
+    width: 100%;
+}
+
+.markerPopup  img {
+    display: block; /* width equals to parent */
+    width: 100%;
+    margin: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 1px 0 1px 0 rgba(0, 0, 0, 0.22); /* horizontal shift, vertical shift, blur, increase, color */
+}
+
+.markerPopup .markerTitle {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    color: #FFFFFF;
+    text-align: center;
+    box-shadow: 1px 0 1px 0 rgba(0, 0, 0, 0.22);
+    /*     text-shadow: 0 1px rgba(255, 255, 255, 0.75); */
+}
+
+
 

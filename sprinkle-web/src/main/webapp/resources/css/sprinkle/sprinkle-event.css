@@ -15,7 +15,7 @@
 }
 
 .eventContentTitle {
-    height: 46px;
+    min-height: 46px;
     font-weight: 500;
     word-wrap: break-word;
     white-space: pre-wrap;
