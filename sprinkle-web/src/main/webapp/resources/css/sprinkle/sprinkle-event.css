@@ -61,16 +61,17 @@
 
 .eventContentMid {
     position: relative;
-    width: 50%;
+    width: 80%;
+    padding-top: 50px;
     margin: auto;
 }
 
 .eventContent {
     position: relative;
-    width: 30%;
+    width: 100%;
     margin: 0;
     float: right;
-    padding: 0 25px 29px;
+    padding: 50px 25px 29px;
 }
 
 .eventContent input,

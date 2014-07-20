@@ -36,16 +36,17 @@ textarea {
 }
 
 .whiteBack30Right {
+    overflow-y: auto;
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
     width: 30%;
-    background: #ffffff;
-    opacity: 0.2;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .blackBack30Right {
+    overflow-y: auto;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -56,13 +57,13 @@ textarea {
 }
 
 .blackBack60Mid {
+    overflow-y: auto;
     position: fixed;
     top: 0;
     bottom: 0;
     width: 60%;
     right: 20%;
-    background: #000000;
-    opacity: 0.25;
+    background: rgba(0, 0, 0, 0.25);
 }
 
 .whiteBack {

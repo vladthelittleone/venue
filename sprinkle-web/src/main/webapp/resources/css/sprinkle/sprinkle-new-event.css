@@ -35,10 +35,10 @@
 
 .newEventContent {
     position: relative;
-    width: 30%;
+    width: 100%;
     margin: 0;
     float: right;
-    padding: 0 25px 29px;
+    padding: 50px 25px 29px;
 }
 
 .newEventContent input {
