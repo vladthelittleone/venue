@@ -35,7 +35,7 @@ function AuthenticationAlert(sign) {
          * Shake container using jquery.
          * TODO: using angularJS directives.
          */
-        jQuery("#sign-shake").shake(3, 7, 400);
+        jQuery("#signShake").shake(3, 7, 400);
     };
 
     this.alertMessage = function (msg) {
@@ -46,7 +46,7 @@ function AuthenticationAlert(sign) {
          * Shake container using jquery.
          * TODO: using angularJS directives.
          */
-        jQuery("#sign-shake").shake(3, 7, 400);
+        jQuery("#signShake").shake(3, 7, 400);
     };
 
 

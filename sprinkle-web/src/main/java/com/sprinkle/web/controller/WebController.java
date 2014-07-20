@@ -39,4 +39,10 @@ public class WebController
         return "/authentication/index";
     }
 
+    @RequestMapping("/event")
+    public String getEventPage()
+    {
+        return "/event/index";
+    }
+
 }

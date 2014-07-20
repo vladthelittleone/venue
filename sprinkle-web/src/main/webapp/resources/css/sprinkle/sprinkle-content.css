@@ -4,7 +4,7 @@ textarea {
     border-top-right-radius: 0;
 }
 
-.content-margin-top-50 {
+.contentMarginTop50 {
     margin-top: 50px;
 }
 
@@ -23,18 +23,51 @@ textarea {
     border-top-right-radius: 0;
 }
 
-.white-back-30-right {
+.contextIcon {
     position: absolute;
+    right: 0;
+    padding: 5px;
+}
+
+.contextIcon:hover,
+.contextIcon:active,
+.contextIcon:focus {
+    opacity: 0.5;
+}
+
+.whiteBack30Right {
+    overflow-y: auto;
+    position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
     width: 30%;
-    background: #ffffff;
-    opacity: 0.25;
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.white-back {
-    position: absolute;
+.blackBack30Right {
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    background: #000000;
+    opacity: 0.1;
+}
+
+.blackBack60Mid {
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 60%;
+    right: 20%;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.whiteBack {
+    position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
@@ -44,8 +77,8 @@ textarea {
     opacity: 0.50;
 }
 
-.white-back-30-mid {
-    position: absolute;
+.whiteBack30Mid {
+    position: fixed;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -72,7 +105,7 @@ textarea {
     border-color: #dcdcdc;
 }
 
-.content-heading {
+.contentHeading {
     margin: 0 -25px 25px;
     padding: 15px 25px;
     line-height: 35px;
@@ -92,27 +125,28 @@ input, textarea {
     box-sizing: border-box;
 }
 
-.content-input {
-    font-size: 17px;
+.contentInput {
+    font-size: 1.1em;
     background: white;
+    color: rgb(80, 80, 80);
     border: 2px solid #ebebeb;
     border-radius: 4px;
     -webkit-box-shadow: inset 0 -2px #ebebeb;
     box-shadow: inset 0 -2px #ebebeb;
 }
 
-.content-input:focus {
+.contentInput:focus {
     border-color: #5EA2AF;
     outline: none;
     -webkit-box-shadow: inset 0 -2px #5EA2AF;
     box-shadow: inset 0 -2px #5EA2AF;
 }
 
-.lt-ie9 .content-input {
+.lt-ie9 .contentInput {
     line-height: 48px;
 }
 
-.content-btn {
+.contentBtn {
     position: relative;
     vertical-align: top;
     width: 100%;
@@ -131,8 +165,8 @@ input, textarea {
     box-shadow: inset 0 -2px #d76b60;
 }
 
-.content-btn:active,
-.content-green-btn:active {
+.contentBtn:active,
+.contentGreenBtn:active {
     top: 1px;
     outline: none;
     -webkit-box-shadow: none;
@@ -148,7 +182,7 @@ input, textarea {
     box-shadow: inset 0 -2px #953228;
 }
 
-.content-green-btn {
+.contentGreenBtn {
     position: relative;
     vertical-align: top;
     width: 100%;
@@ -167,7 +201,7 @@ input, textarea {
     box-shadow: inset 0 -2px #acc672;
 }
 
-.content-alert {
+.contentAlert {
     position: relative;
     margin: 10px auto auto;
     width: 100%;
@@ -207,3 +241,4 @@ input, textarea {
     border: 0;
     padding: 0;
 }
+
