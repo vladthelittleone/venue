@@ -91,16 +91,22 @@ angular.module('sprinkle.controllers')
                             jQuery("#newEventShake").shake(3, 7, 400);
                             return;
                         }
-                        // Set event creation off
-                        service.isEventCreationOn(false);
-
-                        // Redirect to profile
-                        $url.redirect.toProfile();
 
                         var m = $scope.newEvent;
-                        // Apply all changes.
-                        sprinkleMap.setMarker($url.setEvent, e.latlng.lng, e.latlng.lat,
-                            m.name, m.description, "large", m.type);
+
+                        // Apply all changes and add marker on map.
+                        if (sprinkleMap.setMarker($url.setEvent, e.latlng.lng, e.latlng.lat,
+                            m.name, m.description, "large", m.type)) {
+                            // If request from service is true, then
+                            // set event creation off
+                            service.isEventCreationOn(false);
+
+                            // And redirect to profile
+                            $url.redirect.toProfile();
+                        } else {
+                            // Else shake content
+                            jQuery("#newEventShake").shake(3, 7, 400);
+                        }
                     });
                 }
             });

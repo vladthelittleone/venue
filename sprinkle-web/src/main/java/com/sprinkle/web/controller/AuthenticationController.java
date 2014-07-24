@@ -1,5 +1,6 @@
 package com.sprinkle.web.controller;
 
+import com.sprinkle.web.common.exception.IllegalAuthenticationProperties;
 import com.sprinkle.web.security.domain.User;
 import com.sprinkle.web.security.domain.json.AuthenticationStatus;
 import com.sprinkle.web.security.domain.json.ProfileStatus;
@@ -40,10 +41,17 @@ public class AuthenticationController
     @ResponseBody
     public AuthenticationStatus singUp(@RequestBody SignUpRequest a)
     {
-        if (userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword()) == null)
-            return new AuthenticationStatus(false, null, "This e-mail is already registered", false);
+        // To lower case
+        String username = a.getUsername().toLowerCase();
 
-        return new AuthenticationStatus(false, null, true);
+        try
+        {
+            userManager.signUp(username, a.getFullname(), a.getPassword());
+            return new AuthenticationStatus(false, null, true);
+        } catch (IllegalAuthenticationProperties e)
+        {
+            return new AuthenticationStatus(false, null, e.getMessage(), false);
+        }
     }
 
     /**

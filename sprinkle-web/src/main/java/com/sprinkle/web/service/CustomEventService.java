@@ -1,13 +1,16 @@
 package com.sprinkle.web.service;
 
-import com.sprinkle.web.service.domain.Event;
-import com.sprinkle.web.service.domain.EventType;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
-
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+
+import com.sprinkle.web.common.exception.IllegalEventProperties;
+import com.sprinkle.web.common.validator.EventValidator;
+import com.sprinkle.web.service.domain.Event;
+import com.sprinkle.web.service.domain.EventType;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * package: com.sprinkle.web.service
@@ -20,14 +23,17 @@ public class CustomEventService implements EventService
 {
     private final Logger logger = Logger.getLogger(CustomEventService.class);
 
+    @Autowired
+    private EventValidator validator;
+
     private final AtomicLong eventId = new AtomicLong(0);
     private final ConcurrentHashMap<Long, Event> events = new ConcurrentHashMap<>();
 
     @Override
-    public Event create(double longitude, double latitude, String title, String description, String size, String type)
+    public Event create(double longitude, double latitude, String title, String description, String size, String type) throws IllegalEventProperties
     {
         // Validate new event
-        if (!validate(longitude, latitude, title, description, type)) return null;
+        validator.validate(longitude, latitude, title, description, type);
 
         long id = eventId.incrementAndGet();
 
@@ -46,21 +52,5 @@ public class CustomEventService implements EventService
     public Collection<Event> getEvents()
     {
         return events.values();
-    }
-
-    private boolean validate(double longitude, double latitude, String title, String description, String type)
-    {
-        // Check type
-        if (!EventType.contains(type))
-            return false;
-        if (longitude > 180 || longitude < -180)
-            return false;
-        if (latitude > 90 || latitude < -90)
-            return false;
-        if (title == null)
-            return false;
-        if (description == null)
-            return false;
-        return type != null;
     }
 }

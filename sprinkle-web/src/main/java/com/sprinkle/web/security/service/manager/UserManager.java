@@ -1,5 +1,6 @@
 package com.sprinkle.web.security.service.manager;
 
+import com.sprinkle.web.common.exception.IllegalAuthenticationProperties;
 import com.sprinkle.web.security.domain.User;
 
 /**
@@ -18,7 +19,7 @@ public interface UserManager
      * @param password token
      * @return user object
      */
-    public User signUp(final String username, final String fullname, final String password);
+    public User signUp(final String username, final String fullname, final String password) throws IllegalAuthenticationProperties;
 
     /**
      * Get user by id.

@@ -1,14 +1,16 @@
 package com.sprinkle.web.security.service.manager;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.atomic.AtomicLong;
+
+import com.sprinkle.web.common.exception.IllegalAuthenticationProperties;
+import com.sprinkle.web.common.validator.AuthenticationValidator;
 import com.sprinkle.web.security.domain.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * package: com.sprinkle.web.security.service
@@ -24,6 +26,9 @@ public class CustomUserManager implements UserManager
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthenticationValidator vadliator;
+
     private final AtomicLong userId = new AtomicLong(0);
     private final ConcurrentHashMap<Long, User> users = new ConcurrentHashMap<>();
     private final ConcurrentSkipListSet<String> usernames = new ConcurrentSkipListSet<>();
@@ -38,14 +43,16 @@ public class CustomUserManager implements UserManager
      */
     @Override
     public User signUp(final String username, final String fullname, final String password)
+            throws IllegalAuthenticationProperties
     {
+        vadliator.validate(username, fullname, password);
+
         String hashedPassword = passwordEncoder.encode(password);
 
         if (logger.isTraceEnabled())
             logger.trace(String.format("Sign up new user [%s, %s, %s]", username, fullname, hashedPassword));
 
-        if (username.isEmpty() || password.isEmpty() || fullname.isEmpty()) return null;
-        if (!usernames.add(username)) return null;
+        if (!usernames.add(username)) throw new IllegalAuthenticationProperties("This user already registered");
 
         long id = userId.incrementAndGet();
 

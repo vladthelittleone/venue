@@ -108,5 +108,8 @@ body {
     box-shadow: 1px 0 1px 0 rgba(0, 0, 0, 0.22);
 }
 
+.email {
+    text-transform: lowercase;
+}
 
 

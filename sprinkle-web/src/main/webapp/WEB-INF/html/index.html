@@ -66,8 +66,8 @@
 
                 <!-- profile -->
 
-                <li>
-                    <a href="/profile" ng-show="authenticationService.isAuthenticate()">
+                <li class="email">
+                    <a href="" ng-show="authenticationService.isAuthenticate()" ng-click="redirect.toProfile()">
                         <strong ng-bind-template="{{authenticationService.getUsername()}}"></strong>
                     </a>
                 </li>
