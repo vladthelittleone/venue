@@ -5216,7 +5216,7 @@ button.close {
   padding: 0 5px;
   margin-left: 3px;
 }
-.tooltip.bottom {
+.tooltip.header {
   padding: 5px 0;
   margin-top: 3px;
 }
@@ -5273,7 +5273,7 @@ button.close {
   border-width: 5px 0 5px 5px;
   border-left-color: #000;
 }
-.tooltip.bottom .tooltip-arrow {
+.tooltip.header .tooltip-arrow {
   top: 0;
   left: 50%;
   margin-left: -5px;
@@ -5316,7 +5316,7 @@ button.close {
 .popover.right {
   margin-left: 10px;
 }
-.popover.bottom {
+.popover.header {
   margin-top: 10px;
 }
 .popover.left {
@@ -5381,7 +5381,7 @@ button.close {
   border-right-color: #fff;
   border-left-width: 0;
 }
-.popover.bottom > .arrow {
+.popover.header > .arrow {
   top: -11px;
   left: 50%;
   margin-left: -11px;
@@ -5389,7 +5389,7 @@ button.close {
   border-bottom-color: #999;
   border-bottom-color: rgba(0, 0, 0, .25);
 }
-.popover.bottom > .arrow:after {
+.popover.header > .arrow:after {
   top: 1px;
   margin-left: -10px;
   content: " ";

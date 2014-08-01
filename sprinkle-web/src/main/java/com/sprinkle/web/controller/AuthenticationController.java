@@ -1,6 +1,7 @@
 package com.sprinkle.web.controller;
 
 import com.sprinkle.web.common.exception.IllegalAuthenticationProperties;
+import com.sprinkle.web.common.validator.AuthenticationValidator;
 import com.sprinkle.web.security.domain.User;
 import com.sprinkle.web.security.domain.json.AuthenticationStatus;
 import com.sprinkle.web.security.domain.json.ProfileStatus;
@@ -29,6 +30,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AuthenticationController
 {
     @Autowired
+    private AuthenticationValidator vadliator;
+
+    @Autowired
     private UserManager userManager;
 
     /**
@@ -41,12 +45,10 @@ public class AuthenticationController
     @ResponseBody
     public AuthenticationStatus singUp(@RequestBody SignUpRequest a)
     {
-        // To lower case
-        String username = a.getUsername().toLowerCase();
-
         try
         {
-            userManager.signUp(username, a.getFullname(), a.getPassword());
+            vadliator.validate(a.getUsername(), a.getFullname(), a.getPassword());
+            userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword());
             return new AuthenticationStatus(false, null, true);
         } catch (IllegalAuthenticationProperties e)
         {

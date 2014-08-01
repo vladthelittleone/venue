@@ -66,15 +66,16 @@ textarea {
     background: rgba(0, 0, 0, 0.25);
 }
 
-.whiteBack {
+.blackBack {
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     margin: auto;
-    background: #ffffff;
+    background: #000000;
     opacity: 0.50;
+    z-index: 1001;
 }
 
 .whiteBack30Mid {
@@ -92,11 +93,11 @@ textarea {
     width: 30%;
     margin: auto;
     padding: 0 25px 29px;
-    background: white;
-    border-top: 6px solid #838383;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-box-shadow: 0 0 50px #202020;
+    box-shadow: 0 0 50px #202020;
+    z-index: 1001;
+    border-radius: 2px;
 }
 
 .content:after {
@@ -107,14 +108,14 @@ textarea {
 .contentHeading {
     margin: 0 -25px 25px;
     padding: 15px 25px;
-    line-height: 35px;
+    line-height: 45px;
     font-size: 26px;
     font-weight: 300;
-    color: #aaa;
+    color: #8A8A8A;
+    border-bottom: 1px solid #d5d5d5;
+    box-shadow: 0 1px 0 #fff;
+    -webkit-box-shadow: 0 1px 0 #fff;
     text-align: center;
-    text-shadow: 0 1px rgba(255, 255, 255, 0.75);
-    border-radius: 5px 5px 0 0;
-    background: #f7f7f7;
 }
 
 input, textarea {
@@ -125,37 +126,26 @@ input, textarea {
     box-sizing: border-box;
 }
 
-/* Bottom border */
-.content:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: #838383;
-    border-radius: 0 0 5px 5px;
+.lt-ie9 .contentInput {
+    line-height: 48px;
 }
 
 .contentInput {
     font-size: 1.1em;
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     color: rgb(80, 80, 80);
-    border: 2px solid #ebebeb;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 -2px #ebebeb;
-    box-shadow: inset 0 -2px #ebebeb;
+    border: 1px solid #ebebeb;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 -1px #ebebeb;
+    box-shadow: inset 0 -1px #ebebeb;
 }
 
 .contentInput:focus {
     border-color: #5EA2AF;
     outline: none;
-    -webkit-box-shadow: inset 0 -2px #5EA2AF;
-    box-shadow: inset 0 -2px #5EA2AF;
-}
-
-.lt-ie9 .contentInput {
-    line-height: 48px;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 -1px #5EA2AF;
+    box-shadow: inset 0 -1px #5EA2AF;
 }
 
 .contentBtn {
@@ -167,14 +157,10 @@ input, textarea {
     font-size: 22px;
     color: white;
     text-align: center;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     background: #f0776c;
     border: 0;
-    border-bottom: 2px solid #d76b60;
-    border-radius: 5px;
+    border-radius: 0;
     cursor: pointer;
-    -webkit-box-shadow: inset 0 -2px #d76b60;
-    box-shadow: inset 0 -2px #d76b60;
 }
 
 .contentBtn:active,
@@ -188,10 +174,9 @@ input, textarea {
 .invalid {
     font-size: 17px;
     background: white;
-    border: 2px solid #953228;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 -2px #953228;
-    box-shadow: inset 0 -2px #953228;
+    border: 1px solid #953228;
+    -webkit-box-shadow: inset 0 -1px #953228;
+    box-shadow: inset 0 -1px #953228;
 }
 
 .contentGreenBtn {
@@ -203,25 +188,22 @@ input, textarea {
     font-size: 22px;
     color: white;
     text-align: center;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     border: 0;
-    border-radius: 5px;
+    border-radius: 0;
     cursor: pointer;
     background: #c5e199;
-    -webkit-box-shadow: inset 0 -2px #acc672;
-    border-bottom: 2px solid #acc672;
-    box-shadow: inset 0 -2px #acc672;
 }
 
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+    outline: none;
+}
 .contentAlert {
-    position: relative;
     margin: 10px auto auto;
     width: 100%;
     background: white;
-    border: 2px solid #faebcc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 -2px #faebcc;
-    box-shadow: inset 0 -2px #faebcc;
+    border-radius: 0px;
 }
 
 .btn:hover, .btn:focus {

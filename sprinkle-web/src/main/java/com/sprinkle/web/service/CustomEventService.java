@@ -23,18 +23,12 @@ public class CustomEventService implements EventService
 {
     private final Logger logger = Logger.getLogger(CustomEventService.class);
 
-    @Autowired
-    private EventValidator validator;
-
     private final AtomicLong eventId = new AtomicLong(0);
     private final ConcurrentHashMap<Long, Event> events = new ConcurrentHashMap<>();
 
     @Override
     public Event create(double longitude, double latitude, String title, String description, String size, String type) throws IllegalEventProperties
     {
-        // Validate new event
-        validator.validate(longitude, latitude, title, description, type);
-
         long id = eventId.incrementAndGet();
 
         Event event = new Event(id, longitude, latitude, title, description, size, type);

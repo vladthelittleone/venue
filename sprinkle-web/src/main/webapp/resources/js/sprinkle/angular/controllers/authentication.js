@@ -21,15 +21,6 @@ angular.module('sprinkle.controllers', [])
             var details = $scope.authenticationDetails;
 
             $scope.authenticate = function () {
-                /**
-                 * Validating.
-                 */
-                if (!$authentication.isValidEmailAddress(details.email)
-                    || !details.password) {
-                    alert.alertMessage('Invalid e-mail address or password.');
-                    return;
-                }
-
                 var payload =
                     'j_username=' + details.email +
                     '&j_password=' + details.password +
@@ -75,19 +66,8 @@ angular.module('sprinkle.controllers', [])
                 var details = $scope.authenticationDetails;
                 var alert = $scope.authenticationAlert;
 
-                if (!$authentication.isValidEmailAddress(details.email) ||
-                    !details.fullName) {
-                    alert.alertWarning('Invalid e-mail address or full name.', true, false, true);
-                    return false;
-                }
-
                 if (details.password != details.passwordCheck) {
                     alert.alertWarning("Passwords don't match.", false, true, false);
-                    return false;
-                }
-
-                if (!details.password || !details.passwordCheck) {
-                    alert.alertWarning('Invalid password.', false, true, false);
                     return false;
                 }
 

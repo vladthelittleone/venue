@@ -60,9 +60,7 @@ angular.module('sprinkle', [
             $rootScope.$on('$routeChangeSuccess', function () {
                 $http.get($url.resources.profileStatus).
                     success(function (data) {
-                        if (data.signedIn) {
-                            $authentication.authenticate(data);
-                        } else {
+                        if (!data.signedIn) {
                             $authentication.logout();
                         }
                     });
@@ -72,15 +70,5 @@ angular.module('sprinkle', [
                  */
                 $map.getSprinkleMap().setMarkers($url.resources.events);
             });
-
-            /**
-             * Redirect on run.
-             * If user isn't authenticate, redirect to sign in page, else to profile.
-             */
-            if (!$authentication.isAuthenticate()) {
-                $url.redirect.toSignIn();
-            } else {
-                $url.redirect.toProfile();
-            }
         }
     ]);

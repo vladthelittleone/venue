@@ -26,9 +26,6 @@ public class CustomUserManager implements UserManager
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private AuthenticationValidator vadliator;
-
     private final AtomicLong userId = new AtomicLong(0);
     private final ConcurrentHashMap<Long, User> users = new ConcurrentHashMap<>();
     private final ConcurrentSkipListSet<String> usernames = new ConcurrentSkipListSet<>();
@@ -42,21 +39,21 @@ public class CustomUserManager implements UserManager
      * @return user object
      */
     @Override
-    public User signUp(final String username, final String fullname, final String password)
+    public User signUp(String username, String fullname, String password)
             throws IllegalAuthenticationProperties
     {
-        vadliator.validate(username, fullname, password);
+        String u = username.toLowerCase();
 
         String hashedPassword = passwordEncoder.encode(password);
 
         if (logger.isTraceEnabled())
-            logger.trace(String.format("Sign up new user [%s, %s, %s]", username, fullname, hashedPassword));
+            logger.trace(String.format("Sign up new user [%s, %s, %s]", u, fullname, hashedPassword));
 
         if (!usernames.add(username)) throw new IllegalAuthenticationProperties("This user already registered");
 
         long id = userId.incrementAndGet();
 
-        User user = new User(id, username, hashedPassword, fullname, "ROLE_USER");
+        User user = new User(id, u, hashedPassword, fullname, "ROLE_USER");
 
         users.put(id, user);
 

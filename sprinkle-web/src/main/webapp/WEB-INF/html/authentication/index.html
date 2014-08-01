@@ -1,5 +1,5 @@
-<div class="whiteBack"></div>
-<div id="signShake" class="container contentMarginTop50">
+<div class="blackBack"></div>
+<div id="signShake" class="container">
     <form class="content" role="form" novalidate ng-submit="authenticate()">
 
         <h2 class="contentHeading" ng-show="isSignIn">Have an account?</h2>
@@ -46,8 +46,10 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-block contentGreenBtn" ng-hide="isSignIn">Sign up</button>
-        <button type="submit" class="btn btn-block contentBtn" ng-show="isSignIn">Sign in</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-block contentGreenBtn" ng-hide="isSignIn">Sign up</button>
+            <button type="submit" class="btn btn-block contentBtn" ng-show="isSignIn">Sign in</button>
+        </div>
 
         <div class="contentAlert alert alert-dismissable" ng-show="authenticationAlert.show">
             <button type="button" class="close" ng-click="authenticationAlert.show = false;">&times;</button>

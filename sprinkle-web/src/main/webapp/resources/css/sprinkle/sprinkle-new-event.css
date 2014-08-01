@@ -60,6 +60,6 @@
 .newEventContent .contentInput:focus {
     border-color: #ebebeb;
     outline: none;
-    -webkit-box-shadow: inset 0 -2px #ebebeb;
-    box-shadow: inset 0 -2px #ebebeb;
+    -webkit-box-shadow: inset 0 -1px #ebebeb;
+    box-shadow: inset 0 -1px #ebebeb;
 }

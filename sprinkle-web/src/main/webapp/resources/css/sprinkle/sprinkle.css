@@ -1,6 +1,6 @@
 #map {
     position: fixed;
-    top: 30px;
+    top: 0;
     bottom: 0;
     width: 100%;
 }
@@ -8,11 +8,22 @@
 html {
     overflow: hidden;
     font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    color: #838383;
 }
 
 body {
     padding-top: 50px;
     padding-bottom: 40px;
+}
+
+a {
+    color: rgb(94, 162, 175);
+}
+
+a:hover,
+a:active,
+a:focus {
+    color: rgb(68, 114, 122);
 }
 
 /* Header */
@@ -112,4 +123,150 @@ body {
     text-transform: lowercase;
 }
 
+.header {
+    width: 400px;
+    margin-left: 1%;
+    position: fixed;
+    height: 50px;
+    background: #FFFFFF;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    top: 0;
+}
 
+.headerTitle {
+    position: absolute;
+    left: 0;
+    color: rgb(94, 162, 175);
+    height: 100%;
+    font-size: 22px;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+.headerSignUp {
+    height: 100%;
+    font-size: 14px;
+    right: 0;
+    text-align: center;
+    position: absolute;
+    color: rgb(80, 80, 80);
+    border-left: 1px solid rgba(0,0,0,0.1);
+}
+
+.headerSignUp:hover a,
+.headerSignUp:active a,
+.headerSignUp:hover,
+.headerSignUp:active {
+    background: rgb(94, 162, 175);
+    color: #fff;
+}
+
+.headerSignUp a,
+.headerSignUp a {
+    color: rgb(94, 162, 175);
+}
+
+.headerSignUp i {
+    margin: 17px 20px;
+}
+
+/**
+ * Tooltip
+ */
+
+/* Base styles for the element that has a sprinkle-tooltip */
+[sprinkle-tooltip] {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Base styles for the entire sprinkle-tooltip */
+[sprinkle-tooltip]:before,
+[sprinkle-tooltip]:after {
+    position: absolute;
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transition:
+    opacity 0.2s ease-in-out,
+    visibility 0.2s ease-in-out,
+    -webkit-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+    -moz-transition:
+    opacity 0.2s ease-in-out,
+    visibility 0.2s ease-in-out,
+    -moz-transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+    transition:
+    opacity 0.2s ease-in-out,
+    visibility 0.2s ease-in-out,
+    transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform:    translate3d(0, 0, 0);
+    transform:         translate3d(0, 0, 0);
+    pointer-events: none;
+}
+
+/* Show the entire sprinkle-tooltip on hover and focus */
+[sprinkle-tooltip]:hover:before,
+[sprinkle-tooltip]:hover:after,
+[sprinkle-tooltip]:focus:before,
+[sprinkle-tooltip]:focus:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+/* Base styles for the tooltip's directional arrow */
+[sprinkle-tooltip]:before {
+    z-index: 1001;
+    border: 6px solid transparent;
+    background: transparent;
+    content: "";
+}
+
+/* Base styles for the tooltip's content area */
+[sprinkle-tooltip]:after {
+    z-index: 1000;
+    padding: 8px;
+    width: 100px;
+    background-color: #000;
+    border-radius: 2px;
+    background-color: hsla(0, 0%, 20%, 0.9);
+    color: #fff;
+    content: attr(sprinkle-tooltip);
+    font-size: 14px;
+    line-height: 1.0;
+}
+
+[sprinkle-tooltip]:before,
+[sprinkle-tooltip]:after {
+    top: 100%;
+    bottom: auto;
+    left: 50%;
+}
+
+[sprinkle-tooltip]:before {
+    margin-left: -6px;
+    margin-top: -12px;
+    margin-bottom: 0;
+    border-top-color: transparent;
+    border-bottom-color: #000;
+    border-bottom-color: hsla(0, 0%, 20%, 0.9);
+}
+
+/* Horizontally align top/bottom sprinkle-tooltips */
+[sprinkle-tooltip]:after {
+    margin-left: -50px;
+}
+
+[sprinkle-tooltip]:hover:before,
+[sprinkle-tooltip]:hover:after,
+[sprinkle-tooltip]:focus:before,
+[sprinkle-tooltip]:focus:after {
+    -webkit-transform: translateY(12px);
+    -moz-transform:    translateY(12px);
+    transform:         translateY(12px);
+}

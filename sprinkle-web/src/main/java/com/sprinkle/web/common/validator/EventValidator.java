@@ -15,8 +15,12 @@ public class EventValidator
     private short titleLength;
     private int descriptionLength;
 
-    public void validate(final double longitude, final double latitude,
-                          final String title, final String description, final String type)
+    public void validate(double longitude,
+                         double latitude,
+                         String title,
+                         String description,
+                         String size,
+                         String type)
             throws IllegalEventProperties
     {
         /**
@@ -63,7 +67,7 @@ public class EventValidator
         /**
          * Check description length.
          */
-        if (description.length() > getDescriptionLength())
+        if (description.length() > descriptionLength)
         {
             throw new IllegalEventProperties("Letters limit for description is exceeded");
         }
@@ -71,7 +75,7 @@ public class EventValidator
         /**
          * Check title length.
          */
-        if (title.length() > getTitleLength())
+        if (title.length() > titleLength)
         {
             throw new IllegalEventProperties("Letters limit for title is exceeded");
         }
