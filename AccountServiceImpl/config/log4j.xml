@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="trace" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%c{1}] [%t] %m%n" />
+		</layout>
+	</appender>
+
+	<category name="com.sprinkle.service.account" additivity="false">
+		<priority value="trace" />
+		<appender-ref ref="ConsoleAppender" />
+	</category>
+
+	<category name="org.flywaydb" additivity="false">
+		<priority value="info" />
+		<appender-ref ref="ConsoleAppender" />
+	</category>
+
+	<category name="org.springframework.web.servlet" additivity="false">
+		<priority value="info" />
+		<appender-ref ref="ConsoleAppender" />
+	</category>
+
+	<root>
+		<priority value="error" />
+		<appender-ref ref="ConsoleAppender" />
+	</root>
+
+</log4j:configuration>
