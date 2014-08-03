@@ -21,7 +21,7 @@ $.fn.shake = function (intShakes, intDistance, intDuration) {
 
 // ---------------- Button-checkbox style
 function checkboxStyle() {
-    jQuery('.button-checkbox').each(function () {
+    jQuery('.buttonCheckbox').each(function () {
 
         // Settings
         var $widget = jQuery(this),
@@ -62,13 +62,13 @@ function checkboxStyle() {
             // Update the button's color
             if (isChecked) {
                 $button
-                    .removeClass('btn-default')
-                    .addClass('btn-' + color + ' active');
+                    .removeClass('rememberMeButton')
+                    .addClass('rememberMeButtonChecked');
             }
             else {
                 $button
-                    .removeClass('btn-' + color + ' active')
-                    .addClass('btn-default');
+                    .removeClass('rememberMeButtonChecked')
+                    .addClass('rememberMeButton');
             }
         }
 

@@ -21,25 +21,31 @@ public class WebController
         return "index";
     }
 
-    @RequestMapping("/profile")
+    @RequestMapping("/profileLayout")
     public String getProfilePage()
     {
         return "/profile/index";
     }
 
-    @RequestMapping("/newevent")
+    @RequestMapping("/newEventLayout")
     public String getNewEventPage()
     {
         return "/new/event/index";
     }
 
-    @RequestMapping("/authentication")
-    public String getAuthenticationPage()
+    @RequestMapping("/signInLayout")
+    public String getSignInPage()
     {
-        return "/authentication/index";
+        return "/authentication/signin/index";
     }
 
-    @RequestMapping("/event")
+    @RequestMapping("/signUpLayout")
+    public String getSignUpPage()
+    {
+        return "/authentication/signup/index";
+    }
+
+    @RequestMapping("/eventLayout")
     public String getEventPage()
     {
         return "/event/index";

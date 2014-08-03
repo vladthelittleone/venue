@@ -16,6 +16,9 @@ angular.module('sprinkle.services')
                     toProfile: function () {
                         $location.path("/id" + $authentication.getId());
                     },
+                    toMainPage: function () {
+                        $location.path("/");
+                    },
                     toProfileWithId: function (id) {
                         $location.path("/id" + id);
                     },

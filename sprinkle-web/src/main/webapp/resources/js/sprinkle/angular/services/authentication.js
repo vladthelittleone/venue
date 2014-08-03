@@ -9,9 +9,6 @@ angular.module('sprinkle.services', [])
     .factory('$authentication', [ '$storage',
         function ($storage) {
             return {
-                // true - show sign in components, false - show sign up components.
-                isSignIn: true,
-
                 /**
                  * @returns {string}
                  */

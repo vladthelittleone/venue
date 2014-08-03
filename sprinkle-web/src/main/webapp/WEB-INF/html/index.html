@@ -97,17 +97,17 @@
 
                 <!--<li>-->
                     <!--<a ng-bind-template="Forgot a password?" href="/fpassword"-->
-                       <!--ng-hide="authenticationService.isAuthenticate() || !authenticationService.isSignIn">-->
+                       <!--ng-hide="authenticationService.isAuthenticate() || !authenticationService.isSignInVisible">-->
                     <!--</a>-->
                 <!--</li>-->
                 <!--<li>-->
                     <!--<a ng-bind-template="Sign in" href="/signin"-->
-                       <!--ng-hide="authenticationService.isAuthenticate() ||  authenticationService.isSignIn">-->
+                       <!--ng-hide="authenticationService.isAuthenticate() ||  authenticationService.isSignInVisible">-->
                     <!--</a>-->
                 <!--</li>-->
                 <!--<li>-->
                     <!--<a ng-bind-template="Sign up" href="/signup"-->
-                       <!--ng-hide="authenticationService.isAuthenticate() || !authenticationService.isSignIn">-->
+                       <!--ng-hide="authenticationService.isAuthenticate() || !authenticationService.isSignInVisible">-->
                     <!--</a>-->
                 <!--</li>-->
             <!--</ul>-->
@@ -119,20 +119,36 @@
 <!-- Map Box -->
 <div id="map"></div>
 
-<div ng-view></div>
-
 <div>
     <div class="header">
         <header class="headerTitle">Sprinkle</header>
         <a href="/signin" class="headerSignUp">
-            <div href="/signin" sprinkle-tooltip="Sign in">
+
+            <!-- Sign in-->
+            <div href="/signin"
+                 sprinkle-tooltip="Sign in"
+                 ng-hide="authenticationService.isAuthenticate()">
+
                 <i class="glyphicon glyphicon-log-in"></i>
+
+            </div>
+
+            <!-- Logout -->
+            <div href="/logout"
+                 sprinkle-tooltip="Logout"
+                 ng-click="logout()"
+                 ng-hide="!authenticationService.isAuthenticate()">
+
+                <i class="glyphicon glyphicon-log-out"></i>
+
             </div>
         </a>
     </div>
 </div>
 
-<!--TODO Регистрация под header коричненвый focus с бордером signup, feedback с боку, интересная фишка с бордюром на roadtrip -->
+<div ng-view></div>
+
+<!--TODO feedback с боку, интересная фишка с бордюром на roadtrip -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

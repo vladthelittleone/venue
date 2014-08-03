@@ -15,12 +15,12 @@ angular.module('sprinkle', [
     config(['$routeProvider', '$locationProvider',
         function ($routeProvider, $locationProvider) {
             $routeProvider.when('/signin', {
-                templateUrl: 'authentication',
+                templateUrl: 'signInLayout',
                 controller: 'signInCtrl'
             });
 
             $routeProvider.when('/signup', {
-                templateUrl: 'authentication',
+                templateUrl: 'signUpLayout',
                 controller: 'signUpCtrl'
             });
 
@@ -28,16 +28,16 @@ angular.module('sprinkle', [
              * Rest like link, that contains id of user.
              */
             $routeProvider.when('/id:profileId', {
-                templateUrl: 'profile'
+                templateUrl: 'profileLayout'
             });
 
             $routeProvider.when('/event:eventId', {
-                templateUrl: 'event',
+                templateUrl: 'eventLayout',
                 controller: 'eventViewCtrl'
             });
 
             $routeProvider.when('/new_event', {
-                templateUrl: 'newevent',
+                templateUrl: 'newEventLayout',
                 controller: 'newEventCtrl'
             });
 
@@ -60,7 +60,9 @@ angular.module('sprinkle', [
             $rootScope.$on('$routeChangeSuccess', function () {
                 $http.get($url.resources.profileStatus).
                     success(function (data) {
-                        if (!data.signedIn) {
+                        if (data.signedIn) {
+                            $authentication.authenticate(data);
+                        } else {
                             $authentication.logout();
                         }
                     });

@@ -13,10 +13,6 @@ angular.module('sprinkle.controllers')
             $scope.mapService = $map;
             $scope.redirect = $url.redirect;
 
-            $scope.hideSingIn = function () {
-                return $authentication.isAuthenticate() ||  $authentication.isSignIn;
-            };
-
             /**
              * Function for logout button,
              * clear localStorage and logout from server.

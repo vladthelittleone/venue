@@ -12,11 +12,12 @@ angular.module('sprinkle.controllers', [])
         function ($scope, $url, $authentication, $http) {
 
             /**
-             * Initializing. isSignIn field equals true, this means that authenticationDetails in components will be shown.
+             * Initializing.
              * @see html/authentication/index.html
              * @see controllers/utils.js
              */
-            initialize(true, $scope, $authentication, $url.redirect);
+            initialize($scope, $authentication, $url.redirect);
+
             var alert = $scope.authenticationAlert;
             var details = $scope.authenticationDetails;
 
@@ -77,11 +78,11 @@ angular.module('sprinkle.controllers', [])
             // -------------------------------
 
             /**
-             * Initializing. isSignIn field equals true, this means that sign up components will be shown.
+             * Initializing. isSignInVisible field equals true, this means that sign up components will be shown.
              * @see html/authentication/index.html
              * @see controllers/utils.js
              */
-            initialize(false, $scope, $authentication, $url.redirect);
+            initialize($scope, $authentication, $url.redirect);
             var alert = $scope.authenticationAlert;
             var details = $scope.authenticationDetails;
 
@@ -111,12 +112,11 @@ angular.module('sprinkle.controllers', [])
 
 /**
  * Initializer of authentication controllers.
- * @param isSignIn - set isSignIn field.
  * @param $scope - controller scope.
  * @param $authentication - authenticate service.
  * @param redirect - redirect service.
  */
-function initialize(isSignIn, $scope, $authentication, redirect) {
+function initialize($scope, $authentication, redirect) {
     /**
      * Check authentication of user.
      */
@@ -125,8 +125,9 @@ function initialize(isSignIn, $scope, $authentication, redirect) {
         return;
     }
 
-    // Set global model
-    $scope.isSignIn = $authentication.isSignIn = isSignIn;
+    // Redirect mechanism
+    $scope.redirect = redirect;
+
     // Authentication information
     $scope.authenticationDetails = new Authentication();
     // Alert information
