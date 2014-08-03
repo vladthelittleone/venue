@@ -122,27 +122,39 @@
 <div>
     <div class="header">
         <header class="headerTitle">Sprinkle</header>
-        <a href="/signin" class="headerSignUp">
 
-            <!-- Sign in-->
-            <div href="/signin"
-                 sprinkle-tooltip="Sign in"
-                 ng-hide="authenticationService.isAuthenticate()">
+        <!-- Feedback -->
+        <ul class="headerGroup">
+            <li class="headerFeedback">
+                <a href="/feedback"
+                     sprinkle-tooltip="Feedback">
 
-                <i class="glyphicon glyphicon-log-in"></i>
+                    <i class="glyphicon glyphicon-envelope"></i>
 
-            </div>
+                </a>
+            </li>
 
-            <!-- Logout -->
-            <div href="/logout"
-                 sprinkle-tooltip="Logout"
-                 ng-click="logout()"
-                 ng-hide="!authenticationService.isAuthenticate()">
+            <li class="headerAuthentication">
+                <!-- Sign in-->
+                <a href="/signin"
+                     sprinkle-tooltip="Sign in"
+                     ng-hide="authenticationService.isAuthenticate()">
 
-                <i class="glyphicon glyphicon-log-out"></i>
+                    <i class="glyphicon glyphicon-log-in"></i>
 
-            </div>
-        </a>
+                </a>
+
+                <!-- Logout -->
+                <a href="/logout"
+                     sprinkle-tooltip="Logout"
+                     ng-click="logout()"
+                     ng-hide="!authenticationService.isAuthenticate()">
+
+                    <i class="glyphicon glyphicon-log-out"></i>
+
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 
