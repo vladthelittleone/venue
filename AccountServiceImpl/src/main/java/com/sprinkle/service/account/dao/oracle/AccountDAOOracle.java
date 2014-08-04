@@ -21,6 +21,11 @@ public class AccountDAOOracle extends AbstractDAO implements AccountFacade
     @Transactional
     public Account addAccount(String email, String name, String surname, String password)
     {
+        if(getAccount(email) != null)
+        {
+            return null;
+        }
+        
         String SQL = "INSERT INTO account (id, email, name, surname, password) VALUES (?, ?, ?, ?, ?)";
 
         long id = getNextValLong(ACCOUNT_SEQUENCE);
@@ -39,7 +44,7 @@ public class AccountDAOOracle extends AbstractDAO implements AccountFacade
 
         class AccountFind implements RowCallbackHandler
         {
-            protected Account account;
+            protected Account account = null;
 
 
             @Override

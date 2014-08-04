@@ -5,11 +5,10 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import shared.sprinkle.service.account.Account;
-import shared.sprinkle.service.account.exception.AccountManagmentException;
 
 
 /**
- * Обертка над persistance storage, позволяющая хранить аккаунты в памяти и осуществлять быстрый доступ к ним
+ * Обертка над persistence storage, позволяющая хранить аккаунты в памяти и осуществлять быстрый доступ к ним
  * 
  * @author dmitry
  * 
@@ -34,15 +33,14 @@ public class AccountFacadeImpl implements AccountFacade
 
     @Override
     public Account addAccount(String email, String name, String surname, String password)
-            throws AccountManagmentException
     {
         cache.acquireWriteLockOnKey(email);
 
         try
         {
-            if (getAccount(email) != null)
+            if (internalGettingAccount(email) != null)
             {
-                throw new AccountManagmentException("This email already registered");
+                return null;
             }
 
             Account newAccount = dao.addAccount(email, name, surname, password);
@@ -66,30 +64,45 @@ public class AccountFacadeImpl implements AccountFacade
         if (element != null)
             return (Account) element.getObjectValue();
 
-        cache.acquireWriteLockOnKey(email);
+        cache.acquireReadLockOnKey(email);
 
         try
         {
-            element = cache.get(email);
-
-            if (element == null)
-            {
-                Account account = dao.getAccount(email);
-
-                if (account == null)
-                    return null;
-
-                element = new Element(email, account);
-
-                cache.put(element);
-            }
-
-            return (Account) element.getObjectValue();
+            return internalGettingAccount(email);
         }
         finally
         {
-            cache.releaseWriteLockOnKey(email);
+            cache.releaseReadLockOnKey(email);
         }
+    }
+
+    private Account internalGettingAccount(String email)
+    {
+        Element element = cache.get(email);
+
+        if (element == null)
+        {
+            Account account = dao.getAccount(email);
+
+            if (account == null)
+                return null;
+
+            element = new Element(email, account);
+
+            cache.put(element);
+        }
+
+        return (Account) element.getObjectValue();
+    }
+    
+    /**
+     * FOR TESTS ONLY!!!
+     * 
+     * @param cache the cache to set
+     */
+    public void setCache(Ehcache cache)
+    {
+        this.cache = cache;
     }
 
 }

@@ -8,7 +8,7 @@ public class Account implements Serializable
 {
     private static final long serialVersionUID = -2884667369231793614L;
 
-    private long id;
+    private Long id;
 
     private String email;
 
@@ -26,7 +26,7 @@ public class Account implements Serializable
      * @param surname - фамилия пользователя
      * @param password - пароль в захэшированном виде
      */
-    protected Account(long id, String email, String name, String surname, String password)
+    protected Account(Long id, String email, String name, String surname, String password)
     {
         this.id = id;
         this.email = email;
@@ -39,7 +39,7 @@ public class Account implements Serializable
     /**
      * @return уникальный номер аккаунта
      */
-    public long getId()
+    public Long getId()
     {
         return id;
     }

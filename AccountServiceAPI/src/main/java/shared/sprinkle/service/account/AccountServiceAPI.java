@@ -1,8 +1,6 @@
 package shared.sprinkle.service.account;
 
 
-import shared.sprinkle.service.account.exception.AccountManagmentException;
-
 public interface AccountServiceAPI
 {
     /**
@@ -12,10 +10,9 @@ public interface AccountServiceAPI
      * @param name - имя пользователя
      * @param surname - фамилия пользователя
      * @param password - пароль от аккаунта в захэшированном виде.
-     * @return зарегистрированный {@code Account}
-     * @throws AccountManagmentException - ошибка создания нового аккаунта
+     * @return зарегистрированный {@code Account} или null, если аккаунт с таким email уже зарегистрирован.
      */
-    public Account addAccount(String email, String name, String surname, String password) throws AccountManagmentException;
+    public Account addAccount(String email, String name, String surname, String password);
 
 
     /**
