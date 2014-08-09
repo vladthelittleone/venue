@@ -150,6 +150,13 @@ p {
     font-weight: 500;
 }
 
+.headerTitle > *:hover,
+.headerTitle > *:active,
+.headerTitle > *:focus {
+    color: rgb(94, 162, 175);
+    text-decoration: none;
+}
+
 .headerGroup {
     position: absolute;
     right: 0;
@@ -160,34 +167,41 @@ p {
     list-style: none;
 }
 
-.headerGroup > li > a:hover,
-.headerGroup > li > a:focus {
+.headerGroup > li > *:hover,
+.headerGroup > li > *:focus {
     text-decoration: none;
 }
 
+.headerGroup li:hover i,
+.headerGroup li:active i,
 .headerGroup li:hover a,
 .headerGroup li:active a,
 .headerGroup li:hover,
 .headerGroup li:active {
     background: rgb(94, 162, 175);
-    border-left: 0;
     color: #fff;
 }
 
-.headerGroup a,
-.headerGroup a {
+.headerGroup li i,
+.headerGroup li a,
+.headerGroup li {
     color: rgb(94, 162, 175);
 }
 
-.headerGroup > li > a > i {
+.headerGroup > li > a > *,
+.headerGroup > li > div > * {
     margin: auto;
     height: 100%;
     width: 100%;
     padding-top: 17px;
     top: 0;
+    position: relative;
+    display: inline-block;
+    font-style: normal;
+    line-height: 1;
 }
 
-.headerAuthentication {
+.headerAuthenticationToggle {
     height: 100%;
     font-size: 14px;
     right: 0;
@@ -197,6 +211,58 @@ p {
     color: rgb(80, 80, 80);
     border-left: 1px solid rgba(0,0,0,0.1);
     width: 50%;
+}
+
+.headerAuthenticationToggle .toggledData {
+    position: absolute;
+    visibility: hidden;
+    width: 54px;
+    height: 0;
+    bottom: 0;
+    opacity: 0;
+    right: -54px;
+    background: rgb(94, 162, 175);
+    border-left: 2px solid #fff;
+    color: #fff;
+    transition: opacity 1s, height 0.5s;
+}
+
+.headerAuthenticationToggle .toggledData,
+.headerAuthenticationToggle .toggledData:after,
+.headerAuthenticationToggle .toggledData:before {
+    box-sizing: border-box;
+}
+
+.headerAuthenticationToggle .toggledData:focus,
+.headerAuthenticationToggle .toggledData:hover {
+    background: rgb(68, 114, 122);
+    color: rgb(255, 255, 255);
+}
+
+.headerAuthenticationToggle:hover  .toggledData,
+.headerAuthenticationToggle:focus  .toggledData,
+.toggledData:hover,
+.toggledData:focus {
+    height: 50px;
+    text-decoration: none;
+    visibility: visible;
+    opacity: 0.95;
+    transition: opacity 1s, height 0.5s;
+}
+
+.toggledData:nth-child(2) {
+    transform: translate3d(-100%,100%,0);
+}
+
+.headerAuthenticationToggle:hover,
+.headerAuthenticationToggle:focus {
+    border-left: 2px solid #fff;
+}
+
+.toggledData:nth-child(3) {
+    transform: translate3d(-100%,200%,0);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
 .headerFeedback {
@@ -227,6 +293,7 @@ p {
 .profileToolbar img {
     height: 100%;
     width: 100%;
+    cursor: pointer;
 }
 
 /**

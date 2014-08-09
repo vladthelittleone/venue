@@ -121,7 +121,11 @@
 
 <div>
     <div class="header">
-        <header class="headerTitle">Sprinkle</header>
+        <header class="headerTitle">
+            <a href="/about">
+                Sprinkle
+            </a>
+        </header>
 
         <!-- Feedback -->
         <ul class="headerGroup">
@@ -134,15 +138,19 @@
                 </a>
             </li>
 
-            <li class="headerAuthentication">
+            <li class="headerAuthenticationToggle">
                 <!-- Sign in-->
-                <a href="/signin"
-                     sprinkle-tooltip="Sign in"
-                     ng-hide="authenticationService.isAuthenticate()">
-
+                <div ng-hide="authenticationService.isAuthenticate()">
                     <i class="glyphicon glyphicon-log-in"></i>
 
-                </a>
+                    <a class="toggledData" href="/signup" >
+                        <span>Sign Up</span>
+                    </a>
+
+                    <a class="toggledData" href="/signin" >
+                        <span>Sign In</span>
+                    </a>
+                </div>
 
                 <!-- Logout -->
                 <a href="/logout"
@@ -151,7 +159,6 @@
                      ng-hide="!authenticationService.isAuthenticate()">
 
                     <i class="glyphicon glyphicon-log-out"></i>
-
                 </a>
             </li>
         </ul>
