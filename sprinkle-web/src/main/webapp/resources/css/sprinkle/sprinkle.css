@@ -215,7 +215,6 @@ p {
 
 .headerAuthenticationToggle .toggledData {
     position: absolute;
-    visibility: hidden;
     width: 54px;
     height: 0;
     bottom: 0;
@@ -224,7 +223,12 @@ p {
     background: rgb(94, 162, 175);
     border-left: 2px solid #fff;
     color: #fff;
-    transition: opacity 1s, height 0.5s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    -webkit-transition: opacity 0.3s, height 0.5s;
+    -moz-transition: opacity 0.3s, height 0.5s;
+    -ms-transition: opacity 0.3s, height 0.5s;
+    -o-transition: opacity 0.3s, height 0.5s;
+    transition: opacity 0.3s, height 0.5s;
 }
 
 .headerAuthenticationToggle .toggledData,
@@ -235,7 +239,7 @@ p {
 
 .headerAuthenticationToggle .toggledData:focus,
 .headerAuthenticationToggle .toggledData:hover {
-    background: rgb(68, 114, 122);
+    background: rgb(255, 174, 71);
     color: rgb(255, 255, 255);
 }
 
@@ -245,13 +249,15 @@ p {
 .toggledData:focus {
     height: 50px;
     text-decoration: none;
-    visibility: visible;
     opacity: 0.95;
-    transition: opacity 1s, height 0.5s;
 }
 
 .toggledData:nth-child(2) {
     transform: translate3d(-100%,100%,0);
+    -moz-transform: translate3d(-100%,100%,0);
+    -webkit-transform: translate3d(-100%,100%,0);
+    -o-transform: translate3d(-100%,100%,0);
+    -ms-transform: translate3d(-100%,100%,0);
 }
 
 .headerAuthenticationToggle:hover,
@@ -261,6 +267,10 @@ p {
 
 .toggledData:nth-child(3) {
     transform: translate3d(-100%,200%,0);
+    -moz-transform: translate3d(-100%,200%,0);
+    -webkit-transform: translate3d(-100%,200%,0);
+    -o-transform: translate3d(-100%,200%,0);
+    -ms-transform: translate3d(-100%,200%,0);
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
 }
