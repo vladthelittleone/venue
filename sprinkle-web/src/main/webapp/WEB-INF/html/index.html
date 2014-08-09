@@ -93,7 +93,7 @@
                     <!--</a>-->
                 <!--</li>-->
 
-                <!--<!-- end profile -->-->
+                <!--<!-- end profile -->
 
                 <!--<li>-->
                     <!--<a ng-bind-template="Forgot a password?" href="/fpassword"-->
@@ -112,7 +112,7 @@
                 <!--</li>-->
             <!--</ul>-->
         <!--</div>-->
-        <!--<!--/.navbar-collapse -->-->
+        <!--<!--/.navbar-collapse -->
     <!--</div>-->
 <!--</div>-->
 
@@ -138,9 +138,11 @@
                 </a>
             </li>
 
-            <li class="headerAuthenticationToggle">
+            <li class="headerAuthentication">
                 <!-- Sign in-->
-                <div ng-hide="authenticationService.isAuthenticate()">
+                <div class="toggle"
+                     ng-hide="authenticationService.isAuthenticate()">
+                    
                     <i class="glyphicon glyphicon-log-in"></i>
 
                     <a class="toggledData" href="/signup" >
@@ -150,18 +152,27 @@
                     <a class="toggledData" href="/signin" >
                         <span>Sign In</span>
                     </a>
+
                 </div>
 
                 <!-- Logout -->
-                <a href="/logout"
-                     sprinkle-tooltip="Logout"
-                     ng-click="logout()"
-                     ng-hide="!authenticationService.isAuthenticate()">
+                <div ng-hide="!authenticationService.isAuthenticate()">
+                    <a href="/logout"
+                         sprinkle-tooltip="Logout"
+                         ng-click="logout()">
 
-                    <i class="glyphicon glyphicon-log-out"></i>
-                </a>
+                        <i class="glyphicon glyphicon-log-out"></i>
+
+                    </a>
+                </div>
             </li>
         </ul>
+    </div>
+
+    <div class="profileToolbar"
+         ng-hide="!authenticationService.isAuthenticate()">
+
+        <img src="https://www.gravatar.com/avatar/2d29f726d73d19bc163500ae9e21a135.png">
     </div>
 </div>
 

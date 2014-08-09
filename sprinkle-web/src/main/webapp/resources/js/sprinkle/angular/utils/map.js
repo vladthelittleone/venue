@@ -15,11 +15,12 @@ function SprinkleMap() {
         // set that bounding box as maxBounds to restrict moving the map
         // see full maxBounds documentation:
         // http://leafletjs.com/reference.html#map-maxbounds
+        zoomControl: false,
         maxBounds: bounds,
         maxZoom: 19,
         minZoom: 2
     })
-        .setView([40, -74.50], 9);
+    .setView([40, -74.50], 9);
 
     // Create feature for markers
     var featureLayer = L.mapbox.featureLayer().addTo(map);

@@ -281,15 +281,15 @@ input, textarea {
     width: 50%;
 }
 
-.signUpNow {
+.forgotPassword {
     position: relative;
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
     float: left;
     width: 50%;
-    font-size: 0.9em;
     text-align: center;
+    margin-top: 7px;
 }
 
 .warningAlert {

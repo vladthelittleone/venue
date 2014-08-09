@@ -17,7 +17,7 @@ angular.module('sprinkle.services')
             var isEventCreationOn = false;
 
             // Set setting panel to bottom left position
-            map.zoomControl.setPosition('bottomleft');
+            // map.zoomControl.setPosition('bottomright');
 
             return {
                 // true - user can click on map and create event, false - can't.
