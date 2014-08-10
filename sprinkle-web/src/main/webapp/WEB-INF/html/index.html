@@ -119,62 +119,74 @@
 <!-- Map Box -->
 <div id="map"></div>
 
-<div>
-    <div class="header">
-        <header class="headerTitle">
-            <a href="/about">
-                Sprinkle
+<div class="header">
+    <header class="headerTitle">
+        <a href="/about">
+            Sprinkle
+        </a>
+    </header>
+
+    <!-- Feedback -->
+    <ul class="headerGroup">
+        <li class="headerFeedback">
+            <a href="/feedback"
+               sprinkle-tooltip="Feedback">
+
+                <i class="glyphicon glyphicon-envelope"></i>
+
             </a>
-        </header>
+        </li>
 
-        <!-- Feedback -->
-        <ul class="headerGroup">
-            <li class="headerFeedback">
-                <a href="/feedback"
-                     sprinkle-tooltip="Feedback">
+        <li class="headerAuthentication">
+            <!-- Sign in-->
+            <div class="toggle"
+                 ng-hide="authenticationService.isAuthenticate()">
 
-                    <i class="glyphicon glyphicon-envelope"></i>
+                <i class="glyphicon glyphicon-log-in"></i>
+
+                <a class="toggledData" href="/signup" >
+                    <span>Sign Up</span>
+                </a>
+
+                <a class="toggledData" href="/signin" >
+                    <span>Sign In</span>
+                </a>
+
+            </div>
+
+            <!-- Logout -->
+            <div ng-hide="!authenticationService.isAuthenticate()">
+                <a href="/logout"
+                     sprinkle-tooltip="Logout"
+                     ng-click="logout()">
+
+                    <i class="glyphicon glyphicon-log-out"></i>
 
                 </a>
-            </li>
-
-            <li class="headerAuthentication">
-                <!-- Sign in-->
-                <div class="toggle"
-                     ng-hide="authenticationService.isAuthenticate()">
-                    
-                    <i class="glyphicon glyphicon-log-in"></i>
-
-                    <a class="toggledData" href="/signup" >
-                        <span>Sign Up</span>
-                    </a>
-
-                    <a class="toggledData" href="/signin" >
-                        <span>Sign In</span>
-                    </a>
-
-                </div>
-
-                <!-- Logout -->
-                <div ng-hide="!authenticationService.isAuthenticate()">
-                    <a href="/logout"
-                         sprinkle-tooltip="Logout"
-                         ng-click="logout()">
-
-                        <i class="glyphicon glyphicon-log-out"></i>
-
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-    <div class="profileToolbar"
-         ng-hide="!authenticationService.isAuthenticate()">
-
-        <img src="https://www.gravatar.com/avatar/2d29f726d73d19bc163500ae9e21a135.png">
-    </div>
+            </div>
+        </li>
+    </ul>
 </div>
+
+<div class="profileToolbar"
+     ng-hide="!authenticationService.isAuthenticate()">
+    <a href="/profile">
+        <img src="https://www.gravatar.com/avatar/2d29f726d73d19bc163500ae9e21a135.png">
+    </a>
+</div>
+
+<div class="createEventButton"
+     ng-show="authenticationService.isAuthenticate()">
+
+    <a href="/createvent"
+       ng-click="mapService.setEventCreationOn(true)">
+
+        <i class="glyphicon glyphicon-plus"></i>
+
+    </a>
+
+</div>
+
 
 <div ng-view></div>
 
@@ -214,7 +226,7 @@
 <!-- Controllers-->
 <!-- Initialize controller of sprinkle.controllers is authentication -->
 <script src="resources/js/sprinkle/angular/controllers/authentication.js"></script>
-<script src="resources/js/sprinkle/angular/controllers/newEvent.js"></script>
+<script src="resources/js/sprinkle/angular/controllers/createEvent.js"></script>
 <script src="resources/js/sprinkle/angular/controllers/eventView.js"></script>
 <script src="resources/js/sprinkle/angular/controllers/navigate.js"></script>
 

@@ -27,7 +27,7 @@ public class WebController
         return "/profile/index";
     }
 
-    @RequestMapping("/newEventLayout")
+    @RequestMapping("/createEventLayout")
     public String getNewEventPage()
     {
         return "/new/event/index";

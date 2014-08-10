@@ -7,7 +7,7 @@ angular.module('sprinkle.controllers')
  * Controller that handle new event operation.
  * @controller
  */
-    .controller('newEventCtrl', ['$scope', '$map', '$authentication', '$url', '$http',
+    .controller('createEventCtrl', ['$scope', '$map', '$authentication', '$url', '$http',
         function ($scope, $map, $authentication, $url, $http) {
             $scope.mapService = $map;
             $scope.authenticationService = $authentication;

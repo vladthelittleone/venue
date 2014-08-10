@@ -188,19 +188,22 @@ p {
     color: rgb(94, 162, 175);
 }
 
-.headerGroup > li > a > i,
-.headerGroup > li > a > span,
-.headerGroup > li > div > a,
-.headerGroup > li > div > i {
-    margin: auto;
+.headerGroup > li i,
+.headerGroup > li span,
+.headerGroup > li a,
+.headerGroup > li div {
     height: 100%;
     width: 100%;
-    padding-top: 17px;
     top: 0;
     position: relative;
     display: inline-block;
     font-style: normal;
     line-height: 1;
+}
+
+.headerGroup i,
+.headerGroup span {
+    padding-top: 17px;
 }
 
 .headerAuthentication {
@@ -321,6 +324,42 @@ p {
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     cursor: pointer;
+}
+
+.createEventButton {
+    width: 54px;
+    margin-left: 1%;
+    position: fixed;
+    height: 25px;
+    left: 0;
+    background: #fff;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    text-align: center;
+}
+
+.createEventButton a {
+    padding-top: 5px;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: relative;
+    display: inline-block;
+    font-style: normal;
+    line-height: 1;
+}
+
+.createEventButton:hover,
+.createEventButton:focus {
+    background: rgb(94, 162, 175);
+}
+
+.createEventButton:hover i:before,
+.createEventButton:focus i:before {
+    content: "\e113";
+    color: #fff;
 }
 
 /**

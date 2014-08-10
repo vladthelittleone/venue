@@ -1,9 +1,12 @@
-<div class="whiteBack30Right">
+<div class="whiteBackLeft">
     <div id="newEventShake" class="container newEventContent">
         <form role="form" novalidate> <!--ng-submit=""-->
             <div>
-                <input type="text" ng-model="newEvent.name"
-                       class="form-control input-lg contentInput" placeholder="Event name" required autofocus>
+                <input type="text"
+                       ng-model="newEvent.name"
+                       class="contentInput"
+                       placeholder="Event name"
+                       required autofocus>
             </div>
 
             <div class="btn-group btn-group-justified btnGroup">
@@ -27,8 +30,12 @@
             </div>
 
             <div>
-                <textarea msd-elastic class="form-control input-lg contentInput" ng-model="newEvent.description"
-                          rows="10" placeholder="Description"></textarea>
+                <textarea
+                        class="contentInput"
+                        ng-model="newEvent.description"
+                        rows="12"
+                        placeholder="Description">
+                </textarea>
             </div>
         </form>
     </div>
