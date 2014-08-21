@@ -1,23 +1,23 @@
-<div class="whiteBack30Right" ng-class="{blackBack60Mid : resizeFull}">
-    <div class="container" ng-class="{eventContentMid : resizeFull, eventContent : !resizeFull}">
+<div class="whiteBackLeft" ng-class="{blackBack60Mid : resizeFull}">
+    <div ng-class="{eventContentMid : resizeFull, eventContent : !resizeFull}">
         <ul>
             <li class="eventContentTitle">{{properties.title}}</li>
             <li class="btn-group btn-group-justified">
                 <div class="btn-group">
                     <button type="button" ng-style="{background : properties['marker-color']}"
-                            class="btn newEventBtn" ng-click="closeEventView()">
+                            class="groupBtn" ng-click="closeEventView()">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
                 </div>
                 <div class="btn-group">
                     <button type="button" ng-style="{background : properties['marker-color']}"
-                            class="btn newEventBtn">
+                            class="groupBtn">
                         <span class="glyphicon glyphicon-heart"></span>
                     </button>
                 </div>
                 <div class="btn-group">
                     <button type="button" ng-style="{background : properties['marker-color']}"
-                            class="btn newEventBtn" ng-click="resize()">
+                            class="groupBtn" ng-click="resize()">
                         <span class="glyphicon" ng-class="{'glyphicon-resize-small' : resizeFull,'glyphicon-resize-full' : !resizeFull}"></span>
                     </button>
                 </div>

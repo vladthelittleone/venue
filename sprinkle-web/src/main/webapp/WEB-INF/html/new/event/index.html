@@ -1,5 +1,5 @@
 <div class="whiteBackLeft">
-    <div id="newEventShake" class="container newEventContent">
+    <div id="newEventShake" class="newEventContent">
         <form role="form" novalidate> <!--ng-submit=""-->
             <div>
                 <input type="text"
@@ -9,23 +9,34 @@
                        required autofocus>
             </div>
 
-            <div class="btn-group btn-group-justified btnGroup">
-                <div class="btn-group">
-                    <button type="button" ng-style="{background : getColor()}"
-                            class="btn dropdown-toggle newEventBtn" data-toggle="dropdown">
+            <div class="newEventGroup">
+                <div>
+                    <button type="button"
+                            ng-style="{background : getColor()}"
+                            class="dropdown-toggle groupBtn"
+                            data-toggle="dropdown">
                         {{getSelectedType()}} <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" ng-style="{'border-color': getColor()}">
+
+                    <ul class="dropdown-menu"
+                        ng-style="{'border-color': getColor()}">
                         <li ng-repeat="type in eventTypes">
-                            <a href="" ng-click="setTypeOfNewEvent(type)">{{type.name}}</a>
+                            <a href=""
+                               ng-click="setTypeOfNewEvent(type)">
+                                {{type.name}}
+                            </a>
                         </li>
                     </ul>
                 </div>
-                <div class="btn-group">
-                    <button type="button" ng-style="{background : getColor()}"
-                            class="btn newEventBtn" ng-click="closeEventCreation()">
+
+                <div>
+                    <button type="button"
+                            ng-style="{background : getColor()}"
+                            class="groupBtn"
+                            ng-click="closeEventCreation()">
                         Close
                     </button>
+
                 </div>
             </div>
 
