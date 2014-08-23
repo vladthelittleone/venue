@@ -14,13 +14,23 @@ angular.module('sprinkle.services')
                  */
                 redirect : {
                     toProfile: function () {
-                        $location.path("/id" + $authentication.getId());
+                        var id = $authentication.getId();
+
+                        if (id !=null) {
+                            $location.path("/id" + id);
+                        } else {
+                            this.toMainPage();
+                        }
                     },
                     toMainPage: function () {
                         $location.path("/");
                     },
                     toProfileWithId: function (id) {
-                        $location.path("/id" + id);
+                        if (id !=null) {
+                            $location.path("/id" + id);
+                        } else {
+                            this.toMainPage();
+                        }
                     },
                     toSignIn: function () {
                         $location.path("/signin");
@@ -32,7 +42,11 @@ angular.module('sprinkle.services')
                         $location.path("/new_event");
                     },
                     toEventWithId: function (id) {
-                        $location.path("/event" + id);
+                        if (id !=null) {
+                            $location.path("/event" + id);
+                        } else {
+                            this.toMainPage();
+                        }
                     }
                 },
                 /**

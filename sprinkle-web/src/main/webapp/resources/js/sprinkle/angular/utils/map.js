@@ -84,7 +84,7 @@ function SprinkleMap() {
         var popupContent =
             '<div class="markerPopup">' +
             '<img src="https://i.imgur.com/exemdwr.png"/>' +
-            '<div class="markerTitle" style="background: ' + feature.properties['marker-color'] + '">'
+            '<div class="markerTitle">'
             + feature.properties.title + '</div>' +
             '</div>';
 
