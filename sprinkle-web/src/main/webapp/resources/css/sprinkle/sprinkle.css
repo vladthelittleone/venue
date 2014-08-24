@@ -7,13 +7,13 @@
 
 html {
     overflow: hidden;
-    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
 body {
     padding-top: 50px;
     padding-bottom: 40px;
     color: rgb(80,80,80);
+    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -36,6 +36,7 @@ p {
     border-radius: 0 0 5px 5px;
     border: 2px solid #5EA2AF;
     box-shadow: 0 4px 10px rgba(0, 0, 0, .175);
+    -webkit-box-shadow: 0 4px 10px rgba(0, 0, 0, .175);
 }
 
 /* Marker popup */
@@ -60,12 +61,13 @@ p {
     overflow: hidden;
     background: #fff;
     width: 70%;
-    height: 50px;
+    line-height: 50px;
     color: #505050;
     font-weight: 500;
-    padding: 15px;
     font-size: 1.1em;
     position: absolute;
+    padding-left: 5px;
+    padding-right: 5px;
     right: 0;
     text-align: center;
 }
@@ -83,6 +85,7 @@ p {
     border: 0;
     pointer-events:all;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
 .sprinkle-map .leaflet-popup-content {
@@ -104,6 +107,7 @@ p {
     border-right:10px solid transparent;
     border-top:10px solid #fff;
     box-shadow:none;
+    -webkit-box-shadow: none;
 }
 .sprinkle-map .leaflet-popup-close-button {
     text-indent:-999em;
@@ -134,6 +138,7 @@ p {
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     top: 0;
 }
 
@@ -224,6 +229,7 @@ p {
     border-left: 2px solid #fff;
     color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     -webkit-transition: opacity 0.2s, height 0.4s;
     -moz-transition: opacity 0.2s, height 0.4s;
     -ms-transition: opacity 0.2s, height 0.4s;
@@ -311,6 +317,7 @@ p {
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     top: 0;
     padding: 0 1px 2px;
 }
@@ -333,6 +340,7 @@ p {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     bottom: 0;
     text-align: center;
 }
