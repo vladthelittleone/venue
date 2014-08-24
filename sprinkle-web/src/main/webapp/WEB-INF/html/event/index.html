@@ -1,21 +1,18 @@
-<div class="blackBackEvent" ng-click="closeEventView()"></div>
-<div class="eventContainer">
-    <div class="eventContent">
-        <ul>
-            <li class="eventContentTitle">
+<div class="blackBackEvent" ng-click="closeEventView()">
+    <ul class="eventContent">
+        <li class="eventContentTitle">
 
-                <span>
-                    {{properties.title}}
-                </span>
+            <span>
+                {{properties.title}}
+            </span>
 
-                <i class="glyphicon glyphicon-remove"
-                   ng-style="{background : properties['marker-color']}"
-                   ng-click="closeEventView()">
-                </i>
+            <i class="glyphicon glyphicon-remove"
+               ng-style="{background : properties['marker-color']}"
+               ng-click="closeEventView()">
+            </i>
 
-            </li>
+        </li>
 
-            <li class="eventContentDescription">{{properties.description}}</li>
-        </ul>
-    </div>
-</div>>
+        <li class="eventContentDescription">{{properties.description}}</li>
+    </ul>
+</div>

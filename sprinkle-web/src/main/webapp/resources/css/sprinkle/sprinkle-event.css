@@ -1,10 +1,13 @@
-.eventContent ul {
+.eventContent {
     position: relative;
+    width: 60%;
     list-style: none;
     padding: 0;
     font-size: 1.1em;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    margin: auto auto 0;
 }
 
 .eventContent .eventContentTitle i {
@@ -27,16 +30,15 @@
     font-weight: normal;
     color: #2e3435;
     font-family: Georgia;
-    background: #FFFFFF;
 }
 
 .eventContentTitle {
     min-height: 46px;
     font-weight: 500;
-    background: #fff;
+    background: rgb(255, 255, 255);
     color: rgb(255, 255, 255);
     text-align: center;
-    padding: 10px;
+    padding: 20px;
 }
 
 .eventContentDescription {
@@ -45,7 +47,7 @@
     letter-spacing: 1px;
     word-wrap: break-word;
     white-space: pre-wrap;
-    background: #ffffff;
+    background: rgb(255, 255, 255);
     min-height: 46px;
     color: rgb(80, 80, 80);
     text-align: left;
@@ -63,13 +65,6 @@
     opacity: 0.8;
 }
 
-.eventContent {
-    position: relative;
-    width: 60%;
-    padding-top: 10px;
-    margin: auto;
-}
-
 .eventContent input {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
@@ -80,16 +75,11 @@
     border-top-right-radius: 0;
 }
 
-.eventContent ul {
-    margin-bottom: 0;
-}
-
-.eventContainer {
-    position: absolute;
+.clickableBackground {
+    position: fixed;
     top: 0;
     bottom: 0;
-    left: 0;
     right: 0;
-    opacity: 0.95;
-    overflow-y: auto;
+    left: 0;
+    z-index: 1001;
 }

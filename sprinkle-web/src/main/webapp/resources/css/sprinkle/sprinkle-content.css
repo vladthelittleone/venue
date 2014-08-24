@@ -167,6 +167,10 @@ textarea {
     left: 0;
     margin: auto;
     background: rgba(0, 0, 0, 0.65);
+    z-index: 1000;
+    overflow-y: auto;
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 
 .whiteBack30Mid {
@@ -182,7 +186,7 @@ textarea {
 .content {
     position: relative;
     width: 30%;
-    margin: auto;
+    margin: 10px auto auto;
     padding: 0 25px 29px;
     background: rgba(255, 255, 255, 0.9);
     -webkit-box-shadow: 0 0 50px #202020;

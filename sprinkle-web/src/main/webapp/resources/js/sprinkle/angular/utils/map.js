@@ -83,7 +83,7 @@ function SprinkleMap() {
         // Create custom popup content
         var popupContent =
             '<div class="markerPopup">' +
-            '<img src="https://i.imgur.com/exemdwr.png"/>' +
+            '<img src="http://kudago.com/media/thumbs/a4/d5/a4d5c9746165933f2f879b1d815a6629.jpg"/>' +
             '<div class="markerTitle">'
             + feature.properties.title + '</div>' +
             '</div>';
@@ -91,7 +91,7 @@ function SprinkleMap() {
         // http://leafletjs.com/reference.html#popup
         marker.bindPopup(popupContent, {
             closeButton: false,
-            minWidth: 250
+            minWidth: 300
         });
     });
 

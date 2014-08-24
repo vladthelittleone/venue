@@ -51,7 +51,7 @@ p {
     position: absolute;
     left: 0;
     display: block; /* width equals to parent */
-    width: 30%;
+    width: 25%;
     margin: 0;
 }
 
@@ -60,7 +60,7 @@ p {
     white-space: nowrap;
     overflow: hidden;
     background: #fff;
-    width: 70%;
+    width: 75%;
     line-height: 50px;
     color: #505050;
     font-weight: 500;
@@ -230,11 +230,11 @@ p {
     color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    -webkit-transition: opacity 0.2s, height 0.4s;
-    -moz-transition: opacity 0.2s, height 0.4s;
-    -ms-transition: opacity 0.2s, height 0.4s;
-    -o-transition: opacity 0.2s, height 0.4s;
-    transition: opacity 0.2s, height 0.4s;
+    /*-webkit-transition: opacity 0.2s, height 0.4s;*/
+    /*-moz-transition: opacity 0.2s, height 0.4s;*/
+    /*-ms-transition: opacity 0.2s, height 0.4s;*/
+    /*-o-transition: opacity 0.2s, height 0.4s;*/
+    /*transition: opacity 0.2s, height 0.4s;*/
 }
 
 .headerAuthentication .toggledData,
