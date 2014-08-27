@@ -52,6 +52,8 @@ p {
     left: 0;
     display: block; /* width equals to parent */
     width: 25%;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
     margin: 0;
 }
 
@@ -60,6 +62,8 @@ p {
     white-space: nowrap;
     overflow: hidden;
     background: #fff;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
     width: 75%;
     line-height: 50px;
     color: #505050;
@@ -80,6 +84,7 @@ p {
 }
 .sprinkle-map .leaflet-popup-content-wrapper {
     padding: 0;
+    background: rgba(0,0,0,0);
     text-align:left;
     border-radius: 0;
     border: 0;
