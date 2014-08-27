@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-       ">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 	<bean name="accountJdbcTemplate" id="accountJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="accountDS" />
@@ -13,33 +12,54 @@
 		<property name="dataSource" ref="accountDS" />
 	</bean>
 
-	<bean id="accountDS" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-		<property name="driverClassName" value="${db.driver}" />
-		<property name="url" value="${db.url}" />
-		<property name="username" value="${db.username}" />
-		<property name="password" value="${db.password}" />
-		<property name="initialSize" value="${db.pool.initial}" />
-		<property name="maxIdle" value="${db.pool.maxidle}" />
-		<property name="minIdle" value="${db.pool.minidle}" />
-		<property name="maxActive" value="${db.pool.maxactive}" />
-		<property name="testOnConnect" value="${db.pool.testonconnect}" />
-		<property name="testOnBorrow" value="${db.pool.testonborrow}" />
-		<property name="testOnReturn" value="${db.pool.testonreturn}" />
-		<property name="validationQuery" value="${db.pool.validationquery}" />
-		<property name="validationInterval" value="${db.pool.validationInterval}" />
-	</bean>
 
 	<!-- Database migration -->
-	<bean id="flyway" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
+	<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
 		<property name="dataSource" ref="accountDS" />
 		<property name="initOnMigrate" value="${db.migration.init_on_migrate}" />
 		<property name="table" value="${db.migration.versions}" />
 		<property name="sqlMigrationPrefix" value="${db.migration.prefix}" />
 	</bean>
-	
+
 
 	<!-- DAO -->
 	<bean class="com.sprinkle.service.account.dao.oracle.AccountDAOOracle">
 		<property name="jdbcTemplate" ref="accountJdbcTemplate" />
 	</bean>
+
+	<beans profile="development">
+		<bean id="accountDS" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+			<property name="driverClassName" value="${db.dev.driver}" />
+			<property name="url" value="${db.dev.url}" />
+			<property name="username" value="${db.dev.username}" />
+			<property name="password" value="${db.dev.password}" />
+			<property name="initialSize" value="${db.pool.initial}" />
+			<property name="maxIdle" value="${db.pool.maxidle}" />
+			<property name="minIdle" value="${db.pool.minidle}" />
+			<property name="maxActive" value="${db.pool.maxactive}" />
+			<property name="testOnConnect" value="${db.pool.testonconnect}" />
+			<property name="testOnBorrow" value="${db.pool.testonborrow}" />
+			<property name="testOnReturn" value="${db.pool.testonreturn}" />
+			<property name="validationQuery" value="${db.pool.validationquery}" />
+			<property name="validationInterval" value="${db.pool.validationInterval}" />
+		</bean>
+	</beans>
+
+	<beans profile="production">
+		<bean id="accountDS" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+			<property name="driverClassName" value="${db.prod.driver}" />
+			<property name="url" value="${db.prod.url}" />
+			<property name="username" value="${db.prod.username}" />
+			<property name="password" value="${db.prod.password}" />
+			<property name="initialSize" value="${db.pool.initial}" />
+			<property name="maxIdle" value="${db.pool.maxidle}" />
+			<property name="minIdle" value="${db.pool.minidle}" />
+			<property name="maxActive" value="${db.pool.maxactive}" />
+			<property name="testOnConnect" value="${db.pool.testonconnect}" />
+			<property name="testOnBorrow" value="${db.pool.testonborrow}" />
+			<property name="testOnReturn" value="${db.pool.testonreturn}" />
+			<property name="validationQuery" value="${db.pool.validationquery}" />
+			<property name="validationInterval" value="${db.pool.validationInterval}" />
+		</bean>
+	</beans>
 </beans>

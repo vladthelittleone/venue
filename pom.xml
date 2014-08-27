@@ -22,7 +22,7 @@
 		<jdk.version>1.7</jdk.version>
 		<servlet.api.version>2.5</servlet.api.version>
 		<encoding>UTF-8</encoding>
-		<flyway.version>2.2.1</flyway.version>
+		<flyway.version>3.0</flyway.version>
 	</properties>
 
 	<build>
