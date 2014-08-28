@@ -39,7 +39,7 @@ public class SprinkleUserDetailsService implements UserDetailsService
             throw new UsernameNotFoundException(String.format("User [%s] not found", username));
         }
 
-        return userManager.getUser(username);
+        return userDetails;
     }
 
     public void setUserManager(UserManager userManager)

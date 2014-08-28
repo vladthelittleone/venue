@@ -1,19 +1,18 @@
 package com.sprinkle.web.security.service.manager;
 
+
 import com.sprinkle.web.security.domain.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import shared.sprinkle.service.account.Account;
+import shared.sprinkle.service.account.AccountServiceAPI;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * package: com.sprinkle.web.security.service
- * date: 20.04.14
- *
+ * package: com.sprinkle.web.security.service date: 20.04.14
+ * 
  * @author Skurishin Vladislav
  */
 @Service
@@ -24,78 +23,47 @@ public class CustomUserManager implements UserManager
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private final AtomicLong userId = new AtomicLong(0);
-    private final ConcurrentHashMap<Long, User> users = new ConcurrentHashMap<>();
-    private final ConcurrentSkipListSet<String> usernames = new ConcurrentSkipListSet<>();
+    @Autowired
+    private AccountServiceAPI accountService;
+
 
     /**
      * Sign up new user.
-     *
-     * @param username token
-     * @param fullname token
+     * 
+     * @param email token
+     * @param name token
+     * @param surname token
      * @param password token
      * @return user object
      */
     @Override
-    public User signUp(final String username, final String fullname, final String password)
+    public User signUp(final String email, final String name, final String surname, final String password)
     {
-        String hashedPassword = passwordEncoder.encode(password);
+        if (logger.isInfoEnabled())
+            logger.info(String.format("Start to register a new account. Email: %s, Fullname: %s %s.", email, name,
+                    surname));
 
-        if (logger.isTraceEnabled())
-            logger.trace(String.format("Sign up new user [%s, %s, %s]", username, fullname, hashedPassword));
+        Account account = accountService.addAccount(email, name, surname, passwordEncoder.encode(password));
+        
+        if (logger.isInfoEnabled())
+            logger.info(String.format("New account registered. Email: %s, Fullname: %s %s.", email, name,
+                    surname));
 
-        if (username.isEmpty() || password.isEmpty() || fullname.isEmpty()) return null;
-        if (!usernames.add(username)) return null;
-
-        long id = userId.incrementAndGet();
-
-        User user = new User(id, username, hashedPassword, fullname, "ROLE_USER");
-
-        users.put(id, user);
-
-        return user;
+        return new User(account);
     }
 
 
     /**
-     * Get user by username.
-     *
-     * @param username token
+     * Get user by email.
+     * 
+     * @param email token
      * @return user or null, if not found
      */
     @Override
-    public User getUser(String username)
+    public User getUser(String email)
     {
-        for (User user : users.values())
-        {
-            if (user.getUsername().equals(username))
-            {
-                if (logger.isTraceEnabled())
-                    logger.trace(String.format("Get user %s", user));
-
-                return user;
-            }
-        }
-        return null;
+        Account account = accountService.getAccount(email);
+        return new User(account);
     }
 
-
-    /**
-     * Get user by id.
-     *
-     * @param userId id
-     * @return user or null, if not found
-     */
-    @Override
-    public User getUser(Long userId)
-    {
-        for (User user : users.values())
-        {
-            if (user.getId() == userId)
-            {
-                return user;
-            }
-        }
-        return null;
-    }
 }

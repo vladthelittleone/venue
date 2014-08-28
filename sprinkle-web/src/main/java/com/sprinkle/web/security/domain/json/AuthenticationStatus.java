@@ -10,21 +10,21 @@ public class AuthenticationStatus
 {
     private final boolean signedIn;
     private final boolean success;
-    private final String username;
+    private final String email;
     private final String message;
 
-    public AuthenticationStatus(boolean signedIn, String username, String message, boolean success)
+    public AuthenticationStatus(boolean signedIn, String email, String message, boolean success)
     {
         this.signedIn = signedIn;
-        this.username = username;
+        this.email = email;
         this.success = success;
         this.message = formatString(message);
     }
 
-    public AuthenticationStatus(boolean signedIn, String username, boolean success)
+    public AuthenticationStatus(boolean signedIn, String email, boolean success)
     {
         this.signedIn = signedIn;
-        this.username = username;
+        this.email = email;
         this.success = success;
         this.message = "";
     }
@@ -34,9 +34,9 @@ public class AuthenticationStatus
         return signedIn;
     }
 
-    public String getUsername()
+    public String getEmail()
     {
-        return username;
+        return email;
     }
 
     public boolean isSuccess()

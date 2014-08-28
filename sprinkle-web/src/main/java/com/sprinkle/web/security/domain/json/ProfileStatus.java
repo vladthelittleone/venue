@@ -10,9 +10,9 @@ public class ProfileStatus extends AuthenticationStatus
 {
     private final long id;
 
-    public ProfileStatus(boolean signedIn, String username, long id)
+    public ProfileStatus(boolean signedIn, String email, long id)
     {
-        super(signedIn, username, true);
+        super(signedIn, email, true);
         this.id = id;
     }
 

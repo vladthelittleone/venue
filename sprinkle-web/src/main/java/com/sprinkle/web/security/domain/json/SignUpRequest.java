@@ -1,44 +1,91 @@
 package com.sprinkle.web.security.domain.json;
 
+
 /**
- * package: com.sprinkle.web.security.domain
- * date: 09.05.14
- *
+ * package: com.sprinkle.web.security.domain date: 09.05.14
+ * 
  * @author Skurishin Vladislav
  */
 public class SignUpRequest
 {
-    private String username;
+    private String email;
+
     private String password;
-    private String fullname;
 
-    public String getUsername()
+    private String name;
+
+    private String surname;
+
+
+    /**
+     * @return the email
+     */
+    public String getEmail()
     {
-        return username;
+        return email;
     }
 
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
 
+    /**
+     * @return the password
+     */
     public String getPassword()
     {
         return password;
     }
 
+
+    /**
+     * @return the name
+     */
+    public String getName()
+    {
+        return name;
+    }
+
+
+    /**
+     * @return the surname
+     */
+    public String getSurname()
+    {
+        return surname;
+    }
+
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+
+    /**
+     * @param password the password to set
+     */
     public void setPassword(String password)
     {
         this.password = password;
     }
 
-    public String getFullname()
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name)
     {
-        return fullname;
+        this.name = name;
     }
 
-    public void setFullname(String fullname)
+
+    /**
+     * @param surname the surname to set
+     */
+    public void setSurname(String surname)
     {
-        this.fullname = fullname;
+        this.surname = surname;
     }
+
 }

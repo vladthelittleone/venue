@@ -11,7 +11,7 @@
 	<modules>
 		<module>sprinkle-web</module>
 		<module>AccountServiceAPI</module>
-		<module>AccountServiceImpl</module>
+		<module>AccountService</module>
 	</modules>
 
 	<!-- Templates -->

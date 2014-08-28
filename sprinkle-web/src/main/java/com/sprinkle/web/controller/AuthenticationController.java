@@ -40,7 +40,7 @@ public class AuthenticationController
     @ResponseBody
     public AuthenticationStatus singUp(@RequestBody SignUpRequest a)
     {
-        if (userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword()) == null)
+        if (userManager.signUp(a.getEmail(), a.getName(), a.getSurname(), a.getPassword()) == null)
             return new AuthenticationStatus(false, null, "This e-mail is already registered", false);
 
         return new AuthenticationStatus(false, null, true);
@@ -59,7 +59,7 @@ public class AuthenticationController
     public AuthenticationStatus getProfileStatus()
     {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return new ProfileStatus(true, user.getUsername(), user.getId());
+        return new ProfileStatus(true, user.getEmail(), user.getId());
     }
 
     public void setUserManager(UserManager userManager)
