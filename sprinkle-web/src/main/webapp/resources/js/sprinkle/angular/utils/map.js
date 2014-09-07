@@ -15,11 +15,12 @@ function SprinkleMap() {
         // set that bounding box as maxBounds to restrict moving the map
         // see full maxBounds documentation:
         // http://leafletjs.com/reference.html#map-maxbounds
+        zoomControl: false,
         maxBounds: bounds,
         maxZoom: 19,
         minZoom: 2
     })
-        .setView([40, -74.50], 9);
+    .setView([40, -74.50], 9);
 
     // Create feature for markers
     var featureLayer = L.mapbox.featureLayer().addTo(map);
@@ -78,19 +79,19 @@ function SprinkleMap() {
         var marker = e.layer,
             feature = marker.feature;
 
-        console.log (feature.properties.title);
+        console.log(feature.properties.title);
         // Create custom popup content
         var popupContent =
             '<div class="markerPopup">' +
-                '<img src="https://i.imgur.com/exemdwr.png"/>' +
-                '<div class="markerTitle" style="background: ' + feature.properties['marker-color']+ '">'
-                    + feature.properties.title + '</div>' +
+            '<img src="http://kudago.com/media/thumbs/a4/d5/a4d5c9746165933f2f879b1d815a6629.jpg"/>' +
+            '<div class="markerTitle">'
+            + feature.properties.title + '</div>' +
             '</div>';
 
         // http://leafletjs.com/reference.html#popup
         marker.bindPopup(popupContent, {
             closeButton: false,
-            minWidth: 250
+            minWidth: 300
         });
     });
 
@@ -98,8 +99,22 @@ function SprinkleMap() {
         return map;
     };
 
-    // Latitude and Longitude
+    /**
+     * Set marker on map. If successful return true, else false.
+     *
+     * @param url - url to get event json object
+     * @param lng - longitude
+     * @param lat - latitude
+     * @param title - title
+     * @param description - description of marker
+     * @param size - size of marker
+     * @param type - type of marker (Sport, Science, etc.)
+     * @returns {boolean}
+     */
     this.setMarker = function (url, lng, lat, title, description, size, type) {
+        // Set result of ajax request to false.
+        var result = false;
+
         $.ajax({
             type: "POST",
             async: false,
@@ -114,7 +129,10 @@ function SprinkleMap() {
             },
             dataType: 'json',
             success: function (responce) {
-                if (responce.signedIn) {
+                if (responce.success) {
+                    // Set result of ajax request to true.
+                    result = true;
+
                     L.mapbox.featureLayer({
                         // this feature is in the GeoJSON format: see geojson.org
                         // for the full specification
@@ -138,6 +156,8 @@ function SprinkleMap() {
                 }
             }
         });
+
+        return result;
     };
 
     /**

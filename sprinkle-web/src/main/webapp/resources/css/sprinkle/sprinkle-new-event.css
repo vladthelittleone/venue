@@ -1,16 +1,27 @@
-.newEventBtn {
+.groupBtn {
     color: white;
     text-align: center;
     cursor: pointer;
     font-size: 17px;
-    background: #4F4F4F;
+    background: rgb(94, 162, 175);
     opacity: 0.8;
     border: 0;
     border-radius: 0;
+    outline: none;
+    display: block;
+    margin-bottom: 0;
+    font-weight: 400;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+    height: 36px;
+    padding: 0;
 }
 
-.newEventBtn:hover {
+.groupBtn:hover,
+.groupBtn:focus {
     opacity: 1.0;
+    color: #fff;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -18,19 +29,19 @@
 
 /* When dropdown is open */
 .btn-group.open
-.newEventBtn {
+.groupBtn {
     opacity: 1.0;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.newEventBtn:active,
-.newEventBtn.active {
-    opacity: 1.0;
+.groupBtn:active,
+.groupBtn.active {
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+    opacity: 1.0;
 }
 
 .newEventContent {
@@ -38,7 +49,7 @@
     width: 100%;
     margin: 0;
     float: right;
-    padding: 50px 25px 29px;
+    padding: 25px 25px 0;
 }
 
 .newEventContent input {
@@ -55,11 +66,32 @@
     border: 1px solid #ebebeb;
     -webkit-box-shadow: inset 0 -1px #ebebeb;
     box-shadow: inset 0 -1px #ebebeb;
+    height: 100%;
 }
 
 .newEventContent .contentInput:focus {
     border-color: #ebebeb;
     outline: none;
-    -webkit-box-shadow: inset 0 -2px #ebebeb;
-    box-shadow: inset 0 -2px #ebebeb;
+    -webkit-box-shadow: inset 0 -1px #ebebeb;
+    box-shadow: inset 0 -1px #ebebeb;
+}
+
+.newEventGroup {
+    width: 100%;
+    height: 36px;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+}
+
+.newEventGroup div:first-child {
+    width: 50%;
+    position: absolute;
+    left: 0;
+}
+
+.newEventGroup div:nth-child(2) {
+    width: 50%;
+    position: absolute;
+    right: 0;
 }

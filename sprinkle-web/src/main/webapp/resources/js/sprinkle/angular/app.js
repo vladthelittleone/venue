@@ -3,11 +3,11 @@
 // Declare app level module which depends on filters, and services
 angular.module('sprinkle', [
         'ngRoute',
+        'ngAnimate',
         'sprinkle.filters',
         'sprinkle.services',
         'sprinkle.directives',
-        'sprinkle.controllers',
-        'ui.bootstrap'
+        'sprinkle.controllers'
     ]).
     /**
      * Route provider configuration.
@@ -15,12 +15,12 @@ angular.module('sprinkle', [
     config(['$routeProvider', '$locationProvider',
         function ($routeProvider, $locationProvider) {
             $routeProvider.when('/signin', {
-                templateUrl: 'authentication',
+                templateUrl: 'signInLayout',
                 controller: 'signInCtrl'
             });
 
             $routeProvider.when('/signup', {
-                templateUrl: 'authentication',
+                templateUrl: 'signUpLayout',
                 controller: 'signUpCtrl'
             });
 
@@ -28,17 +28,17 @@ angular.module('sprinkle', [
              * Rest like link, that contains id of user.
              */
             $routeProvider.when('/id:profileId', {
-                templateUrl: 'profile'
+                templateUrl: 'profileLayout'
             });
 
             $routeProvider.when('/event:eventId', {
-                templateUrl: 'event',
+                templateUrl: 'eventLayout',
                 controller: 'eventViewCtrl'
             });
 
-            $routeProvider.when('/new_event', {
-                templateUrl: 'newevent',
-                controller: 'newEventCtrl'
+            $routeProvider.when('/createvent', {
+                templateUrl: 'createEventLayout',
+                controller: 'createEventCtrl'
             });
 
             $routeProvider.otherwise({redirectTo: '/'});
@@ -72,15 +72,5 @@ angular.module('sprinkle', [
                  */
                 $map.getSprinkleMap().setMarkers($url.resources.events);
             });
-
-            /**
-             * Redirect on run.
-             * If user isn't authenticate, redirect to sign in page, else to profile.
-             */
-            if (!$authentication.isAuthenticate()) {
-                $url.redirect.toSignIn();
-            } else {
-                $url.redirect.toProfile();
-            }
         }
     ]);

@@ -1,5 +1,7 @@
 package com.sprinkle.web.controller;
 
+import com.sprinkle.web.common.exception.IllegalEventProperties;
+import com.sprinkle.web.common.validator.EventValidator;
 import com.sprinkle.web.security.domain.json.AuthenticationStatus;
 import com.sprinkle.web.service.domain.Event;
 import com.sprinkle.web.service.domain.EventType;
@@ -27,6 +29,9 @@ import java.util.Collection;
 public class MapController
 {
     @Autowired
+    private EventValidator validator;
+
+    @Autowired
     private EventService eventService;
 
     /**
@@ -50,12 +55,18 @@ public class MapController
                                          @RequestParam String size,
                                          @RequestParam String type)
     {
-        if (eventService.create(lng, lat, title, description, size, type) != null)
+        try
         {
+            validator.validate(lng, lat, title, description, size, type);
+            eventService.create(lng, lat, title, description, size, type);
             return new AuthenticationStatus(true, null, true);
         }
+        catch (IllegalEventProperties e)
+        {
+            // Catch exception about incorrect event properties
+            return new AuthenticationStatus(true, null, e.getMessage(), false);
 
-        return new AuthenticationStatus(true, null, false);
+        }
     }
 
     /**

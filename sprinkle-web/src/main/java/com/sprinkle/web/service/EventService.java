@@ -1,5 +1,6 @@
 package com.sprinkle.web.service;
 
+import com.sprinkle.web.common.exception.IllegalEventProperties;
 import com.sprinkle.web.service.domain.Event;
 
 import java.util.Collection;
@@ -29,7 +30,7 @@ public interface EventService
                         String title,
                         String description,
                         String size,
-                        String type);
+                        String type) throws IllegalEventProperties;
 
     /**
      * @return all events from event service in GeoJSON format.

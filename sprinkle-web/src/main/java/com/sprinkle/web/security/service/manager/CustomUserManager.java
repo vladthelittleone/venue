@@ -1,14 +1,16 @@
 package com.sprinkle.web.security.service.manager;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.atomic.AtomicLong;
+
+import com.sprinkle.web.common.exception.IllegalAuthenticationProperties;
+import com.sprinkle.web.common.validator.AuthenticationValidator;
 import com.sprinkle.web.security.domain.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * package: com.sprinkle.web.security.service
@@ -37,19 +39,21 @@ public class CustomUserManager implements UserManager
      * @return user object
      */
     @Override
-    public User signUp(final String username, final String fullname, final String password)
+    public User signUp(String username, String fullname, String password)
+            throws IllegalAuthenticationProperties
     {
+        String u = username.toLowerCase();
+
         String hashedPassword = passwordEncoder.encode(password);
 
         if (logger.isTraceEnabled())
-            logger.trace(String.format("Sign up new user [%s, %s, %s]", username, fullname, hashedPassword));
+            logger.trace(String.format("Sign up new user [%s, %s, %s]", u, fullname, hashedPassword));
 
-        if (username.isEmpty() || password.isEmpty() || fullname.isEmpty()) return null;
-        if (!usernames.add(username)) return null;
+        if (!usernames.add(username)) throw new IllegalAuthenticationProperties("This user already registered");
 
         long id = userId.incrementAndGet();
 
-        User user = new User(id, username, hashedPassword, fullname, "ROLE_USER");
+        User user = new User(id, u, hashedPassword, fullname, "ROLE_USER");
 
         users.put(id, user);
 

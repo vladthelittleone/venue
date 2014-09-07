@@ -26,20 +26,23 @@ public class SprinkleUserDetailsService implements UserDetailsService
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException
     {
-        if (logger.isTraceEnabled())
-            logger.trace(String.format("Load user by username [%s]", username));
+        // Set username to lower case
+        String u = username.toLowerCase();
 
-        UserDetails userDetails = userManager.getUser(username);
+        if (logger.isTraceEnabled())
+            logger.trace(String.format("Load user by username [%s]", u));
+
+        UserDetails userDetails = userManager.getUser(u);
 
         if (userDetails == null)
         {
             if (logger.isTraceEnabled())
-                logger.trace(String.format("User [%s] not found", username));
+                logger.trace(String.format("User [%s] not found", u));
 
-            throw new UsernameNotFoundException(String.format("User [%s] not found", username));
+            throw new UsernameNotFoundException(String.format("User [%s] not found", u));
         }
 
-        return userManager.getUser(username);
+        return userDetails;
     }
 
     public void setUserManager(UserManager userManager)

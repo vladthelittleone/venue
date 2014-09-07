@@ -8,28 +8,20 @@ angular.module('sprinkle.controllers', [])
      * Send user sign in info on server {@link authenticate} and get response.
      * @controller
      */
-    .controller('signInCtrl', ['$scope', '$url', '$authentication', '$http',
-        function ($scope, $url, $authentication, $http) {
+    .controller('signInCtrl', ['$scope', '$url', '$authentication', '$http', '$animation',
+        function ($scope, $url, $authentication, $http, $animation) {
 
             /**
-             * Initializing. isSignIn field equals true, this means that authenticationDetails in components will be shown.
+             * Initializing.
              * @see html/authentication/index.html
              * @see controllers/utils.js
              */
-            initialize(true, $scope, $authentication, $url.redirect);
+            initialize($scope, $authentication, $url.redirect);
+
             var alert = $scope.authenticationAlert;
             var details = $scope.authenticationDetails;
 
             $scope.authenticate = function () {
-                /**
-                 * Validating.
-                 */
-                if (!$authentication.isValidEmailAddress(details.email)
-                    || !details.password) {
-                    alert.alertMessage('Invalid e-mail address or password.');
-                    return;
-                }
-
                 var payload =
                     'j_username=' + details.email +
                     '&j_password=' + details.password +
@@ -49,6 +41,7 @@ angular.module('sprinkle.controllers', [])
                             $url.redirect.toProfileWithId(profileStatus.id);
                         } else {
                             alert.alertMessage(profileStatus.message);
+                            $animation.authenticationShake();
                         }
                     });
             };
@@ -62,8 +55,8 @@ angular.module('sprinkle.controllers', [])
      * Change authentication service parameters, such like isAuthenticate variable.
      * @controller
      */
-    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$url',
-        function ($scope, $authentication, $http, $url) {
+    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$url', '$animation',
+        function ($scope, $authentication, $http, $url, $animation) {
 
             // -------------------------------
             // Private functions.
@@ -75,19 +68,9 @@ angular.module('sprinkle.controllers', [])
                 var details = $scope.authenticationDetails;
                 var alert = $scope.authenticationAlert;
 
-                if (!$authentication.isValidEmailAddress(details.email) ||
-                    !details.fullName) {
-                    alert.alertWarning('Invalid e-mail address or full name.', true, false, true);
-                    return false;
-                }
-
                 if (details.password != details.passwordCheck) {
                     alert.alertWarning("Passwords don't match.", false, true, false);
-                    return false;
-                }
-
-                if (!details.password || !details.passwordCheck) {
-                    alert.alertWarning('Invalid password.', false, true, false);
+                    $animation.authenticationShake();
                     return false;
                 }
 
@@ -97,11 +80,11 @@ angular.module('sprinkle.controllers', [])
             // -------------------------------
 
             /**
-             * Initializing. isSignIn field equals true, this means that sign up components will be shown.
+             * Initializing. isSignInVisible field equals true, this means that sign up components will be shown.
              * @see html/authentication/index.html
              * @see controllers/utils.js
              */
-            initialize(false, $scope, $authentication, $url.redirect);
+            initialize($scope, $authentication, $url.redirect);
             var alert = $scope.authenticationAlert;
             var details = $scope.authenticationDetails;
 
@@ -123,6 +106,7 @@ angular.module('sprinkle.controllers', [])
                             $url.redirect.toSignIn();
                         } else {
                             alert.alertWarning(authStatus.message, true, false, false);
+                            $animation.authenticationShake();
                         }
                     });
             };
@@ -131,12 +115,11 @@ angular.module('sprinkle.controllers', [])
 
 /**
  * Initializer of authentication controllers.
- * @param isSignIn - set isSignIn field.
  * @param $scope - controller scope.
  * @param $authentication - authenticate service.
  * @param redirect - redirect service.
  */
-function initialize(isSignIn, $scope, $authentication, redirect) {
+function initialize($scope, $authentication, redirect) {
     /**
      * Check authentication of user.
      */
@@ -145,8 +128,9 @@ function initialize(isSignIn, $scope, $authentication, redirect) {
         return;
     }
 
-    // Set global model
-    $scope.isSignIn = $authentication.isSignIn = isSignIn;
+    // Redirect mechanism
+    $scope.redirect = redirect;
+
     // Authentication information
     $scope.authenticationDetails = new Authentication();
     // Alert information
