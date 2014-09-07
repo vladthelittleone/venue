@@ -3,11 +3,11 @@
 // Declare app level module which depends on filters, and services
 angular.module('sprinkle', [
         'ngRoute',
+        'ngAnimate',
         'sprinkle.filters',
         'sprinkle.services',
         'sprinkle.directives',
-        'sprinkle.controllers',
-        'ui.bootstrap'
+        'sprinkle.controllers'
     ]).
     /**
      * Route provider configuration.

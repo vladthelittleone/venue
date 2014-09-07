@@ -8,8 +8,8 @@ angular.module('sprinkle.controllers', [])
      * Send user sign in info on server {@link authenticate} and get response.
      * @controller
      */
-    .controller('signInCtrl', ['$scope', '$url', '$authentication', '$http',
-        function ($scope, $url, $authentication, $http) {
+    .controller('signInCtrl', ['$scope', '$url', '$authentication', '$http', '$animation',
+        function ($scope, $url, $authentication, $http, $animation) {
 
             /**
              * Initializing.
@@ -41,6 +41,7 @@ angular.module('sprinkle.controllers', [])
                             $url.redirect.toProfileWithId(profileStatus.id);
                         } else {
                             alert.alertMessage(profileStatus.message);
+                            $animation.authenticationShake();
                         }
                     });
             };
@@ -54,8 +55,8 @@ angular.module('sprinkle.controllers', [])
      * Change authentication service parameters, such like isAuthenticate variable.
      * @controller
      */
-    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$url',
-        function ($scope, $authentication, $http, $url) {
+    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$url', '$animation',
+        function ($scope, $authentication, $http, $url, $animation) {
 
             // -------------------------------
             // Private functions.
@@ -69,6 +70,7 @@ angular.module('sprinkle.controllers', [])
 
                 if (details.password != details.passwordCheck) {
                     alert.alertWarning("Passwords don't match.", false, true, false);
+                    $animation.authenticationShake();
                     return false;
                 }
 
@@ -104,6 +106,7 @@ angular.module('sprinkle.controllers', [])
                             $url.redirect.toSignIn();
                         } else {
                             alert.alertWarning(authStatus.message, true, false, false);
+                            $animation.authenticationShake();
                         }
                     });
             };

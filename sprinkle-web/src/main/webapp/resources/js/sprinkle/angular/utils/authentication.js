@@ -31,22 +31,12 @@ function AuthenticationAlert(sign) {
         this.invalidPassword = invalidPassword;
         this.invalidEmail = invalidEmail;
         this.invalidFullName = invalidFullName;
-        /**
-         * Shake container using jquery.
-         * TODO: using angularJS directives.
-         */
-        jQuery("#signShake").shake(3, 7, 400);
     };
 
     this.alertMessage = function (msg) {
         this.change(msg, true);
         this.invalidEmail = true;
         this.invalidPassword = true;
-        /**
-         * Shake container using jquery.
-         * TODO: using angularJS directives.
-         */
-        jQuery("#signShake").shake(3, 7, 400);
     };
 
 

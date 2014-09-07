@@ -7,8 +7,8 @@ angular.module('sprinkle.controllers')
  * Controller that handle new event operation.
  * @controller
  */
-    .controller('createEventCtrl', ['$scope', '$map', '$authentication', '$url', '$http',
-        function ($scope, $map, $authentication, $url, $http) {
+    .controller('createEventCtrl', ['$scope', '$map', '$authentication', '$url', '$http', '$animation',
+        function ($scope, $map, $authentication, $url, $http, $animation) {
             $scope.mapService = $map;
             $scope.authenticationService = $authentication;
 
@@ -88,7 +88,7 @@ angular.module('sprinkle.controllers')
                         if ($scope.newEvent.name == ""
                             || $scope.newEvent.description == ""
                             || $scope.newEvent.type == null) {
-                            jQuery("#newEventShake").shake(3, 7, 400);
+                            // TODO shake or something another
                             return;
                         }
 
@@ -104,8 +104,7 @@ angular.module('sprinkle.controllers')
                             // And redirect to profile
                             $url.redirect.toProfile();
                         } else {
-                            // Else shake content
-                            jQuery("#newEventShake").shake(3, 7, 400);
+                            // Else shake content TODO
                         }
                     });
                 }
