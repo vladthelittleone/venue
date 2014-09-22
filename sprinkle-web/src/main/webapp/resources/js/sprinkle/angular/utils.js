@@ -1,4 +1,162 @@
 /**
+ * Created by vladthelittleone on 22.09.14.
+ */
+/**
+ * Created by vladthelittleone on 08.06.14.
+ */
+/**
+ * Class thar responding for authentication alert.
+ * @param sign - {@link Authentication}
+ * @constructor
+ */
+function AuthenticationAlert(sign) {
+    this.show = false;
+    this.message = "";
+
+    /**
+     * Fields responding for incorrect inputs.
+     * @type {boolean}
+     */
+    this.invalidPassword = false;
+    this.invalidFullName = false;
+    this.invalidEmail = false;
+
+    /**
+     * Alert warning.
+     * @param message - warning message.
+     * @param invalidEmail - true - email invalid / false - email valid
+     * @param invalidPassword - true - password invalid / false - password valid
+     * @param invalidFullName - true - full name invalid / false - full name valid
+     */
+    this.alertWarning = function (message, invalidEmail, invalidPassword, invalidFullName) {
+        this.change(message, true);
+
+        this.invalidPassword = invalidPassword;
+        this.invalidEmail = invalidEmail;
+        this.invalidFullName = invalidFullName;
+    };
+
+    this.alertMessage = function (msg) {
+        this.change(msg, true);
+        this.invalidEmail = true;
+        this.invalidPassword = true;
+    };
+
+
+    /**
+     * Change alert state.
+     * @param message - message that will be shown.
+     * @param show - true - show alert / false - don't.
+     */
+    this.change = function (message, show) {
+        this.show = show;
+        this.message = message;
+        this.invalidPassword = false;
+        this.invalidFullName = false;
+        this.invalidEmail = false;
+        sign.reset();
+    };
+}
+
+function Authentication() {
+    this.rememberMe = false;
+
+    /**
+     * Fields contains input information.
+     * @type {string}
+     */
+    this.email = '';
+    this.password = '';
+    this.passwordCheck = '';
+    this.fullName = '';
+
+    /**
+     * Remember-me toggle.
+     */
+    this.switchRememberMe = function () {
+        this.rememberMe = !this.rememberMe;
+    };
+
+    /**
+     * Set fields of authentication form empty.
+     */
+    this.reset = function () {
+        this.email = '';
+        this.password = '';
+        this.passwordCheck = '';
+        this.fullName = '';
+    };
+}
+
+// ---------------- Button-checkbox style
+function checkboxStyle() {
+    jQuery('.buttonCheckbox').each(function () {
+
+        // Settings
+        var $widget = jQuery(this),
+            $button = $widget.find('button'),
+            $checkbox = $widget.find('input:checkbox'),
+            color = $button.data('color'),
+            settings = {
+                on: {
+                    icon: 'glyphicon glyphicon-check'
+                },
+                off: {
+                    icon: 'glyphicon glyphicon-unchecked'
+                }
+            };
+
+        // Event Handlers
+        $button.on('click', function () {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+        $checkbox.on('change', function () {
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $button.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $button.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+                $button
+                    .removeClass('rememberMeButton')
+                    .addClass('rememberMeButtonChecked');
+            }
+            else {
+                $button
+                    .removeClass('rememberMeButtonChecked')
+                    .addClass('rememberMeButton');
+            }
+        }
+
+        // Initialization
+        function init() {
+
+            updateDisplay();
+
+            // Inject the icon if applicable
+            if ($button.find('.state-icon').length == 0) {
+                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i>');
+            }
+        }
+
+        init();
+    });
+}
+
+/**
  * Created by vladthelittleone on 29.04.14.
  * Class responding for map configurations.
  * @constructor
@@ -20,7 +178,7 @@ function SprinkleMap() {
         maxZoom: 19,
         minZoom: 2
     })
-    .setView([40, -74.50], 9);
+        .setView([40, -74.50], 9);
 
     // Create feature for markers
     var featureLayer = L.mapbox.featureLayer().addTo(map);
