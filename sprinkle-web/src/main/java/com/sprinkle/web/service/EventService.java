@@ -1,9 +1,9 @@
 package com.sprinkle.web.service;
 
+import java.util.Collection;
+
 import com.sprinkle.web.common.exception.IllegalEventProperties;
 import com.sprinkle.web.service.domain.Event;
-
-import java.util.Collection;
 
 /**
  * package: com.sprinkle.web.service
@@ -37,4 +37,11 @@ public interface EventService
      * @see com.sprinkle.web.service.domain.Event
      */
     public Collection<Event> getEvents();
+
+    /**
+     * @return event with given id from event service in GeoJSON format.
+     * @see com.sprinkle.web.service.EventService
+     * @see com.sprinkle.web.service.domain.Event
+     */
+    public Event getEvent(Long id);
 }

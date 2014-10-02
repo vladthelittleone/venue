@@ -54,6 +54,7 @@ angular.module('sprinkle', [
     .run(['$authentication', '$rootScope', '$http', '$url', '$map',
         function ($authentication, $rootScope, $http, $url, $map) {
             /**
+             * Performed at route change.
              * Check authentication. If authenticate, then send username to authentication service.
              * Else logout and clear local storage. Also load events form server and add them on the map.
              */
@@ -70,7 +71,10 @@ angular.module('sprinkle', [
                 /**
                  * Get events from server and add them on the map.
                  */
-                $map.getSprinkleMap().setMarkers($url.resources.events);
+                $http.get($url.resources.events).
+                    success(function (data) {
+                        $map.getSprinkleMap().setMarkers(data);
+                    });
             });
         }
     ]);

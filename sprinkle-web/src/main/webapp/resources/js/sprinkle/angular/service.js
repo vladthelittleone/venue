@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Created by vladthelittleone on 22.09.14.
  */
@@ -176,6 +178,7 @@ angular.module('sprinkle.services', [])
                  * Resources
                  */
                 resources: {
+                    event: "map/event.geojson",
                     types: "map/types.json",
                     events: "map/events.geojson",
                     profileStatus: "/authentication/profilestatus.json"

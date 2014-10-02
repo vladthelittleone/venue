@@ -1,6 +1,5 @@
-/**
- * Created by vladthelittleone on 22.09.14.
- */
+'use strict';
+
 /**
  * Created by vladthelittleone on 08.06.14.
  * Initialization of sprinkle.controllers.
@@ -34,6 +33,9 @@ angular.module('sprinkle.controllers', [])
                     headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
                 };
 
+                /**
+                 * TODO перенести в сервис url (переименновать), возвращать callback.
+                 */
                 $http.post($url.signIn, payload, config).
                     success(function (profileStatus) {
                         /**
@@ -119,8 +121,8 @@ angular.module('sprinkle.controllers', [])
  * Controller that handle new event operation.
  * @controller
  */
-    .controller('createEventCtrl', ['$scope', '$map', '$authentication', '$url', '$http', '$animation',
-        function ($scope, $map, $authentication, $url, $http, $animation) {
+    .controller('createEventCtrl', ['$scope', '$map', '$authentication', '$url', '$http',
+        function ($scope, $map, $authentication, $url, $http) {
             $scope.mapService = $map;
             $scope.authenticationService = $authentication;
 
@@ -227,10 +229,20 @@ angular.module('sprinkle.controllers', [])
  * Controller responding for events view page.
  * @controller
  */
-    .controller('eventViewCtrl', ['$scope', '$url',
-        function ($scope, $url) {
+    .controller('eventViewCtrl', ['$scope', '$url', '$http', '$routeParams',
+        function ($scope, $url, $http, $routeParams) {
             // Properties of event
-            $scope.properties = $scope.selectedEvent.properties;
+
+            $http.get($url.resources.event, {
+                    params: {
+                        id: $routeParams.eventId
+                    }
+                }).success(function (data) {
+                    console.log(data);
+                    $scope.properties = data.properties;
+                });
+
+            console.log($scope.properties);
             $scope.resizeFull = false;
 
             // Closing event window
@@ -245,7 +257,7 @@ angular.module('sprinkle.controllers', [])
         }
     ])
 /**
- * Body controller that handle body content.
+ * Controller that handle body content.
  * @controller
  */
     .controller('navigateCtrl', ['$scope', '$authentication', '$http', '$url', '$map',

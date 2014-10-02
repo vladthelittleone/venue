@@ -1,19 +1,19 @@
 package com.sprinkle.web.controller;
 
+import java.util.Collection;
+
 import com.sprinkle.web.common.exception.IllegalEventProperties;
 import com.sprinkle.web.common.validator.EventValidator;
 import com.sprinkle.web.security.domain.json.AuthenticationStatus;
+import com.sprinkle.web.service.EventService;
 import com.sprinkle.web.service.domain.Event;
 import com.sprinkle.web.service.domain.EventType;
-import com.sprinkle.web.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Collection;
 
 /**
  * package: com.sprinkle.web.controllers
@@ -79,6 +79,19 @@ public class MapController
     public Collection<Event> getEvents()
     {
         return eventService.getEvents();
+    }
+
+    /**
+     * @return event with given id from event service in GeoJSON format.
+     * @param id - event id
+     * @see com.sprinkle.web.service.EventService
+     * @see com.sprinkle.web.service.domain.Event
+     */
+    @RequestMapping("event.geojson")
+    @ResponseBody
+    public Event getEvent(@RequestParam Long id)
+    {
+        return eventService.getEvent(id);
     }
 
     /**

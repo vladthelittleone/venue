@@ -5,11 +5,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.sprinkle.web.common.exception.IllegalEventProperties;
-import com.sprinkle.web.common.validator.EventValidator;
 import com.sprinkle.web.service.domain.Event;
-import com.sprinkle.web.service.domain.EventType;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -46,5 +43,14 @@ public class CustomEventService implements EventService
     public Collection<Event> getEvents()
     {
         return events.values();
+    }
+
+    @Override
+    public Event getEvent(Long id)
+    {
+        if (logger.isTraceEnabled())
+            logger.trace(String.format("Get event [%d]", id));
+
+        return events.get(id);
     }
 }

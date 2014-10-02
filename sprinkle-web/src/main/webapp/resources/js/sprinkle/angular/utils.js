@@ -1,11 +1,9 @@
+'use strict';
+
 /**
  * Created by vladthelittleone on 22.09.14.
- */
-/**
- * Created by vladthelittleone on 08.06.14.
- */
-/**
- * Class thar responding for authentication alert.
+ *
+ * Class that responding for authentication alert.
  * @param sign - {@link Authentication}
  * @constructor
  */
@@ -202,18 +200,6 @@ function SprinkleMap() {
         // Redirect to event
         service.redirect.toEventWithId(feature.properties.eventId);
 
-        // Root scope for global fields.
-        // All fields of root scope available for all child scopes.
-        var rootScope = angular.element(document).
-            injector().invoke(
-            function ($rootScope) {
-                return $rootScope;
-            });
-
-        // TODO loading form server
-        // Add to root scope, information about selected event.
-        rootScope.selectedEvent = feature;
-
         // Apply changes
         elem.scope().$apply();
     });
@@ -237,7 +223,6 @@ function SprinkleMap() {
         var marker = e.layer,
             feature = marker.feature;
 
-        console.log(feature.properties.title);
         // Create custom popup content
         var popupContent =
             '<div class="markerPopup">' +
@@ -319,10 +304,10 @@ function SprinkleMap() {
     };
 
     /**
-     * Add markers from url.
-     * @param url - array of GeoJson markers
+     * Add markers to service map.
+     * @param events - array of GeoJson markers
      */
-    this.setMarkers = function (url) {
-        featureLayer.loadURL(url);
+    this.setMarkers = function (events) {
+        featureLayer.setGeoJSON(events);
     }
 }
