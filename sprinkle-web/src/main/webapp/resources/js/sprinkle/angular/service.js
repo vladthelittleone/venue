@@ -125,9 +125,123 @@ angular.module('sprinkle.services', [])
 /**
  * Service that responding for redirection and urls.
  */
-    .factory('$url', ['$location', '$authentication',
-        function ($location, $authentication) {
+    .factory('$url', ['$location', '$authentication', '$http', '$routeParams',
+        function ($location, $authentication, $http, $routeParams) {
+            /**
+             * Resources
+             */
+            var resources = {
+                event: "map/event.geojson",
+                types: "map/types.json",
+                events: "map/events.geojson",
+                profileStatus: "/authentication/profilestatus.json"
+            };
+
+            /**
+             * Links
+             */
+            var links = {
+                setEvent: "map/setevent",
+                logout: "/logout",
+                signIn: "j_spring_security_check",
+                signUp: "authentication/signup"
+            };
+
             return {
+                http: {
+                    /**
+                     * Request for sign in. Redirect to profile if request successful,
+                     * alert message if not.
+                     *
+                     * @param details - user authentication info.
+                     */
+                    signIn: function (details) {
+                        // For remember me requests.
+                        var payload =
+                            'j_username=' + details.email +
+                            '&j_password=' + details.password +
+                            '&_spring_security_remember_me=' + details.rememberMe;
+
+                        var config = {
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                        };
+
+                        $http.post(links.signIn, payload, config).
+                            success(function (profileStatus) {
+                                /**
+                                 * If user sing in, then redirect to profile page.
+                                 * Else display warning.
+                                 */
+                                if (profileStatus.signedIn) {
+                                    this.redirect.toProfileWithId(profileStatus.id);
+                                } else {
+                                    details.alertMessage(profileStatus.message);
+                                }
+                            });
+                    },
+
+                    /**
+                     * Sign up request. Redirect to sign in if success request,
+                     * alert message if not.
+                     *
+                     * @param details - authentication user info.
+                     */
+                    signUp: function (details) {
+                        $http.post(links.signUp,
+                            {
+                                username: details.email,
+                                fullname: details.fullName,
+                                password: details.password
+                            }).success(function (authStatus) {
+                                /**
+                                 * If sign up success, then redirect to sign in page.
+                                 * Else display warning.
+                                 */
+                                if (authStatus.success) {
+                                    this.redirect.toSignIn();
+                                } else {
+                                    details.alertWarning(authStatus.message, true, false, false);
+                                }
+                            });
+                    },
+
+                    /**
+                     * Return available types.
+                     */
+                    getTypes: function () {
+                        var eventTypes;
+
+                        $http.get(resources.types)
+                            .success(function (types) {
+                                eventTypes = types;
+                            });
+
+                        return eventTypes;
+                    },
+
+                    getEventProperties: function () {
+                        var properties;
+
+                        $http.get(resources.event, {
+                            params: {
+                                id: $routeParams.eventId
+                            }
+                        }).success(function (data) {
+                            properties = data.properties;
+                        });
+
+                        return properties;
+                    },
+
+                    logout: function (authenticationService) {
+                        $http.get(links.logout).
+                            success(function () {
+                                authenticationService.logout();
+                                this.redirect.toSignIn();
+                            });
+                    }
+                },
+
                 /**
                  * Redirects
                  */
@@ -173,23 +287,7 @@ angular.module('sprinkle.services', [])
                             this.toMainPage();
                         }
                     }
-                },
-                /**
-                 * Resources
-                 */
-                resources: {
-                    event: "map/event.geojson",
-                    types: "map/types.json",
-                    events: "map/events.geojson",
-                    profileStatus: "/authentication/profilestatus.json"
-                },
-                /**
-                 * Links
-                 */
-                setEvent: "map/setevent",
-                logout: "/logout",
-                signIn: "j_spring_security_check",
-                signUp: "authentication/signup"
+                }
             };
         }])
 /**

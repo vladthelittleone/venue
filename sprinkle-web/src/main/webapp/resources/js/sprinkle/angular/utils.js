@@ -1,63 +1,15 @@
 'use strict';
 
 /**
- * Created by vladthelittleone on 22.09.14.
- *
- * Class that responding for authentication alert.
- * @param sign - {@link Authentication}
+ * Store authentication information about user and responding for authentication alert.
+ * @param animation - animation service.
  * @constructor
  */
-function AuthenticationAlert(sign) {
+function Authentication(animation) {
+    this.rememberMe = false;
     this.show = false;
     this.message = "";
-
-    /**
-     * Fields responding for incorrect inputs.
-     * @type {boolean}
-     */
-    this.invalidPassword = false;
-    this.invalidFullName = false;
-    this.invalidEmail = false;
-
-    /**
-     * Alert warning.
-     * @param message - warning message.
-     * @param invalidEmail - true - email invalid / false - email valid
-     * @param invalidPassword - true - password invalid / false - password valid
-     * @param invalidFullName - true - full name invalid / false - full name valid
-     */
-    this.alertWarning = function (message, invalidEmail, invalidPassword, invalidFullName) {
-        this.change(message, true);
-
-        this.invalidPassword = invalidPassword;
-        this.invalidEmail = invalidEmail;
-        this.invalidFullName = invalidFullName;
-    };
-
-    this.alertMessage = function (msg) {
-        this.change(msg, true);
-        this.invalidEmail = true;
-        this.invalidPassword = true;
-    };
-
-
-    /**
-     * Change alert state.
-     * @param message - message that will be shown.
-     * @param show - true - show alert / false - don't.
-     */
-    this.change = function (message, show) {
-        this.show = show;
-        this.message = message;
-        this.invalidPassword = false;
-        this.invalidFullName = false;
-        this.invalidEmail = false;
-        sign.reset();
-    };
-}
-
-function Authentication() {
-    this.rememberMe = false;
+    this.animation = animation;
 
     /**
      * Fields contains input information.
@@ -69,6 +21,14 @@ function Authentication() {
     this.fullName = '';
 
     /**
+     * Fields responding for incorrect inputs.
+     * @type {boolean}
+     */
+    this.invalidPassword = false;
+    this.invalidFullName = false;
+    this.invalidEmail = false;
+
+    /**
      * Remember-me toggle.
      */
     this.switchRememberMe = function () {
@@ -76,9 +36,40 @@ function Authentication() {
     };
 
     /**
-     * Set fields of authentication form empty.
+     * Alert warning.
+     * @param message - warning message.
+     * @param invalidEmail - true - email invalid / false - email valid
+     * @param invalidPassword - true - password invalid / false - password valid
+     * @param invalidFullName - true - full name invalid / false - full name valid
      */
-    this.reset = function () {
+    this.alertWarning = function (message, invalidEmail, invalidPassword, invalidFullName) {
+        animation.authenticationShake();
+        this.reset(message, true);
+        this.invalidPassword = invalidPassword;
+        this.invalidEmail = invalidEmail;
+        this.invalidFullName = invalidFullName;
+    };
+
+    this.alertMessage = function (msg) {
+        animation.authenticationShake();
+        this.reset(msg, true);
+        this.invalidEmail = true;
+        this.invalidPassword = true;
+    };
+
+    /**
+     * Change alert state.
+     * Set fields of authentication form empty.
+     *
+     * @param message - message that will be shown.
+     * @param show - true - show alert / false - don't.
+     */
+    this.reset = function (message, show) {
+        this.show = show;
+        this.message = message;
+        this.invalidPassword = false;
+        this.invalidFullName = false;
+        this.invalidEmail = false;
         this.email = '';
         this.password = '';
         this.passwordCheck = '';
@@ -310,4 +301,104 @@ function SprinkleMap() {
     this.setMarkers = function (events) {
         featureLayer.setGeoJSON(events);
     }
+}
+
+function EventCreator($scope, mapService, $url) {
+    var sprinkleMap = $scope.mapService.getSprinkleMap();
+
+    /**
+     * Information about new event.
+     */
+    $scope.newEvent = {
+        name: "",
+        description: "",
+        type: null
+    };
+
+    /**
+     * Get types of event from server.
+     */
+    $http.get($url.resources.types).success(function (types) {
+        $scope.eventTypes = types;
+    });
+
+    /**
+     * Function redirect user to profile and switch creation off.
+     * @see map service
+     */
+    $scope.closeEventCreation = function () {
+        mapService.setEventCreationOn(false);
+        $url.redirect.toProfile();
+    };
+
+    /**
+     * Set type of event.
+     * @param type - event type.
+     */
+    $scope.setTypeOfNewEvent = function (type) {
+        $scope.newEvent.type = type;
+    };
+
+    /**
+     * Return type name of new event.
+     * If type equals null, then return "Select event type".
+     * @returns {string}
+     */
+    $scope.getSelectedType = function () {
+        var t = $scope.newEvent.type;
+        if (t != null) {
+            return t.name;
+        } else {
+            return "Select event type";
+        }
+    };
+
+    /**
+     * Return color of event marker.
+     * If type equals null, then return "black".
+     * @returns {string}
+     */
+    $scope.getColor = function () {
+        var t = $scope.newEvent.type;
+        if (t != null) {
+            return t.color;
+        } else {
+            return "#5ea2af";
+        }
+    };
+
+    /**
+     * Handle click on map.
+     */
+    sprinkleMap.getMap().on('click', function (e) {
+        var service = $scope.mapService;
+
+        // Check event creation on
+        if (service.isEventCreationOn()) {
+            $scope.$apply(function () {
+                // Validate fields
+                if ($scope.newEvent.name == ""
+                    || $scope.newEvent.description == ""
+                    || $scope.newEvent.type == null) {
+                    // TODO shake or something another
+                    return;
+                }
+
+                var m = $scope.newEvent;
+
+                // Apply all changes and add marker on map.
+                if (sprinkleMap.setMarker($url.setEvent, e.latlng.lng, e.latlng.lat,
+                    m.name, m.description, "large", m.type)) {
+                    // If request from service is true, then
+                    // set event creation off
+                    service.isEventCreationOn();
+
+                    // And redirect to profile
+                    $url.redirect.toProfile();
+                } else {
+                    // Else shake content TODO
+                }
+            });
+        }
+    });
 }

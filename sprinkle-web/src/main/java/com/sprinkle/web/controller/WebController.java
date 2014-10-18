@@ -30,7 +30,7 @@ public class WebController
     @RequestMapping("/createEventLayout")
     public String getNewEventPage()
     {
-        return "/new/event/index";
+        return "/create/event/index";
     }
 
     @RequestMapping("/signInLayout")

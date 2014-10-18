@@ -10,45 +10,19 @@ angular.module('sprinkle.controllers', [])
  * Send user sign in info on server {@link authenticate} and get response.
  * @controller
  */
-    .controller('signInCtrl', ['$scope', '$url', '$authentication', '$http', '$animation',
-        function ($scope, $url, $authentication, $http, $animation) {
-
+    .controller('signInCtrl', ['$scope', '$url', '$authentication', '$animation',
+        function ($scope, $url, $authentication, $animation) {
             /**
              * Initializing.
              * @see html/authentication/index.html
              * @see controllers/utils.js
              */
-            initialize($scope, $authentication, $url.redirect);
+            initialize($scope, $authentication, $animation, $url.redirect);
 
-            var alert = $scope.authenticationAlert;
             var details = $scope.authenticationDetails;
 
             $scope.authenticate = function () {
-                var payload =
-                    'j_username=' + details.email +
-                    '&j_password=' + details.password +
-                    '&_spring_security_remember_me=' + details.rememberMe;
-
-                var config = {
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-                };
-
-                /**
-                 * TODO перенести в сервис url (переименновать), возвращать callback.
-                 */
-                $http.post($url.signIn, payload, config).
-                    success(function (profileStatus) {
-                        /**
-                         * If user sing in, then redirect to profile page.
-                         * Else display warning.
-                         */
-                        if (profileStatus.signedIn) {
-                            $url.redirect.toProfileWithId(profileStatus.id);
-                        } else {
-                            alert.alertMessage(profileStatus.message);
-                            $animation.authenticationShake();
-                        }
-                    });
+                $url.http.signIn(details);
             };
 
             checkboxStyle();
@@ -60,8 +34,8 @@ angular.module('sprinkle.controllers', [])
  * Change authentication service parameters, such like isAuthenticate variable.
  * @controller
  */
-    .controller('signUpCtrl', ['$scope', '$authentication', '$http', '$url', '$animation',
-        function ($scope, $authentication, $http, $url, $animation) {
+    .controller('signUpCtrl', ['$scope', '$authentication', '$url', '$animation',
+        function ($scope, $authentication, $url, $animation) {
 
             // -------------------------------
             // Private functions.
@@ -70,15 +44,10 @@ angular.module('sprinkle.controllers', [])
              * Validating.
              */
             function valid() {
-                var details = $scope.authenticationDetails;
-                var alert = $scope.authenticationAlert;
-
                 if (details.password != details.passwordCheck) {
-                    alert.alertWarning("Passwords don't match.", false, true, false);
-                    $animation.authenticationShake();
+                    details.alertWarning("Passwords don't match.", false, true, false);
                     return false;
                 }
-
                 return true;
             }
 
@@ -89,31 +58,12 @@ angular.module('sprinkle.controllers', [])
              * @see html/authentication/index.html
              * @see controllers/utils.js
              */
-            initialize($scope, $authentication, $url.redirect);
-            var alert = $scope.authenticationAlert;
+            initialize($scope, $authentication, $animation, $url.redirect);
             var details = $scope.authenticationDetails;
 
             $scope.authenticate = function () {
-
                 if (!valid()) return;
-
-                $http.post($url.signUp,
-                    {
-                        username: details.email,
-                        fullname: details.fullName,
-                        password: details.password
-                    }).success(function (authStatus) {
-                        /**
-                         * If sign up success, then redirect to sign in page.
-                         * Else display warning.
-                         */
-                        if (authStatus.success) {
-                            $url.redirect.toSignIn();
-                        } else {
-                            alert.alertWarning(authStatus.message, true, false, false);
-                            $animation.authenticationShake();
-                        }
-                    });
+                $url.http.signUp(details);
             };
         }
     ])
@@ -121,13 +71,11 @@ angular.module('sprinkle.controllers', [])
  * Controller that handle new event operation.
  * @controller
  */
-    .controller('createEventCtrl', ['$scope', '$map', '$authentication', '$url', '$http',
-        function ($scope, $map, $authentication, $url, $http) {
-            $scope.mapService = $map;
-            $scope.authenticationService = $authentication;
-
+    .controller('createEventCtrl', ['$scope', '$map', '$authentication', '$url',
+        function ($scope, $map, $authentication, $url) {
             var sprinkleMap = $map.getSprinkleMap();
 
+            // TODO пренести в сервис main
             /**
              * Information about new event.
              */
@@ -140,15 +88,14 @@ angular.module('sprinkle.controllers', [])
             /**
              * Get types of event from server.
              */
-            $http.get($url.resources.types).success(function (types) {
-                $scope.eventTypes = types;
-            });
+            $scope.eventTypes = $url.getTypes();
 
             /**
              * Function redirect user to profile and switch creation off.
              * @see map service
              */
             $scope.closeEventCreation = function () {
+                // TODO ЗАЩИМ В СЕРВИСЕ?
                 $map.setEventCreationOn(false);
                 $url.redirect.toProfile();
             };
@@ -193,16 +140,18 @@ angular.module('sprinkle.controllers', [])
              * Handle click on map.
              */
             sprinkleMap.getMap().on('click', function (e) {
-                var service = $scope.mapService;
+                var service = $map;
 
                 // Check event creation on
+                // TODO ЗАЩИМ В СЕРВИСЕ?
                 if (service.isEventCreationOn()) {
                     $scope.$apply(function () {
                         // Validate fields
                         if ($scope.newEvent.name == ""
                             || $scope.newEvent.description == ""
                             || $scope.newEvent.type == null) {
-                            // TODO shake or something another
+                            // TODO
+                            // add some alert
                             return;
                         }
 
@@ -229,20 +178,10 @@ angular.module('sprinkle.controllers', [])
  * Controller responding for events view page.
  * @controller
  */
-    .controller('eventViewCtrl', ['$scope', '$url', '$http', '$routeParams',
-        function ($scope, $url, $http, $routeParams) {
+    .controller('eventViewCtrl', ['$scope', '$url',
+        function ($scope, $url) {
             // Properties of event
-
-            $http.get($url.resources.event, {
-                    params: {
-                        id: $routeParams.eventId
-                    }
-                }).success(function (data) {
-                    console.log(data);
-                    $scope.properties = data.properties;
-                });
-
-            console.log($scope.properties);
+            $scope.properties = $url.getEventProperties();
             $scope.resizeFull = false;
 
             // Closing event window
@@ -260,8 +199,8 @@ angular.module('sprinkle.controllers', [])
  * Controller that handle body content.
  * @controller
  */
-    .controller('navigateCtrl', ['$scope', '$authentication', '$http', '$url', '$map',
-        function ($scope, $authentication, $http, $url, $map) {
+    .controller('mainCtrl', ['$scope', '$authentication', '$url', '$map',
+        function ($scope, $authentication, $url, $map) {
             $scope.authenticationService = $authentication;
             $scope.mapService = $map;
             $scope.redirect = $url.redirect;
@@ -270,13 +209,7 @@ angular.module('sprinkle.controllers', [])
              * Function for logout button,
              * clear localStorage and logout from server.
              */
-            $scope.logout = function () {
-                $http.get($url.logout).
-                    success(function () {
-                        $scope.authenticationService.logout();
-                        $url.redirect.toSignIn();
-                    });
-            };
+            $scope.logout = $url.logout($authentication);
         }
     ]);
 
@@ -284,9 +217,10 @@ angular.module('sprinkle.controllers', [])
  * Initializer of authentication controllers.
  * @param $scope - controller scope.
  * @param $authentication - authenticate service.
+ * @param $animation - animation service.
  * @param redirect - redirect service.
  */
-function initialize($scope, $authentication, redirect) {
+function initialize($scope, $authentication, $animation, redirect) {
     /**
      * Check authentication of user.
      */
@@ -299,7 +233,5 @@ function initialize($scope, $authentication, redirect) {
     $scope.redirect = redirect;
 
     // Authentication information
-    $scope.authenticationDetails = new Authentication();
-    // Alert information
-    $scope.authenticationAlert = new AuthenticationAlert($scope.authenticationDetails);
+    $scope.authenticationDetails = new Authentication($animation);
 }
