@@ -23,14 +23,14 @@
     <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
     <!-- Mapbox core css -->
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet'/>
-
-    <!-- Custom styles for this template -->
-    <link href="resources/css/sprinkle/sprinkle.css" rel="stylesheet">
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet'/>
 
     <!-- Mapbox core JavaScript
     ================================================== -->
-    <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
+
+    <!-- Custom styles for this template -->
+    <link href="resources/css/sprinkle/sprinkle.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -106,7 +106,7 @@
      ng-show="authenticationService.isAuthenticate()">
 
     <a href="/createvent"
-       ng-click="mapService.setEventCreationOn(true)">
+       ng-click="openEventCreation()">
 
         <i class="glyphicon glyphicon-plus"></i>
 
@@ -114,6 +114,59 @@
 
 </div>
 
+<div class="whiteBackLeft" ng-show="isEventCreationOpen()">
+    <div class="newEventContent">
+        <form role="form" novalidate> <!--ng-submit=""-->
+            <div>
+                <input type="text"
+                       ng-model="newEvent.name"
+                       class="contentInput"
+                       placeholder="Event name"
+                       required autofocus>
+            </div>
+
+            <div class="newEventGroup">
+                <div>
+                    <button type="button"
+                            ng-style="{background : getColor()}"
+                            class="dropdown-toggle groupBtn"
+                            data-toggle="dropdown">
+                        {{getSelectedType()}} <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu"
+                        ng-style="{'border-color': getColor()}">
+                        <li ng-repeat="type in eventTypes">
+                            <a href=""
+                               ng-click="setTypeOfNewEvent(type)">
+                                {{type.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <button type="button"
+                            ng-style="{background : getColor()}"
+                            class="groupBtn"
+                            ng-click="closeEventCreation()">
+                        Close
+                    </button>
+
+                </div>
+            </div>
+
+            <div>
+                <textarea
+                        class="contentInput"
+                        ng-model="newEvent.description"
+                        rows="12"
+                        placeholder="Description">
+                </textarea>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div ng-view></div>
 
@@ -132,7 +185,7 @@
 
 <!-- JavaScript utils -->
 <script src="resources/js/sprinkle/angular/utils.js"></script>
-g<script src="resources/js/sprinkle/angular/app.js"></script>
+<script src="resources/js/sprinkle/angular/app.js"></script>
 <script src="resources/js/sprinkle/angular/service.js"></script>
 <script src="resources/js/sprinkle/angular/directives.js"></script>
 <script src="resources/js/sprinkle/angular/controllers.js"></script>

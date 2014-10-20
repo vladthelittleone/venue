@@ -410,22 +410,7 @@ angular.module('sprinkle.services', [])
 
         var map = sprinkleMap.getMap();
 
-        var isEventCreationOn = false;
-
         return {
-
-            // true - user can click on map and create event, false - can't.
-            isEventCreationOn: function () {
-
-                return isEventCreationOn;
-
-            },
-
-            setEventCreationOn: function (b) {
-
-                isEventCreationOn = b;
-
-            },
 
             getSprinkleMap: function () {
 

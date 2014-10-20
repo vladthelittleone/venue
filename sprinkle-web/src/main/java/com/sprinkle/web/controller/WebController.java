@@ -27,12 +27,6 @@ public class WebController
         return "/profile/index";
     }
 
-    @RequestMapping("/createEventLayout")
-    public String getNewEventPage()
-    {
-        return "/create/event/index";
-    }
-
     @RequestMapping("/signInLayout")
     public String getSignInPage()
     {

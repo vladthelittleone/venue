@@ -36,11 +36,6 @@ angular.module('sprinkle', [
                 controller: 'eventViewCtrl'
             });
 
-            $routeProvider.when('/createvent', {
-                templateUrl: 'createEventLayout',
-                controller: 'createEventCtrl'
-            });
-
             $routeProvider.otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode(true);

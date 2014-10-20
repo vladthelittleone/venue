@@ -130,16 +130,60 @@ angular.module('sprinkle.controllers', [])
 
     ])
 /**
- * Controller that handle new event operation.
+ * Controller responding for events view page.
  * @controller
  */
-    .controller('createEventCtrl', ['$scope', '$map', '$authentication', '$connection',
+    .controller('eventViewCtrl', ['$scope', '$connection',
 
-        function ($scope, $map, $authentication, $connection) {
+        function ($scope, $connection) {
 
+            // Properties of event
+            $connection.httpGetEventProperties()
+
+                .success(function (data) {
+
+                    $scope.properties = data.properties;
+
+                });
+
+            $scope.resizeFull = false;
+
+            // Closing event window
+            $scope.closeEventView = function () {
+
+                $connection.redirect.toProfile();
+
+            };
+
+            // Resize window
+            $scope.resize = function () {
+
+                $scope.resizeFull = !$scope.resizeFull;
+
+            };
+
+        }
+
+    ])
+
+/**
+ * Controller that handle body content.
+ * @controller
+ */
+    .controller('mainCtrl', ['$scope', '$authentication', '$connection', '$map',
+
+        function ($scope, $authentication, $connection, $map) {
+
+            // -------------------------------
+            // -------------------------------
+
+            $scope.authenticationService = $authentication;
+
+            // Initialize map
             var sprinkleMap = $map.getSprinkleMap();
 
-            // TODO пренести в сервис main
+            var isEventCreationOpen = false;
+
             /**
              * Information about new event.
              */
@@ -160,20 +204,46 @@ angular.module('sprinkle.controllers', [])
 
                 .success(function (types) {
 
-                    $scope.eventTypes = types;
+                             $scope.eventTypes = types;
 
-                });
+                         });
+
+            // -------------------------------
+            // -------------------------------
 
             /**
-             * Function redirect user to profile and switch creation off.
+             * Function open event creation.
+             * @see map service
+             */
+            $scope.openEventCreation = function () {
+
+                isEventCreationOpen = true;
+
+            };
+
+            /**
+             * Function close event creation.
              * @see map service
              */
             $scope.closeEventCreation = function () {
 
-                // TODO ЗАЩИМ В СЕРВИСЕ?
-                $map.setEventCreationOn(false);
+                isEventCreationOpen = false;
 
-                $connection.redirect.toProfile();
+                // Refreshing data
+                $scope.newEvent.name = "";
+
+                $scope.newEvent.description = "";
+
+                $scope.newEvent.type = null;
+
+            };
+
+            /**
+             * @returns {boolean}
+             */
+            $scope.isEventCreationOpen = function () {
+
+                return isEventCreationOpen;
 
             };
 
@@ -233,13 +303,7 @@ angular.module('sprinkle.controllers', [])
              * Handle click on map.
              */
             sprinkleMap.getMap().on('click', function (e) {
-
-                var service = $map;
-
-                // Check event creation on
-                // TODO ЗАЩИМ В СЕРВИСЕ?
-                if (service.isEventCreationOn()) {
-
+                if (isEventCreationOpen) {
                     $scope.$apply(function () {
 
                         // Validate fields
@@ -260,18 +324,16 @@ angular.module('sprinkle.controllers', [])
                         // Apply all changes and add marker on map.
                         if (sprinkleMap.setMarker($connection, e.latlng.lng, e.latlng.lat,
 
-                            m.name, m.description, "large", m.type)) {
+                                                  m.name, m.description, "large", m.type)) {
 
                             // If request from service is true, then
                             // set event creation off
-                            service.isEventCreationOn(false);
-
-                            // And redirect to profile
-                            $connection.redirect.toProfile();
+                            $scope.closeEventCreation();
 
                         } else {
 
-                            // Else shake content TODO
+                            // TODO
+                            // Else shake content
 
                         }
 
@@ -280,60 +342,6 @@ angular.module('sprinkle.controllers', [])
                 }
 
             });
-
-        }
-
-    ])
-/**
- * Controller responding for events view page.
- * @controller
- */
-    .controller('eventViewCtrl', ['$scope', '$connection',
-
-        function ($scope, $connection) {
-
-            // Properties of event
-            $connection.httpGetEventProperties()
-
-                .success(function (data) {
-
-                    $scope.properties = data.properties;
-
-                });
-
-            $scope.resizeFull = false;
-
-            // Closing event window
-            $scope.closeEventView = function () {
-
-                $connection.redirect.toProfile();
-
-            };
-
-            // Resize window
-            $scope.resize = function () {
-
-                $scope.resizeFull = !$scope.resizeFull;
-
-            };
-
-        }
-
-    ])
-
-/**
- * Controller that handle body content.
- * @controller
- */
-    .controller('mainCtrl', ['$scope', '$authentication', '$connection', '$map',
-
-        function ($scope, $authentication, $connection, $map) {
-
-            $scope.authenticationService = $authentication;
-
-            $scope.mapService = $map;
-
-            $scope.redirect = $connection.redirect;
 
             /**
              * Function for logout button,

@@ -204,6 +204,9 @@ function SprinkleMap() {
         northEast = L.latLng(90, 180),
         bounds = L.latLngBounds(southWest, northEast);
 
+    // Provide your access token
+    L.mapbox.accessToken = 'pk.eyJ1IjoidmxhZHRoZWxpdHRsZW9uZSIsImEiOiJVY21WUUVFIn0.tm9jxi011iqdbOrYNofmjA';
+
     // Initialize mapbox
     var map = L.mapbox.map('map', 'examples.map-i86nkdio', {
         // set that bounding box as maxBounds to restrict moving the map
@@ -230,7 +233,7 @@ function SprinkleMap() {
         /**
          * Get angular js service using injector
          * to interact with framework.
-         * @see url.js file.
+         * @see connection.js file.
          */
         var service = elem.injector().get('$connection');
 
@@ -296,33 +299,33 @@ function SprinkleMap() {
         var result = false;
 
         http.httpCreateEvent(lng, lat, title, description, size, type,
-                 function (response) {
-                     if (response.success) {
-                         // Set result of ajax request to true.
-                         result = true;
+             function (response) {
+                 if (response.success) {
+                     // Set result of ajax request to true.
+                     result = true;
 
-                         L.mapbox.featureLayer({
-                                   // this feature is in the GeoJSON format: see geojson.org
-                                   // for the full specification
-                                   type: 'Feature',
-                                   geometry: {
-                                       type: 'Point',
-                                       // coordinates here are in longitude, latitude order because
-                                       // x, y is the standard for GeoJSON and many formats
-                                       coordinates: [lng, lat]
-                                   },
-                                   properties: {
-                                       title: title,
-                                       description: description,
-                                       // one can customize markers by adding simplestyle properties
-                                       // http://mapbox.com/developers/simplestyle/
-                                       'marker-size': size,
-                                       'marker-color': type.color,
-                                       'marker-symbol': type.icon
-                                   }
-                               }).addTo(map);
-                     }
-                 });
+                     // TODO
+                     // Создать отдельный метод для создания маркеров.
+
+                     // Create custom popup content
+                     var popupContent =
+                         '<div class="markerPopup">' +
+                         '<img src="http://kudago.com/media/thumbs/a4/d5/a4d5c9746165933f2f879b1d815a6629.jpg"/>' +
+                         '<div class="markerTitle">' + title + '</div>' +
+                         '</div>';
+
+                     L.marker(L.latLng(lat, lng), {
+                         icon: L.mapbox.marker.icon({
+                            'marker-size': size,
+                            'marker-color': type.color,
+                            'marker-symbol': type.icon
+                         })
+                     }).bindPopup(popupContent, {
+                         closeButton: false,
+                         minWidth: 300
+                     }).addTo(featureLayer);
+                 }
+             });
 
         return result;
     };
