@@ -18,7 +18,7 @@
 
         <!-- USER -->
 		<intercept-url pattern="/authentication/profilestatus.json" access="ROLE_USER" requires-channel="https"/>
-        <intercept-url pattern="/map/setevent" access="ROLE_USER" requires-channel="https"/>
+        <intercept-url pattern="/map/createvent" access="ROLE_USER" requires-channel="https"/>
         <intercept-url pattern="/profile/**" access="ROLE_USER" requires-channel="https"/>
         <intercept-url pattern="/new_event" access="ROLE_USER" requires-channel="https"/>
         

@@ -1,39 +1,26 @@
 'use strict';
 
 /**
- * Store authentication information about user and responding for authentication alert.
+ * Class thar responding for authentication alert.
+ * @param sign - {@link Authentication}
  * @param animation - animation service.
  * @constructor
  */
-function Authentication(animation) {
-    this.rememberMe = false;
-    this.show = false;
-    this.message = "";
-    this.animation = animation;
+function AuthenticationAlert(details, animation) {
 
-    /**
-     * Fields contains input information.
-     * @type {string}
-     */
-    this.email = '';
-    this.password = '';
-    this.passwordCheck = '';
-    this.fullName = '';
+    this.show = false;
+
+    this.message = "";
 
     /**
      * Fields responding for incorrect inputs.
      * @type {boolean}
      */
     this.invalidPassword = false;
-    this.invalidFullName = false;
-    this.invalidEmail = false;
 
-    /**
-     * Remember-me toggle.
-     */
-    this.switchRememberMe = function () {
-        this.rememberMe = !this.rememberMe;
-    };
+    this.invalidFullName = false;
+
+    this.invalidEmail = false;
 
     /**
      * Alert warning.
@@ -43,37 +30,97 @@ function Authentication(animation) {
      * @param invalidFullName - true - full name invalid / false - full name valid
      */
     this.alertWarning = function (message, invalidEmail, invalidPassword, invalidFullName) {
+
         animation.authenticationShake();
-        this.reset(message, true);
+
+        this.change(message, true);
+
         this.invalidPassword = invalidPassword;
+
         this.invalidEmail = invalidEmail;
+
         this.invalidFullName = invalidFullName;
+
     };
 
     this.alertMessage = function (msg) {
+
         animation.authenticationShake();
-        this.reset(msg, true);
+
+        this.change(msg, true);
+
         this.invalidEmail = true;
+
         this.invalidPassword = true;
+
     };
+
 
     /**
      * Change alert state.
-     * Set fields of authentication form empty.
-     *
      * @param message - message that will be shown.
      * @param show - true - show alert / false - don't.
      */
-    this.reset = function (message, show) {
+    this.change = function (message, show) {
+
         this.show = show;
+
         this.message = message;
+
         this.invalidPassword = false;
+
         this.invalidFullName = false;
+
         this.invalidEmail = false;
+
+        details.reset();
+
+    };
+}
+
+
+/**
+ * Store authentication information about user details.
+ * @constructor
+ */
+function AuthenticationDetails() {
+
+    this.rememberMe = false;
+
+    /**
+     * Fields contains input information.
+     * @type {string}
+     */
+    this.email = '';
+
+    this.password = '';
+
+    this.passwordCheck = '';
+
+    this.fullName = '';
+
+    /**
+     * Remember-me toggle.
+     */
+    this.switchRememberMe = function () {
+
+        this.rememberMe = !this.rememberMe;
+
+    };
+
+    /**
+     * Set fields of authentication form empty.
+     */
+    this.reset = function () {
+
         this.email = '';
+
         this.password = '';
+
         this.passwordCheck = '';
+
         this.fullName = '';
+
     };
 }
 
@@ -166,8 +213,7 @@ function SprinkleMap() {
         maxBounds: bounds,
         maxZoom: 19,
         minZoom: 2
-    })
-        .setView([40, -74.50], 9);
+    }).setView([40, -74.50], 9);
 
     // Create feature for markers
     var featureLayer = L.mapbox.featureLayer().addTo(map);
@@ -186,7 +232,7 @@ function SprinkleMap() {
          * to interact with framework.
          * @see url.js file.
          */
-        var service = elem.injector().get('$url');
+        var service = elem.injector().get('$connection');
 
         // Redirect to event
         service.redirect.toEventWithId(feature.properties.eventId);
@@ -236,7 +282,7 @@ function SprinkleMap() {
     /**
      * Set marker on map. If successful return true, else false.
      *
-     * @param url - url to get event json object
+     * @param http - http to get event json object
      * @param lng - longitude
      * @param lat - latitude
      * @param title - title
@@ -245,51 +291,38 @@ function SprinkleMap() {
      * @param type - type of marker (Sport, Science, etc.)
      * @returns {boolean}
      */
-    this.setMarker = function (url, lng, lat, title, description, size, type) {
+    this.setMarker = function (http, lng, lat, title, description, size, type) {
         // Set result of ajax request to false.
         var result = false;
 
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: url,
-            data: {
-                lng: lng,
-                lat: lat,
-                title: title,
-                description: description,
-                size: size,
-                type: type.name
-            },
-            dataType: 'json',
-            success: function (responce) {
-                if (responce.success) {
-                    // Set result of ajax request to true.
-                    result = true;
+        http.httpCreateEvent(lng, lat, title, description, size, type,
+                 function (response) {
+                     if (response.success) {
+                         // Set result of ajax request to true.
+                         result = true;
 
-                    L.mapbox.featureLayer({
-                        // this feature is in the GeoJSON format: see geojson.org
-                        // for the full specification
-                        type: 'Feature',
-                        geometry: {
-                            type: 'Point',
-                            // coordinates here are in longitude, latitude order because
-                            // x, y is the standard for GeoJSON and many formats
-                            coordinates: [lng, lat]
-                        },
-                        properties: {
-                            title: title,
-                            description: description,
-                            // one can customize markers by adding simplestyle properties
-                            // http://mapbox.com/developers/simplestyle/
-                            'marker-size': size,
-                            'marker-color': type.color,
-                            'marker-symbol': type.icon
-                        }
-                    }).addTo(map);
-                }
-            }
-        });
+                         L.mapbox.featureLayer({
+                                   // this feature is in the GeoJSON format: see geojson.org
+                                   // for the full specification
+                                   type: 'Feature',
+                                   geometry: {
+                                       type: 'Point',
+                                       // coordinates here are in longitude, latitude order because
+                                       // x, y is the standard for GeoJSON and many formats
+                                       coordinates: [lng, lat]
+                                   },
+                                   properties: {
+                                       title: title,
+                                       description: description,
+                                       // one can customize markers by adding simplestyle properties
+                                       // http://mapbox.com/developers/simplestyle/
+                                       'marker-size': size,
+                                       'marker-color': type.color,
+                                       'marker-symbol': type.icon
+                                   }
+                               }).addTo(map);
+                     }
+                 });
 
         return result;
     };
@@ -301,104 +334,4 @@ function SprinkleMap() {
     this.setMarkers = function (events) {
         featureLayer.setGeoJSON(events);
     }
-}
-
-function EventCreator($scope, mapService, $url) {
-    var sprinkleMap = $scope.mapService.getSprinkleMap();
-
-    /**
-     * Information about new event.
-     */
-    $scope.newEvent = {
-        name: "",
-        description: "",
-        type: null
-    };
-
-    /**
-     * Get types of event from server.
-     */
-    $http.get($url.resources.types).success(function (types) {
-        $scope.eventTypes = types;
-    });
-
-    /**
-     * Function redirect user to profile and switch creation off.
-     * @see map service
-     */
-    $scope.closeEventCreation = function () {
-        mapService.setEventCreationOn(false);
-        $url.redirect.toProfile();
-    };
-
-    /**
-     * Set type of event.
-     * @param type - event type.
-     */
-    $scope.setTypeOfNewEvent = function (type) {
-        $scope.newEvent.type = type;
-    };
-
-    /**
-     * Return type name of new event.
-     * If type equals null, then return "Select event type".
-     * @returns {string}
-     */
-    $scope.getSelectedType = function () {
-        var t = $scope.newEvent.type;
-        if (t != null) {
-            return t.name;
-        } else {
-            return "Select event type";
-        }
-    };
-
-    /**
-     * Return color of event marker.
-     * If type equals null, then return "black".
-     * @returns {string}
-     */
-    $scope.getColor = function () {
-        var t = $scope.newEvent.type;
-        if (t != null) {
-            return t.color;
-        } else {
-            return "#5ea2af";
-        }
-    };
-
-    /**
-     * Handle click on map.
-     */
-    sprinkleMap.getMap().on('click', function (e) {
-        var service = $scope.mapService;
-
-        // Check event creation on
-        if (service.isEventCreationOn()) {
-            $scope.$apply(function () {
-                // Validate fields
-                if ($scope.newEvent.name == ""
-                    || $scope.newEvent.description == ""
-                    || $scope.newEvent.type == null) {
-                    // TODO shake or something another
-                    return;
-                }
-
-                var m = $scope.newEvent;
-
-                // Apply all changes and add marker on map.
-                if (sprinkleMap.setMarker($url.setEvent, e.latlng.lng, e.latlng.lat,
-                    m.name, m.description, "large", m.type)) {
-                    // If request from service is true, then
-                    // set event creation off
-                    service.isEventCreationOn();
-
-                    // And redirect to profile
-                    $url.redirect.toProfile();
-                } else {
-                    // Else shake content TODO
-                }
-            });
-        }
-    });
 }

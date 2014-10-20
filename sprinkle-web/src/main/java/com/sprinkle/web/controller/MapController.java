@@ -46,9 +46,9 @@ public class MapController
      * @return authentication status
      * @see com.sprinkle.web.service.EventService
      */
-    @RequestMapping(value = "/setevent", method = RequestMethod.POST)
+    @RequestMapping(value = "/createvent", method = RequestMethod.POST)
     @ResponseBody
-    public AuthenticationStatus setEvent(@RequestParam Double lng,
+    public AuthenticationStatus createEvent(@RequestParam Double lng,
                                          @RequestParam Double lat,
                                          @RequestParam String title,
                                          @RequestParam String description,

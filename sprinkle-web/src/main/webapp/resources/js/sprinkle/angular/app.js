@@ -51,15 +51,15 @@ angular.module('sprinkle', [
     /**
      * Block that run when application start.
      */
-    .run(['$authentication', '$rootScope', '$http', '$url', '$map',
-        function ($authentication, $rootScope, $http, $url, $map) {
+    .run(['$authentication', '$rootScope', '$connection', '$map',
+        function ($authentication, $rootScope, $connection, $map) {
             /**
              * Performed at route change.
              * Check authentication. If authenticate, then send username to authentication service.
              * Else logout and clear local storage. Also load events form server and add them on the map.
              */
             $rootScope.$on('$routeChangeSuccess', function () {
-                $http.get($url.resources.profileStatus).
+                $connection.httpProfileStatus().
                     success(function (data) {
                         if (data.signedIn) {
                             $authentication.authenticate(data);
@@ -67,14 +67,14 @@ angular.module('sprinkle', [
                             $authentication.logout();
                         }
                     });
-
-                /**
-                 * Get events from server and add them on the map.
-                 */
-                $http.get($url.resources.events).
-                    success(function (data) {
-                        $map.getSprinkleMap().setMarkers(data);
-                    });
             });
+
+            /**
+             * Get events from server and add them on the map.
+             */
+            $connection.httpGetEvents().
+                success(function (data) {
+                    $map.getSprinkleMap().setMarkers(data);
+                });
         }
     ]);
