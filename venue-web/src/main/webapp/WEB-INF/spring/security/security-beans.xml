@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <beans:bean id="authenticationEntryPoint" class="com.venue.web.security.service.handler.CustomAuthenticationEntryPoint" />
+
+    <!--
+    successHandler returns code 200 after successful authentication
+    failureHandler returns code 401 after failed authentication
+    logoutSuccessHandler return code 200 after successful logout
+    -->
+    <beans:bean id="successHandler" class="com.venue.web.security.service.handler.CustomAuthenticationSuccessHandler"/>
+    <beans:bean id="failureHandler" class="com.venue.web.security.service.handler.CustomAuthenticationFailureHandler"/>
+    <beans:bean id="logoutSuccessHandler" class="com.venue.web.security.service.handler.CustomLogoutSuccessHandler" />
+
+    <beans:bean id="passwordEncoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <beans:bean id="rememberMeFilter" class=
+            "org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
+        <beans:property name="rememberMeServices" ref="rememberMeServices"/>
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+    </beans:bean>
+
+    <beans:bean id="rememberMeServices" class=
+            "org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+        <beans:property name="userDetailsService" ref="customUserDetailsService"/>
+        <beans:property name="key" value="venue"/>
+    </beans:bean>
+
+    <beans:bean id="rememberMeAuthenticationProvider" class=
+            "org.springframework.security.authentication.RememberMeAuthenticationProvider">
+        <beans:property name="key" value="venue"/>
+    </beans:bean>
+</beans:beans>

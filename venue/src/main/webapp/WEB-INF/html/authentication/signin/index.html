@@ -1,0 +1,49 @@
+<div class="blackBack" ng-click="redirect.toProfile()"></div>
+<div class="container">
+    <form class="content" role="form" novalidate ng-submit="authenticate()">
+
+        <h2 class="contentHeading">Have an account?</h2>
+
+        <div class="formElement">
+            <input ng-model="authenticationDetails.email"
+                   ng-class="{invalid : authenticationAlert.invalidEmail}"
+                   type="email"
+                   class="contentInput"
+                   placeholder="Email address"
+                   required autofocus>
+        </div>
+
+        <div class="formElement">
+            <input ng-model="authenticationDetails.password"
+                   ng-class="{invalid : authenticationAlert.invalidPassword}"
+                   type="password"
+                   class="contentInput"
+                   placeholder="Password"
+                   required>
+        </div>
+
+        <div class="signInRow formElement">
+            <div class="rememberMe">
+                <span class="buttonCheckbox">
+                    <button ng-click="authenticationDetails.switchRememberMe()" type="button"
+                            class="rememberMeButton" data-color="info">
+                        Remember-me
+                    </button>
+                    <input type="checkbox" class="hidden" value="1">
+                </span>
+            </div>
+            <div class="forgotPassword">
+                <a href="/fpassword">Forgot a password?</a>
+            </div>
+        </div>
+
+        <div class="formElement">
+            <button type="submit" class="redButton">Sign in</button>
+        </div>
+
+        <div class="warningAlert" ng-show="authenticationAlert.show">
+            <button type="button" class="close" ng-click="authenticationAlert.show = false;">&times;</button>
+            <p><strong>Warning!</strong> {{authenticationAlert.message}}</p>
+        </div>
+    </form>
+</div>
