@@ -338,3 +338,33 @@ function VenueMap() {
         featureLayer.setGeoJSON(events);
     }
 }
+
+/**
+ * Initializer of authentication controllers.
+ * @param $scope - controller scope.
+ * @param $authentication - authenticate service.
+ * @param $animation - animation service.
+ * @param redirect - redirect service.
+ */
+function initialize($scope, $authentication, $animation, redirect) {
+
+    /**
+     * Check authentication of user.
+     */
+    if ($authentication.isAuthenticate()) {
+
+        redirect.toProfile();
+
+        return;
+
+    }
+
+    // Redirect mechanism
+    $scope.redirect = redirect;
+
+    // Authentication details
+    $scope.authenticationDetails = new AuthenticationDetails();
+
+    $scope.authenticationAlert = new AuthenticationAlert($scope.authenticationDetails, $animation);
+
+}

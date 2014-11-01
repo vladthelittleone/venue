@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="venue">
+
 <head>
     <meta charset="utf-8">
 
@@ -12,10 +13,13 @@
     <meta name="author" content="">
 
     <title>Venue</title>
+
     <!-- Prevent the Angular html template from being briefly displayed by the browser while application is loading -->
-    <style>[ng-cloak] {
-        display: none;
-    }</style>
+    <style>
+        [ng-cloak] {
+            display: none;
+        }
+    </style>
 
     <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
 
@@ -40,7 +44,6 @@
 
     <!--TODO bower & grunt -->
 </head>
-
 <body ng-controller="mainCtrl">
 
 <!-- Map Box -->
@@ -71,11 +74,11 @@
 
                 <i class="glyphicon glyphicon-log-in"></i>
 
-                <a class="toggledData" href="/signup" >
+                <a class="toggledData" href="/signup">
                     <span>Sign Up</span>
                 </a>
 
-                <a class="toggledData" href="/signin" >
+                <a class="toggledData" href="/signin">
                     <span>Sign In</span>
                 </a>
 
@@ -84,8 +87,8 @@
             <!-- Logout -->
             <div ng-hide="!authenticationService.isAuthenticate()">
                 <a href="/logout"
-                     venue-tooltip="Logout"
-                     ng-click="logout()">
+                   venue-tooltip="Logout"
+                   ng-click="logout()">
 
                     <i class="glyphicon glyphicon-log-out"></i>
 
@@ -184,12 +187,19 @@
 <script src="resources/js/angular/angular-animate.min.js"></script>
 
 <!-- JavaScript utils -->
-<script src="resources/js/venue/angular/utils.js"></script>
-<script src="resources/js/venue/angular/app.js"></script>
-<script src="resources/js/venue/angular/service.js"></script>
-<script src="resources/js/venue/angular/directives.js"></script>
-<script src="resources/js/venue/angular/controllers.js"></script>
-<script src="resources/js/venue/angular/filters.js"></script>
+<script src="resources/js/venue/angular/utils/Utils.js"></script>
+<script src="resources/js/venue/angular/app/App.js"></script>
+<script src="resources/js/venue/angular/service/Animation.js"></script>
+<script src="resources/js/venue/angular/service/Authentication.js"></script>
+<script src="resources/js/venue/angular/service/Connection.js"></script>
+<script src="resources/js/venue/angular/service/Map.js"></script>
+<script src="resources/js/venue/angular/service/Storage.js"></script>
+<script src="resources/js/venue/angular/directives/ActiveLink.js"></script>
+<script src="resources/js/venue/angular/controllers/EventViewCtrl.js"></script>
+<script src="resources/js/venue/angular/controllers/SignInCtrl.js"></script>
+<script src="resources/js/venue/angular/controllers/SignUpCtrl.js"></script>
+<script src="resources/js/venue/angular/controllers/MainCtrl.js"></script>
+<script src="resources/js/venue/angular/filters/Interpolate.js"></script>
 
 </body>
 </html>

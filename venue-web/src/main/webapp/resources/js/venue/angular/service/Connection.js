@@ -1,185 +1,12 @@
-'use strict';
-
 /**
- * Created by vladthelittleone on 22.09.14.
+ * Created by vladthelittleone on 01.11.14.
  */
-angular.module('venue.services', [])
-
-/**
- * Service that contains animation functions.
- */
-    .factory('$animation', [ '$animate',
-
-        function ($animate) {
-
-            return {
-
-                /**
-                 * Add css class to element, and remove by delay.
-                 */
-                animation: function (elementName, animationName) {
-
-                    $animate.addClass(jQuery(elementName), animationName, function () {
-
-                        $animate.removeClass(jQuery(elementName), animationName);
-
-                    });
-
-                },
-
-                /**
-                 * Shake elements with class .content.
-                 * @see controllers/authentication
-                 */
-                authenticationShake: function () {
-
-                    this.animation(".content", 'shake');
-
-                }
-
-            };
-
-        }])
-
-/**
- * Service that contains information about authentication and authentication logic.
- */
-    .factory('$authentication', [ '$storage',
-
-        function ($storage) {
-
-            return {
-
-                /**
-                 * @returns {string}
-                 */
-                getUsername: function () {
-
-                    return $storage.local.getItem('username');
-
-                },
-
-                /**
-                 * @returns {string}
-                 */
-                getId: function () {
-
-                    return $storage.local.getItem('id');
-
-                },
-
-                /**
-                 * @returns {boolean}
-                 */
-                isAuthenticate: function () {
-
-                    return $storage.local.getItem('isAuthenticate') === 'true';
-
-                },
-
-                authenticate: function (user) {
-
-                    $storage.local.setItem('isAuthenticate', 'true');
-
-                    $storage.local.setItem('username', user.username);
-
-                    $storage.local.setItem('id', user.id);
-
-                },
-
-                logout: function () {
-
-                    $storage.local.clear();
-
-                }
-            };
-        }])
-/**
- * Service that responding for web storage.
- */
-    .factory('$storage', function () {
-
-        /**
-         * Private function that return storage. If web storage not supported, then
-         * return custom storage with array. Also resolve issue with private mode.
-         */
-        function initializeStorage(type) {
-
-            // Check storage support.
-            try {
-
-                type.setItem("storage", "");
-
-                type.removeItem("storage");
-
-                return type;
-
-            }
-            catch (e) {
-
-                // Custom storage.
-                return {
-
-                    s: {},
-
-                    setItem: function (key, value) {
-
-                        this.s[key] = value;
-
-                    },
-
-                    getItem: function (key) {
-
-                        if (typeof this.s[key] != 'undefined') {
-
-                            return this.s[key];
-
-                        }
-                        else {
-
-                            return null;
-
-                        }
-
-                    },
-
-                    removeItem: function (key) {
-
-                        this.s[key] = undefined;
-
-                    },
-
-                    clear: function () {
-
-                        this.s.length = 0;
-
-                    }
-
-                };
-
-            }
-
-        }
-
-        return {
-
-            /**
-             * Local storage.
-             */
-            local: initializeStorage(localStorage),
-
-            /**
-             * Session storage.
-             */
-            session: initializeStorage(sessionStorage)
-
-        }
-
-    })
-/**
- * Service that responding for redirection, https. Facade over $http service methods.
- * All http* methods returns promise.
- */
+angular.module('venue.services')
+
+    /**
+     * Service that responding for redirection, https. Facade over $http service methods.
+     * All http* methods returns promise.
+     */
     .factory('$connection', ['$location', '$authentication', '$http', '$routeParams',
 
         function ($location, $authentication, $http, $routeParams) {
@@ -237,13 +64,13 @@ angular.module('venue.services', [])
                 httpSignUp: function (details) {
 
                     return $http.post(links.signUp,
-                        {
+                                      {
 
-                            username: details.email,
-                            fullname: details.fullName,
-                            password: details.password
+                                          username: details.email,
+                                          fullname: details.fullName,
+                                          password: details.password
 
-                        });
+                                      });
 
                 },
 
@@ -394,30 +221,6 @@ angular.module('venue.services', [])
 
             };
 
-        }])
-/**
- * Service that responding for map configurations.
- * Initialize map using class VenueMap.
- *
- * @see {@link VenueMap}
- */
-    .factory('$map',
+        }
 
-    function () {
-
-        // Initialize map
-        var venueMap = new VenueMap();
-
-        var map = venueMap.getMap();
-
-        return {
-
-            getVenueMap: function () {
-
-                return venueMap;
-
-            }
-
-        };
-
-    });
+    ]);
