@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="venue">
+<head>
+    <meta charset="utf-8">
+
+    <!--  Allows us to choose what version of Internet Explorer the page should be rendered as !-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- For mobile browsers !-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Venue</title>
+    <!-- Prevent the Angular html template from being briefly displayed by the browser while application is loading -->
+    <style>[ng-cloak] {
+        display: none;
+    }</style>
+
+    <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Mapbox core css -->
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet'/>
+
+    <!-- Mapbox core JavaScript
+    ================================================== -->
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
+
+    <!-- Custom styles for this template -->
+    <link href="resources/css/venue/venue.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--TODO bower & grunt -->
+</head>
+
+<body ng-controller="mainCtrl">
+
+<!-- Map Box -->
+<div class="venue-map" id="map"></div>
+
+<div class="header">
+    <header class="headerTitle">
+        <a href="/about">
+            Venue
+        </a>
+    </header>
+
+    <!-- Feedback -->
+    <ul class="headerGroup">
+        <li class="headerFeedback">
+            <a href="/feedback"
+               venue-tooltip="Feedback">
+
+                <i class="glyphicon glyphicon-envelope"></i>
+
+            </a>
+        </li>
+
+        <li class="headerAuthentication">
+            <!-- Sign in-->
+            <div class="toggle"
+                 ng-hide="authenticationService.isAuthenticate()">
+
+                <i class="glyphicon glyphicon-log-in"></i>
+
+                <a class="toggledData" href="/signup" >
+                    <span>Sign Up</span>
+                </a>
+
+                <a class="toggledData" href="/signin" >
+                    <span>Sign In</span>
+                </a>
+
+            </div>
+
+            <!-- Logout -->
+            <div ng-hide="!authenticationService.isAuthenticate()">
+                <a href="/logout"
+                     venue-tooltip="Logout"
+                     ng-click="logout()">
+
+                    <i class="glyphicon glyphicon-log-out"></i>
+
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="profileToolbar"
+     ng-hide="!authenticationService.isAuthenticate()">
+    <a href="/profile">
+        <img src="https://www.gravatar.com/avatar/2d29f726d73d19bc163500ae9e21a135.png">
+    </a>
+</div>
+
+<div class="createEventButton"
+     ng-show="authenticationService.isAuthenticate()">
+
+    <a href="/createvent"
+       ng-click="openEventCreation()">
+
+        <i class="glyphicon glyphicon-plus"></i>
+
+    </a>
+
+</div>
+
+<div class="whiteBackLeft" ng-show="isEventCreationOpen()">
+    <div class="newEventContent">
+        <form role="form" novalidate> <!--ng-submit=""-->
+            <div>
+                <input type="text"
+                       ng-model="newEvent.name"
+                       class="contentInput"
+                       placeholder="Event name"
+                       required autofocus>
+            </div>
+
+            <div class="newEventGroup">
+                <div>
+                    <button type="button"
+                            ng-style="{background : getColor()}"
+                            class="dropdown-toggle groupBtn"
+                            data-toggle="dropdown">
+                        {{getSelectedType()}} <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu"
+                        ng-style="{'border-color': getColor()}">
+                        <li ng-repeat="type in eventTypes">
+                            <a href=""
+                               ng-click="setTypeOfNewEvent(type)">
+                                {{type.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <button type="button"
+                            ng-style="{background : getColor()}"
+                            class="groupBtn"
+                            ng-click="closeEventCreation()">
+                        Close
+                    </button>
+
+                </div>
+            </div>
+
+            <div>
+                <textarea
+                        class="contentInput"
+                        ng-model="newEvent.description"
+                        rows="12"
+                        placeholder="Description">
+                </textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div ng-view></div>
+
+<!--TODO интересная фишка с бордюром на roadtrip -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="resources/js/jquery/jquery.min.js"></script>
+<script src="resources/js/bootstrap/bootstrap.min.js"></script>
+
+<!-- Angular JS -->
+<script src="resources/js/angular/angular.min.js"></script>
+<script src="resources/js/angular/angular-route.min.js"></script>
+<script src="resources/js/angular/angular-animate.min.js"></script>
+
+<!-- JavaScript utils -->
+<script src="resources/js/venue/angular/utils.js"></script>
+<script src="resources/js/venue/angular/app.js"></script>
+<script src="resources/js/venue/angular/service.js"></script>
+<script src="resources/js/venue/angular/directives.js"></script>
+<script src="resources/js/venue/angular/controllers.js"></script>
+<script src="resources/js/venue/angular/filters.js"></script>
+
+</body>
+</html>

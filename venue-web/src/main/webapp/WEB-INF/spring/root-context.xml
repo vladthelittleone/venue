@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <!-- Root Context: defines shared resources visible to all other web components -->
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.venue.web"/>
+
+    <!-- Placeholders -->
+    <context:property-placeholder location="resources/properties/event.properties" order="1" ignore-unresolvable="true" />
+    <context:property-placeholder location="resources/properties/authentication.properties" order="2" ignore-unresolvable="true" />
+
+    <!-- Validator for event -->
+    <bean class="com.venue.web.common.validator.EventValidator">
+        <property name="titleLength" value="${title.length}"/>
+        <property name="descriptionLength" value="${description.length}"/>
+    </bean>
+
+    <!-- Validator for authentication -->
+    <bean class="com.venue.web.common.validator.AuthenticationValidator">
+        <property name="passwordMaxLength" value="${password.length.max}"/>
+        <property name="passwordMinLength" value="${password.length.min}"/>
+    </bean>
+
+</beans>
