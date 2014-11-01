@@ -2,7 +2,7 @@
 
 /**
  * Class thar responding for authentication alert.
- * @param sign - {@link Authentication}
+ * @param details - {@link AuthenticationDetails}
  * @param animation - animation service.
  * @constructor
  */
