@@ -41,7 +41,7 @@ public class AuthenticationController
      * @param a - authentication information, such as username, password, fullname.
      * @return authentication status
      */
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     @ResponseBody
     public AuthenticationStatus singUp(@RequestBody SignUpRequest a)
     {
@@ -64,7 +64,7 @@ public class AuthenticationController
      * @see {@link com.venue.web.security.service.handler.CustomAuthenticationEntryPoint}
      * @see {@link com.venue.web.security.domain.json.AuthenticationStatus}
      */
-    @RequestMapping(value = "/profilestatus.json")
+    @RequestMapping(value = "/profileStatus.json")
     @ResponseBody
     public AuthenticationStatus getProfileStatus()
     {
