@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Skurishin Vladislav
  */
 @Controller
-@RequestMapping("/authentication")
+@RequestMapping("/authenticationService")
 public class AuthenticationController
 {
     @Autowired
-    private AuthenticationValidator vadliator;
+    private AuthenticationValidator validator;
 
     @Autowired
     private UserManager userManager;
@@ -47,7 +47,7 @@ public class AuthenticationController
     {
         try
         {
-            vadliator.validate(a.getUsername(), a.getFullname(), a.getPassword());
+            validator.validate(a.getUsername(), a.getFullname(), a.getPassword());
             userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword());
             return new AuthenticationStatus(false, null, true);
         } catch (IllegalAuthenticationProperties e)
