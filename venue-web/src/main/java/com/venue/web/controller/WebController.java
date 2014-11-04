@@ -24,25 +24,25 @@ public class WebController
     @RequestMapping("/profileLayout")
     public String getProfilePage()
     {
-        return "/profile/index";
+        return "profile";
     }
 
     @RequestMapping("/signInLayout")
     public String getSignInPage()
     {
-        return "/authentication/signin/index";
+        return "signin";
     }
 
     @RequestMapping("/signUpLayout")
     public String getSignUpPage()
     {
-        return "/authentication/signup/index";
+        return "signup";
     }
 
     @RequestMapping("/eventLayout")
     public String getEventPage()
     {
-        return "/event/index";
+        return "event";
     }
 
 }

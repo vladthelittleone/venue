@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Skurishin Vladislav
  */
 @Controller
-@RequestMapping("/authentication")
+@RequestMapping("/authenticationService")
 public class AuthenticationController
 {
     @Autowired
-    private AuthenticationValidator vadliator;
+    private AuthenticationValidator validator;
 
     @Autowired
     private UserManager userManager;
@@ -41,13 +41,13 @@ public class AuthenticationController
      * @param a - authentication information, such as username, password, fullname.
      * @return authentication status
      */
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     @ResponseBody
     public AuthenticationStatus singUp(@RequestBody SignUpRequest a)
     {
         try
         {
-            vadliator.validate(a.getUsername(), a.getFullname(), a.getPassword());
+            validator.validate(a.getUsername(), a.getFullname(), a.getPassword());
             userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword());
             return new AuthenticationStatus(false, null, true);
         } catch (IllegalAuthenticationProperties e)
@@ -64,7 +64,7 @@ public class AuthenticationController
      * @see {@link com.venue.web.security.service.handler.CustomAuthenticationEntryPoint}
      * @see {@link com.venue.web.security.domain.json.AuthenticationStatus}
      */
-    @RequestMapping(value = "/profilestatus.json")
+    @RequestMapping(value = "/profileStatus.json")
     @ResponseBody
     public AuthenticationStatus getProfileStatus()
     {

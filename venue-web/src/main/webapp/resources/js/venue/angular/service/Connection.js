@@ -16,10 +16,10 @@ angular.module('venue.services')
              */
             var resources = {
 
-                event: "map/event.geojson",
-                types: "map/types.json",
-                events: "map/events.geojson",
-                profileStatus: "/authentication/profilestatus.json"
+                event: "eventService/event.geojson",
+                types: "eventService/types.json",
+                events: "eventService/events.geojson",
+                profileStatus: "authenticationService/profileStatus.json"
 
             };
 
@@ -28,10 +28,10 @@ angular.module('venue.services')
              */
             var links = {
 
-                createEvent: "map/createvent",
+                createEvent: "eventService/createEvent",
                 logout: "/logout",
                 signIn: "j_spring_security_check",
-                signUp: "authentication/signup"
+                signUp: "authenticationService/signUp"
 
             };
 
@@ -194,12 +194,6 @@ angular.module('venue.services')
                     toSignUp: function () {
 
                         $location.path("/signup");
-
-                    },
-
-                    toNewEvent: function () {
-
-                        $location.path("/new_event");
 
                     },
 

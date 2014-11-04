@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Skurishin Vladislav
  */
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/profileService")
 public class ProfileController
 {
 }
