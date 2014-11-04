@@ -14,14 +14,14 @@
         
         <!-- ANONYMOUS -->
         <intercept-url pattern="/j_spring_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
-        <intercept-url pattern="/authentication/signup" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
+        <intercept-url pattern="/authenticationService/signUp" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
+        <intercept-url pattern="/eventService/**" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
 
         <!-- USER -->
-		<intercept-url pattern="/authentication/profilestatus.json" access="ROLE_USER" requires-channel="https"/>
-        <intercept-url pattern="/map/createvent" access="ROLE_USER" requires-channel="https"/>
-        <intercept-url pattern="/profile/**" access="ROLE_USER" requires-channel="https"/>
-        <intercept-url pattern="/new_event" access="ROLE_USER" requires-channel="https"/>
-        
+		<intercept-url pattern="/authenticationService/**" access="ROLE_USER" requires-channel="https"/>
+        <intercept-url pattern="/profileService/**" access="ROLE_USER" requires-channel="https"/>
+        <intercept-url pattern="/eventService/createEvent" access="ROLE_USER" requires-channel="https"/>
+
         <form-login authentication-success-handler-ref="successHandler"
                     authentication-failure-handler-ref="failureHandler"/>
 
