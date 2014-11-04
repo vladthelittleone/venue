@@ -71,9 +71,4 @@ public class AuthenticationController
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new ProfileStatus(true, user.getUsername(), user.getId());
     }
-
-    public void setUserManager(UserManager userManager)
-    {
-        this.userManager = userManager;
-    }
 }
