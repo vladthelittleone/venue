@@ -1,19 +1,21 @@
 package com.venue.web.security.domain.json;
 
+import com.venue.web.security.domain.factory.AuthenticationStatus;
+
 /**
  * package: com.venue.web.security.domain
  * date: 14.05.14
  *
  * @author Skurishin Vladislav
  */
-public class AuthenticationStatus
+public class CustomAuthenticationStatus implements AuthenticationStatus
 {
     private final boolean signedIn;
     private final boolean success;
     private final String username;
     private final String message;
 
-    public AuthenticationStatus(boolean signedIn, String username, String message, boolean success)
+    public CustomAuthenticationStatus(boolean signedIn, String username, String message, boolean success)
     {
         this.signedIn = signedIn;
         this.username = username;
@@ -21,7 +23,7 @@ public class AuthenticationStatus
         this.message = formatString(message);
     }
 
-    public AuthenticationStatus(boolean signedIn, String username, boolean success)
+    public CustomAuthenticationStatus(boolean signedIn, String username, boolean success)
     {
         this.signedIn = signedIn;
         this.username = username;

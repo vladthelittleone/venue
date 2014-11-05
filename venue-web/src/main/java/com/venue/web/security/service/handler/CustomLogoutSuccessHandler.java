@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.venue.web.security.domain.json.AuthenticationStatus;
+import com.venue.web.security.domain.factory.AuthenticationStatus;
+import com.venue.web.security.domain.factory.StatusFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -19,13 +21,16 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
  */
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler
 {
+    @Autowired
+    private StatusFactory statusFactory;
+
     @Override
     public void onLogoutSuccess(HttpServletRequest request,
                                 HttpServletResponse response,
                                 Authentication authentication)
             throws IOException, ServletException
     {
-        AuthenticationStatus status = new AuthenticationStatus(false, null, true);
+        AuthenticationStatus status = statusFactory.successAuthenticationStatus();
         OutputStream out = response.getOutputStream();
         new ObjectMapper().writeValue(out, status);
     }

@@ -3,8 +3,8 @@ package com.venue.web.controller;
 import com.venue.web.common.exception.IllegalAuthenticationProperties;
 import com.venue.web.common.validator.AuthenticationValidator;
 import com.venue.web.security.domain.User;
-import com.venue.web.security.domain.json.AuthenticationStatus;
-import com.venue.web.security.domain.json.ProfileStatus;
+import com.venue.web.security.domain.factory.AuthenticationStatus;
+import com.venue.web.security.domain.factory.StatusFactory;
 import com.venue.web.security.domain.json.SignUpRequest;
 import com.venue.web.security.service.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,9 @@ public class AuthenticationController
     @Autowired
     private UserManager userManager;
 
+    @Autowired
+    private StatusFactory factory;
+
     /**
      * Sign up new user
      *
@@ -49,10 +52,11 @@ public class AuthenticationController
         {
             validator.validate(a.getUsername(), a.getFullname(), a.getPassword());
             userManager.signUp(a.getUsername(), a.getFullname(), a.getPassword());
-            return new AuthenticationStatus(false, null, true);
-        } catch (IllegalAuthenticationProperties e)
+            return factory.successAuthenticationStatus();
+        }
+        catch (IllegalAuthenticationProperties e)
         {
-            return new AuthenticationStatus(false, null, e.getMessage(), false);
+            return factory.failureAuthenticationStatus(e.getMessage());
         }
     }
 
@@ -62,13 +66,20 @@ public class AuthenticationController
      *
      * @return authentication status
      * @see {@link com.venue.web.security.service.handler.CustomAuthenticationEntryPoint}
-     * @see {@link com.venue.web.security.domain.json.AuthenticationStatus}
+     * @see {@link com.venue.web.security.domain.json.CustomAuthenticationStatus}
      */
     @RequestMapping(value = "/profileStatus.json")
     @ResponseBody
     public AuthenticationStatus getProfileStatus()
     {
+        // TODO подумать как обезопасить себя
+
+        // Данный метод не будет вызываться, если пользователь не авторизирован и следовательно
+        // не будет исключения приведения типов.
+        //
+        // If user is not authenticate in service, this method should not invoke. That why we should not
+        // get ClassCastException.
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return new ProfileStatus(true, user.getUsername(), user.getId());
+        return factory.profileStatus(user.getUsername(), user.getId());
     }
 }

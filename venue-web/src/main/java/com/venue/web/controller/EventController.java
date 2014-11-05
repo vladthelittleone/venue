@@ -4,7 +4,8 @@ import java.util.Collection;
 
 import com.venue.web.common.exception.IllegalEventProperties;
 import com.venue.web.common.validator.EventValidator;
-import com.venue.web.security.domain.json.AuthenticationStatus;
+import com.venue.web.security.domain.factory.AuthenticationStatus;
+import com.venue.web.security.domain.factory.StatusFactory;
 import com.venue.web.service.EventService;
 import com.venue.web.service.domain.Event;
 import com.venue.web.service.domain.EventType;
@@ -33,6 +34,9 @@ public class EventController
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private StatusFactory factory;
+
     /**
      * Add event to event manager.
      *
@@ -58,13 +62,12 @@ public class EventController
         {
             validator.validate(lng, lat, title, description, size, type);
             eventService.create(lng, lat, title, description, size, type);
-            return new AuthenticationStatus(true, null, true);
+            return factory.successAuthenticationStatus();
         }
         catch (IllegalEventProperties e)
         {
             // Catch exception about incorrect event properties
-            return new AuthenticationStatus(true, null, e.getMessage(), false);
-
+            return factory.failureAuthenticationStatus(e.getMessage());
         }
     }
 
