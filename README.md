@@ -47,4 +47,4 @@ Uncomment it and add path to keystore and keystore password. It should look as f
                keystorePass="keystorePass"/>
                
 * keystorePass - password you specified when creating .keystore.
-* keystoreFile - /Users/[username]/.keystore in mac/linux by defaul.
+* keystoreFile - /Users/[username]/.keystore in mac/linux by default.
