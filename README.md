@@ -24,9 +24,9 @@ Then:
 ```
 keytool -genkey -alias tomcat -keyalg RSA 
 ```
-Tool will ask some questions and then create file /Users/[username]/.keystore (MacOS)
+Tool will ask some questions and then create file **/Users/[username]/.keystore** (**MacOS**)
 
-##### Open %TOMCAT_HOME%/conf/server.xml
+Open **%TOMCAT_HOME%/conf/server.xml**
 
 Find chunk:
 
@@ -47,4 +47,4 @@ Uncomment it and add path to keystore and keystore password. It should look as f
                keystorePass="keystorePass"/>
                
 * keystorePass - password you specified when creating .keystore.
-* keystoreFile - /Users/[username]/.keystore in mac/linux by default.
+* keystoreFile - **/Users/[username]/.keystore** in mac/linux by default.
