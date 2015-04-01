@@ -24,7 +24,7 @@ Then:
 ```
 keytool -genkey -alias tomcat -keyalg RSA 
 ```
-Tool will ask some questions and then create file **/Users/[username]/.keystore** (**MacOS**)
+Tool will ask some questions and then create file **/Users/[username]/.keystore**
 
 Open **%TOMCAT_HOME%/conf/server.xml**
 
