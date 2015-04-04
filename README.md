@@ -2,7 +2,7 @@
 
 Map-service using [MapBox](https://www.mapbox.com/) and [Angular](https://angularjs.org/) framework.
 
-![](https://lh5.googleusercontent.com/_N8bjttPiEi7GLpdKeTLj-3bBol2L6VqnjJw6O6fCf_rUnrEEDryYYttuN6Pvs0U-f8cNoZdKFh9voI=w2512-h1170)
+![](https://pp.vk.me/c621416/v621416334/1a15e/Gx4oHF6qiog.jpg)
 In back-end i use:
 
 * [Spring Security](https://github.com/vladthelittleone/venue/tree/master/venue-web/src/main/webapp/WEB-INF/spring/security) for authentification
